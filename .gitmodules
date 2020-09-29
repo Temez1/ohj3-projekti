@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 [submodule "course"]
 	path = Course
 	url = git@course-gitlab.tuni.fi:tie-0240x-ohjelmointi-3-programming-3-2020-2021/course.git
+=======
+[submodule "Course"]
+  path = Course
+  url = git@course-gitlab.tuni.fi:tie-0240x-ohjelmointi-3-programming-3-2020-2021/course.git
+>>>>>>> 6fe41ce15e8d97c857646b421047b70a934da34d
