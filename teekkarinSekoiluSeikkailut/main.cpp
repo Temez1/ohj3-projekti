@@ -1,11 +1,12 @@
-#include "peliikkuna.h"
-
 #include <QApplication>
+#include <Game.h>
+
+Game *game;
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    PeliIkkuna w;
-    w.show();
+    game = new Game();
+    game->show();
     return a.exec();
 }
