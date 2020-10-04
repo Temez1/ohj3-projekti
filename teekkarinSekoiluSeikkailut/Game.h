@@ -5,13 +5,14 @@
 #include <QGraphicsScene>
 #include <QGraphicsSvgItem>
 
+#include <BusLines.h>
+
 class Game: public QGraphicsView{
 public:
     Game(QWidget *parent=NULL);
-    void start();
-
     QGraphicsScene *scene;
-    // BusLines *busLines;
+    BusLines *busLines;
+    void start();
 
 private:
     QGraphicsSvgItem *testMap_;

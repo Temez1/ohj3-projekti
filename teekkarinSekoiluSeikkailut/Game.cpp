@@ -11,4 +11,6 @@ Game::Game(QWidget *parent)
 
     testMap_ = new QGraphicsSvgItem(":/test");
     scene->addItem(testMap_);
+
+    busLines = new BusLines();
 }
