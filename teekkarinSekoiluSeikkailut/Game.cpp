@@ -9,13 +9,8 @@ Game::Game(QWidget *parent)
     scene = new QGraphicsScene();
     setScene(scene);
 
-
-
     testMap_ = new QGraphicsSvgItem(":/map");
     scene->addItem(testMap_);
-
-
-
 
     busLines = new BusLines();
     testButton_ = new Button("Hi, press me to exit!");
@@ -26,5 +21,5 @@ Game::Game(QWidget *parent)
 void Game::resizeEvent(QResizeEvent *event)
 {
     qDebug() << scene->sceneRect();
-    this->fitInView(scene->sceneRect());
+    this->fitInView(scene->sceneRect(), Qt::KeepAspectRatioByExpanding);
 }
