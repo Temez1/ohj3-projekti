@@ -1,4 +1,3 @@
-
 #include "Game.h"
 
 Game::Game(QWidget *parent)
@@ -13,4 +12,7 @@ Game::Game(QWidget *parent)
     scene->addItem(testMap_);
 
     busLines = new BusLines();
+    testButton_ = new Button("Hi, press me to exit!");
+    connect(testButton_, &Button::clicked, this, &Game::close);
+    scene->addItem(testButton_);
 }

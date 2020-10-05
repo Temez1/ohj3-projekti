@@ -15,11 +15,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     BusLines.cpp \
+    Button.cpp \
     Game.cpp \
     main.cpp
 
 HEADERS += \
     BusLines.h \
+    Button.h \
     Game.h
 
 RESOURCES += \
