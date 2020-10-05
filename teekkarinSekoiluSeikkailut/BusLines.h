@@ -18,6 +18,7 @@ private:
 
     struct Stop{
         Coordinates Coordinates;
+        int time;
     };
 
     struct BusLine{
@@ -25,6 +26,7 @@ private:
     };
 
     std::unordered_map<std::string, BusLine> *busLines_;
+
 };
 
 #endif // BUSLINES_H
