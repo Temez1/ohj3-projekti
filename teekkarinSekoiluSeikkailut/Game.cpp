@@ -8,8 +8,13 @@ Game::Game(QWidget *parent)
     scene = new QGraphicsScene();
     setScene(scene);
 
-    testMap_ = new QGraphicsSvgItem(":/test");
+
+
+    testMap_ = new QGraphicsSvgItem(":/map");
     scene->addItem(testMap_);
+
+
+
 
     busLines = new BusLines();
     testButton_ = new Button("Hi, press me to exit!");
