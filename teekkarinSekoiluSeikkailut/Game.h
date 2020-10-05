@@ -16,6 +16,9 @@ public:
     BusLines *busLines;
     void start();
 
+protected:
+    void resizeEvent(QResizeEvent *event) override;
+
 private:
     QGraphicsSvgItem *testMap_;
     Button *testButton_;
