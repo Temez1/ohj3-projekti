@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file alias="test">resources/test.svg</file>
-        <file alias="map">resources/Asset 1.svg</file>
+        <file alias="map">resources/map.svg</file>
+        <file alias="stopSign">resources/stopsign.svg</file>
     </qresource>
 </RCC>
