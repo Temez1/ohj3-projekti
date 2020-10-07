@@ -2,6 +2,7 @@
 #include <QGraphicsTextItem>
 #include <QBrush>
 #include <QColor>
+#include <QDebug>
 
 Button::Button(QString text, QGraphicsItem *parent): QGraphicsRectItem(parent){
     setRect(0,0,200,50);
