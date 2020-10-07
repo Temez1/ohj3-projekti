@@ -10,6 +10,7 @@ Game::Game(QWidget *parent)
 
     scene = new QGraphicsScene();
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
+    scene->setSceneRect(0,0,1920,1080);
     setScene(scene);
 
     testMap_ = new QGraphicsSvgItem(":/map");
@@ -43,6 +44,6 @@ void Game::resizeEvent(QResizeEvent *event)
     qDebug() << scene->sceneRect();
     qDebug() << this->width() << this->height();
     testButton_->setPos(this->mapToScene(this->width() - 250, this->height() - 100));
-    this->fitInView(scene->sceneRect(), Qt::KeepAspectRatioByExpanding);
+    this->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
 }
 
