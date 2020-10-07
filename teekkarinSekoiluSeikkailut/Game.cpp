@@ -16,22 +16,11 @@ Game::Game(QWidget *parent)
     testMap_ = new QGraphicsSvgItem(":/map");
     scene->addItem(testMap_);
 
-    busLines = new BusLines();
-
-    QPushButton *button1 = new QPushButton("Text", this);
-
-    testButton_ = new Button("Hi, press me to exit!");
-    testButton_->setPos(0,200);
-    connect(testButton_, &Button::clicked, this, &Game::close);
-    scene->addItem(testButton_);
-
-    startButton_ = new Button("Hi, press me to start!");
-    connect(startButton_, &Button::clicked, this, &Game::start);
-    startButton_->setPos(100,100);
-    scene->addItem(startButton_);
-
     gameLoopTimer_ = new QTimer(this);
     connect(gameLoopTimer_, &QTimer::timeout, scene, &QGraphicsScene::advance);
+
+    this->initScene();
+    this->start();
 }
 
 void Game::start()
@@ -39,11 +28,25 @@ void Game::start()
     gameLoopTimer_->start(16);
 }
 
+void Game::initScene()
+{
+    stopLocations_.insert({"keskusta", QPointF(500,300)});
+
+    QGraphicsSvgItem *keskusta = new QGraphicsSvgItem(":/stopSign");
+    keskusta->setPos(stopLocations_.at("keskusta"));
+    scene->addItem(keskusta);
+    BusLine *busline = new BusLine(QString("3"));
+    busline->addStop(keskusta);
+
+    Bus *bus3a = new Bus(busline, QString("3a"));
+    bus3a->setPos(100, 300);
+    scene->addItem(bus3a);
+}
+
 void Game::resizeEvent(QResizeEvent *event)
 {
     qDebug() << scene->sceneRect();
     qDebug() << this->width() << this->height();
-    testButton_->setPos(this->mapToScene(this->width() - 250, this->height() - 100));
     this->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
 }
 

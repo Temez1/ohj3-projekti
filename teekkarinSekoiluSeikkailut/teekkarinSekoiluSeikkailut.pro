@@ -14,13 +14,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    BusLines.cpp \
+    Bus.cpp \
+    BusLine.cpp \
     Button.cpp \
     Game.cpp \
     main.cpp
 
 HEADERS += \
-    BusLines.h \
+    Bus.h \
+    BusLine.h \
     Button.h \
     Game.h
 
