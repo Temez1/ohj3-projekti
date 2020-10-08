@@ -30,15 +30,21 @@ void Game::start()
 
 void Game::initScene()
 {
+    // TODO
+    // Create a helper c++ source file to do all this
     stopLocations_.insert({"keskusta", QPointF(500,300)});
+    stopLocations_.insert({"hervanta", QPointF(900,700)});
 
     QGraphicsSvgItem *keskusta = new QGraphicsSvgItem(":/stopSign");
+    QGraphicsSvgItem *hervanta = new QGraphicsSvgItem(":/stopSign");
     keskusta->setPos(stopLocations_.at("keskusta"));
+    hervanta->setPos(stopLocations_.at("hervanta"));
     scene->addItem(keskusta);
-    BusLine *busline = new BusLine(QString("3"));
-    busline->addStop(keskusta);
+    scene->addItem(hervanta);
+    std::vector<QGraphicsSvgItem *> stops {hervanta, keskusta};
+    BusLine *busline = new BusLine(QString("3"), stops);
 
-    Bus *bus3a = new Bus(busline, QString("3a"));
+    Bus *bus3a = new Bus(QString("3a"), busline);
     bus3a->setPos(100, 300);
     scene->addItem(bus3a);
 }
