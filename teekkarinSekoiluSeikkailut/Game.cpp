@@ -35,18 +35,25 @@ void Game::initScene()
     stopLocations_.insert({"keskusta", QPointF(500,300)});
     stopLocations_.insert({"hervanta", QPointF(900,700)});
 
-    QGraphicsSvgItem *keskusta = new QGraphicsSvgItem(":/stopSign");
-    QGraphicsSvgItem *hervanta = new QGraphicsSvgItem(":/stopSign");
+    auto keskusta = new QGraphicsSvgItem(":/stopSign");
+    auto hervanta = new QGraphicsSvgItem(":/stopSign");
+
+    auto stops = {keskusta, hervanta};
+
     keskusta->setPos(stopLocations_.at("keskusta"));
     hervanta->setPos(stopLocations_.at("hervanta"));
     scene->addItem(keskusta);
     scene->addItem(hervanta);
-    std::vector<QGraphicsSvgItem *> stops {hervanta, keskusta};
-    BusLine *busline = new BusLine(QString("3"), stops);
 
-    Bus *bus3a = new Bus(QString("3a"), busline);
+    // This will create a shared pointer that can be used in multiple busses using the same line
+    // Shared pointer gets deleted after last bus using the busline gets deleted (If not used somewhere else)
+    auto busline = std::make_shared<BusLine>(BusLine(QString("3"), stops));
+    auto bus3a = new Bus(QString("3a"), busline);
+    auto bus3b = new Bus(QString("3b"), busline);
     bus3a->setPos(100, 300);
+    bus3b->setPos(200,300);
     scene->addItem(bus3a);
+    scene->addItem(bus3b);
 }
 
 void Game::resizeEvent(QResizeEvent *event)
@@ -54,5 +61,6 @@ void Game::resizeEvent(QResizeEvent *event)
     qDebug() << scene->sceneRect();
     qDebug() << this->width() << this->height();
     this->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
+    QGraphicsView::resizeEvent(event);
 }
 

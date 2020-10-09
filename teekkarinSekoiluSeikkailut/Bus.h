@@ -8,23 +8,21 @@
 class Bus: public QGraphicsRectItem
 {
 public:
-    Bus(QString name, BusLine *busLine, float speed = 2,
-        int busLineDirection = 1, int startingStop = 0);
+    Bus(QString name, std::shared_ptr<BusLine> busLine,
+        float speed = 2, int startingStop = 0, int busLineDirection = 1);
     QString name;
-    float speed;
 
 protected:
     void advance(int phase);
 
 private:
-    BusLine *busLine_;
-    // 1 = From start to end, -1 = From end to start
-    int busLineDirection_;
-    int nextStop_;
-    int lastStop_;
+    const int BUS_LINE_DIRECTION_FROM_START_TO_END_ = 1;
+    const int BUS_LINE_DIRECTION_FROM_END_TO_START_ = -1;
 
-    QPointF pos_;
-    QPointF nextStopLocation;
+    std::shared_ptr<BusLine> busLine_;
+    float speed_;
+    int nextStop_;
+    int busLineDirection_;
 };
 
 #endif // BUS_H

@@ -1,6 +1,5 @@
 #include <vector>
-#include <QtTest>
-
+#include "AutoTest.h"
 #include "BusLine.h"
 
 class BusLineTest : public QObject
@@ -147,6 +146,6 @@ void BusLineTest::getNextStop_ThreeStopsAtFirstStopGoingFromEndToStart_ReturnsSe
     QCOMPARE(nextStop.second, BUS_DIRECTION_FROM_START_TO_END_);
 }
 
-QTEST_APPLESS_MAIN(BusLineTest)
+DECLARE_TEST(BusLineTest)
 
 #include "BusLineTest.moc"

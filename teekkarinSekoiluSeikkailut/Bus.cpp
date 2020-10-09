@@ -1,18 +1,16 @@
 #include "Bus.h"
 #include <QBrush>
 
-Bus::Bus(QString name, BusLine *busLine, float speed,
-         int busLineDirection, int startingStop) :
+Bus::Bus(QString name, std::shared_ptr<BusLine> busLine,
+         float speed, int startingStop, int busLineDirection) :
     QGraphicsRectItem(),
     name(name),
-    speed(speed),
     busLine_(busLine),
-    busLineDirection_(busLineDirection)
+    speed(speed)
 {
-    // busLine->getNextStop(startingStop, )
+    std::tie(nextStop_, busLineDirection_) = busLine_->getNextStop(startingStop, busLineDirection);
     setRect(0,0,50,50);
     setBrush(QBrush(Qt::darkCyan, Qt::SolidPattern));
-    pos_ = QPointF(0,0);
 }
 
 void Bus::advance(int phase)

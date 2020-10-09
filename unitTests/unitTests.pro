@@ -10,11 +10,13 @@ SOURCES +=  \
     ../teekkarinSekoiluSeikkailut/Bus.cpp \
     ../teekkarinSekoiluSeikkailut/BusLine.cpp \
     BusLineTest.cpp \
-    BusTest.cpp
+    BusTest.cpp \
+    main.cpp
 
 HEADERS += \
     ../teekkarinSekoiluSeikkailut/Bus.h \
-    ../teekkarinSekoiluSeikkailut/BusLine.h
+    ../teekkarinSekoiluSeikkailut/BusLine.h \
+    AutoTest.h
 
 INCLUDEPATH += \
     ../teekkarinSekoiluSeikkailut
