@@ -13,7 +13,8 @@ public:
     int lastStop;
 
     void addStop(QGraphicsSvgItem *stop);
-    int getNextStop(int currentStop, int busDirection);
+    // Returns next stop and new direction
+    std::pair<int,int> getNextStop(int currentStop, int busDirection);
 
 private:
     const int FIRST_STOP_ = 0;

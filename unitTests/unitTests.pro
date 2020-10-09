@@ -1,4 +1,4 @@
-QT += testlib widgets svg
+QT += testlib svg
 QT -= gui
 
 CONFIG += qt console warn_on depend_includepath testcase
@@ -9,7 +9,8 @@ TEMPLATE = app
 SOURCES +=  \
     ../teekkarinSekoiluSeikkailut/Bus.cpp \
     ../teekkarinSekoiluSeikkailut/BusLine.cpp \
-    tst_busline.cpp
+    BusLineTest.cpp \
+    BusTest.cpp
 
 HEADERS += \
     ../teekkarinSekoiluSeikkailut/Bus.h \

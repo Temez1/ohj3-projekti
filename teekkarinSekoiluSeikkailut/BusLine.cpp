@@ -16,24 +16,24 @@ void BusLine::addStop(QGraphicsSvgItem *stop)
     updateLastStop();
 }
 
-int BusLine::getNextStop(int currentStop, int busDirection)
+std::pair<int,int> BusLine::getNextStop(int currentStop, int busDirection)
 {
     checkIsBusDirectionValid(busDirection);
 
     if ( currentStop == lastStop ){
-        return currentStop - 1;
+        return {currentStop - 1, BUS_DIRECTION_FROM_END_TO_START_};
     }
 
     if ( currentStop == FIRST_STOP_ ){
-        return currentStop + 1;
+        return {currentStop + 1, BUS_DIRECTION_FROM_START_TO_END_};
     }
 
     if ( busDirection == BUS_DIRECTION_FROM_START_TO_END_ ){
-        return currentStop + 1;
+        return {currentStop + 1, BUS_DIRECTION_FROM_START_TO_END_};
     }
 
     if ( busDirection == BUS_DIRECTION_FROM_END_TO_START_ ){
-        return currentStop - 1;
+        return {currentStop - 1, BUS_DIRECTION_FROM_END_TO_START_};
     }
 
     throw std::logic_error("Logic error in program");
