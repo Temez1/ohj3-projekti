@@ -3,14 +3,18 @@
 
 #include <QGraphicsRectItem>
 #include <QString>
+#include <QVector2D>
 #include <BusLine.h>
 
 class Bus: public QGraphicsRectItem
 {
 public:
     Bus(QString name, std::shared_ptr<BusLine> busLine,
-        float speed = 2, int startingStop = 0, int busLineDirection = 1);
+        float speedPixelsPerFrame = 2, int startingStop = 0, int busLineDirection = 1);
     QString name;
+
+    float getSpeedPixelsPerFrame();
+    QVector2D getVelocityPixelsPerFrame();
 
 protected:
     void advance(int phase);
@@ -23,6 +27,7 @@ private:
     float speed_;
     int nextStop_;
     int busLineDirection_;
+    QVector2D velocity_;
 };
 
 #endif // BUS_H

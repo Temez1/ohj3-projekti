@@ -2,6 +2,11 @@
 #include <QDebug>
 #include <QPushButton>
 
+#include "BusLine.h"
+#include "Bus.h"
+#include "Button.h"
+#include "Stop.h"
+
 Game::Game(QWidget *parent)
 {
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -35,13 +40,11 @@ void Game::initScene()
     stopLocations_.insert({"keskusta", QPointF(500,300)});
     stopLocations_.insert({"hervanta", QPointF(900,700)});
 
-    auto keskusta = new QGraphicsSvgItem(":/stopSign");
-    auto hervanta = new QGraphicsSvgItem(":/stopSign");
+    auto keskusta = new Stop(QString("keskusta"), stopLocations_.at("keskusta"));
+    auto hervanta = new Stop(QString("hervanta"), stopLocations_.at("hervanta"));
 
     auto stops = {keskusta, hervanta};
 
-    keskusta->setPos(stopLocations_.at("keskusta"));
-    hervanta->setPos(stopLocations_.at("hervanta"));
     scene->addItem(keskusta);
     scene->addItem(hervanta);
 
@@ -63,4 +66,3 @@ void Game::resizeEvent(QResizeEvent *event)
     this->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
     QGraphicsView::resizeEvent(event);
 }
-

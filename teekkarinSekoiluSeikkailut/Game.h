@@ -9,10 +9,6 @@
 #include <QTimer>
 #include <QString>
 
-#include <BusLine.h>
-#include <Bus.h>
-#include <Button.h>
-
 class Game: public QGraphicsView{
     Q_OBJECT
 public:

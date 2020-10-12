@@ -2,15 +2,27 @@
 #include <QBrush>
 
 Bus::Bus(QString name, std::shared_ptr<BusLine> busLine,
-         float speed, int startingStop, int busLineDirection) :
+         float speedPixelsPerFrame, int startingStop, int busLineDirection) :
     QGraphicsRectItem(),
     name(name),
     busLine_(busLine),
-    speed(speed)
+    speed_(speedPixelsPerFrame)
 {
-    std::tie(nextStop_, busLineDirection_) = busLine_->getNextStop(startingStop, busLineDirection);
+    std::tie(nextStop_, busLineDirection_) = busLine_->getNextStopIndexAndNewDirection(startingStop, busLineDirection);
+    velocity_ = QVector2D(0,0);
+    setPos(busLine->getStopPosition(startingStop));
     setRect(0,0,50,50);
     setBrush(QBrush(Qt::darkCyan, Qt::SolidPattern));
+}
+
+float Bus::getSpeedPixelsPerFrame()
+{
+    return speed_;
+}
+
+QVector2D Bus::getVelocityPixelsPerFrame()
+{
+    return velocity_;
 }
 
 void Bus::advance(int phase)
@@ -18,10 +30,5 @@ void Bus::advance(int phase)
     if (phase == 0){
         return;
     }
-    // have I arrived at next stop?
-//    pos_ = this->pos();
-
-//    if (pos_ )
-    // Yes -> Get me next stop
-    // No -> Keep moving towards next stop
+    velocity_ = QVector2D(busLine_->getStopPosition(nextStop_) - this->pos()).normalized();
 }

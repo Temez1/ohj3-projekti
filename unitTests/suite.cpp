@@ -25,20 +25,16 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 
 #include "suite.hpp"
-#include <QtTest/QtTest>
-#include <QApplication>
 
-int main(int argc, char *argv[])
+
+TestSuite::TestSuite()
 {
-    // setup lambda
-    int status = 0;
-    auto runTest = [&status, argc, argv](QObject* obj) {
-        status |= QTest::qExec(obj, argc, argv);
-    };
+    suite().push_back(this);
+}
 
-    // run suite
-    auto &suite = TestSuite::suite();
-    for (auto it = suite.begin(); it != suite.end(); ++it) {
-        runTest(*it);
-    }
+
+std::vector<QObject*> & TestSuite::suite()
+{
+    static std::vector<QObject*> objects;
+    return objects;
 }

@@ -3,27 +3,28 @@
 
 #include <vector>
 #include <QString>
-#include <QGraphicsSvgItem>
+#include "Stop.h"
 
 class BusLine
 {
 public:
-    BusLine(QString name, std::vector<QGraphicsSvgItem *> stops);
+    BusLine(QString name, std::vector<Stop *> stops);
     QString name;
-    int lastStop;
+    int lastStopIndex;
 
-    void addStop(QGraphicsSvgItem *stop);
-    // Returns next stop and new direction
-    std::pair<int,int> getNextStop(int currentStop, int busDirection);
+    void addStop(Stop *stop);
+    std::pair<int,int> getNextStopIndexAndNewDirection(int currentStopIndex, int busDirection);
+    QPointF getStopPosition(int stopIndex);
 
 private:
-    const int FIRST_STOP_ = 0;
+    const int FIRST_STOP_INDEX = 0;
     const int BUS_DIRECTION_FROM_START_TO_END_ = 1;
     const int BUS_DIRECTION_FROM_END_TO_START_ = -1;
 
-    std::vector<QGraphicsSvgItem *> stops_;
+    std::vector<Stop *> stops_;
 
     void checkIsBusDirectionValid(int busDirection);
+    void checkIsStopIndexValid(int stopIndex);
     void updateLastStop();
 };
 

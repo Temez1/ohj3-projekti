@@ -1,6 +1,6 @@
 #include "BusLine.h"
 
-BusLine::BusLine(QString name, std::vector<QGraphicsSvgItem *> stops):
+BusLine::BusLine(QString name, std::vector<Stop *> stops):
     name(name)
 {
     if (not (stops.size() > 1) ){
@@ -10,33 +10,41 @@ BusLine::BusLine(QString name, std::vector<QGraphicsSvgItem *> stops):
     updateLastStop();
 }
 
-void BusLine::addStop(QGraphicsSvgItem *stop)
+void BusLine::addStop(Stop *stop)
 {
     stops_.push_back(stop);
     updateLastStop();
 }
 
-std::pair<int,int> BusLine::getNextStop(int currentStop, int busDirection)
+std::pair<int,int> BusLine::getNextStopIndexAndNewDirection(int currentStopIndex, int busDirection)
 {
     checkIsBusDirectionValid(busDirection);
+    checkIsStopIndexValid(currentStopIndex);
 
-    if ( currentStop == lastStop ){
-        return {currentStop - 1, BUS_DIRECTION_FROM_END_TO_START_};
+    if ( currentStopIndex == lastStopIndex ){
+        return {currentStopIndex - 1, BUS_DIRECTION_FROM_END_TO_START_};
     }
 
-    if ( currentStop == FIRST_STOP_ ){
-        return {currentStop + 1, BUS_DIRECTION_FROM_START_TO_END_};
+    if ( currentStopIndex == FIRST_STOP_INDEX ){
+        return {currentStopIndex + 1, BUS_DIRECTION_FROM_START_TO_END_};
     }
 
     if ( busDirection == BUS_DIRECTION_FROM_START_TO_END_ ){
-        return {currentStop + 1, BUS_DIRECTION_FROM_START_TO_END_};
+        return {currentStopIndex + 1, BUS_DIRECTION_FROM_START_TO_END_};
     }
 
     if ( busDirection == BUS_DIRECTION_FROM_END_TO_START_ ){
-        return {currentStop - 1, BUS_DIRECTION_FROM_END_TO_START_};
+        return {currentStopIndex - 1, BUS_DIRECTION_FROM_END_TO_START_};
     }
 
     throw std::logic_error("Logic error in program");
+}
+
+QPointF BusLine::getStopPosition(int stopIndex)
+{
+    checkIsStopIndexValid(stopIndex);
+
+    return stops_.at(stopIndex)->pos();
 }
 
 void BusLine::checkIsBusDirectionValid(int busDirection)
@@ -47,7 +55,14 @@ void BusLine::checkIsBusDirectionValid(int busDirection)
     }
 }
 
+void BusLine::checkIsStopIndexValid(int stopIndex)
+{
+    if ( stopIndex < 0 or stopIndex > lastStopIndex){
+        throw std::out_of_range("Stop index out of range of stops");
+    }
+}
+
 void BusLine::updateLastStop()
 {
-    lastStop = static_cast<int>(stops_.size()) - 1;
+    lastStopIndex = static_cast<int>(stops_.size()) - 1;
 }

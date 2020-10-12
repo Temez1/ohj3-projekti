@@ -18,13 +18,15 @@ SOURCES += \
     BusLine.cpp \
     Button.cpp \
     Game.cpp \
+    Stop.cpp \
     main.cpp
 
 HEADERS += \
     Bus.h \
     BusLine.h \
     Button.h \
-    Game.h
+    Game.h \
+    Stop.h
 
 RESOURCES += \
     map.qrc

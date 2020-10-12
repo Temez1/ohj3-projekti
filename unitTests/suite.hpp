@@ -24,21 +24,18 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 // OTHER DEALINGS IN THE SOFTWARE.
 
-#include "suite.hpp"
-#include <QtTest/QtTest>
-#include <QApplication>
+#pragma once
 
-int main(int argc, char *argv[])
+#include <QObject>
+#include <vector>
+
+
+/** \brief Base class for the test suite runner.
+ */
+class TestSuite: public QObject
 {
-    // setup lambda
-    int status = 0;
-    auto runTest = [&status, argc, argv](QObject* obj) {
-        status |= QTest::qExec(obj, argc, argv);
-    };
+public:
+     TestSuite();
 
-    // run suite
-    auto &suite = TestSuite::suite();
-    for (auto it = suite.begin(); it != suite.end(); ++it) {
-        runTest(*it);
-    }
-}
+     static std::vector<QObject*> & suite();
+};

@@ -1,22 +1,27 @@
 QT += testlib svg
-QT -= gui
 
 CONFIG += qt console warn_on depend_includepath testcase
-CONFIG -= app_bundle
 
 TEMPLATE = app
 
 SOURCES +=  \
     ../teekkarinSekoiluSeikkailut/Bus.cpp \
     ../teekkarinSekoiluSeikkailut/BusLine.cpp \
+    ../teekkarinSekoiluSeikkailut/Stop.cpp \
     BusLineTest.cpp \
     BusTest.cpp \
-    main.cpp
+    main.cpp \
+    suite.cpp
 
 HEADERS += \
     ../teekkarinSekoiluSeikkailut/Bus.h \
     ../teekkarinSekoiluSeikkailut/BusLine.h \
-    AutoTest.h
+    ../teekkarinSekoiluSeikkailut/Stop.h \
+    Suite.h \
+    suite.hpp
 
 INCLUDEPATH += \
     ../teekkarinSekoiluSeikkailut
+
+RESOURCES += \
+    ../teekkarinSekoiluSeikkailut/map.qrc
