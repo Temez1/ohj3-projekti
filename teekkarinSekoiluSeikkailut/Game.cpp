@@ -39,24 +39,28 @@ void Game::initScene()
     // Create a helper c++ source file to do all this
     stopLocations_.insert({"keskusta", QPointF(500,300)});
     stopLocations_.insert({"hervanta", QPointF(900,700)});
+    stopLocations_.insert({"lentavanniemi", QPointF(200,300)});
 
     auto keskusta = new Stop(QString("keskusta"), stopLocations_.at("keskusta"));
     auto hervanta = new Stop(QString("hervanta"), stopLocations_.at("hervanta"));
+    auto lentavanniemi = new Stop(QString("lentavanniemi"), stopLocations_.at("lentavanniemi"));
 
-    auto stops = {keskusta, hervanta};
+    auto stops = {keskusta, hervanta, lentavanniemi};
 
     scene->addItem(keskusta);
     scene->addItem(hervanta);
+    scene->addItem(lentavanniemi);
 
     // This will create a shared pointer that can be used in multiple busses using the same line
     // Shared pointer gets deleted after last bus using the busline gets deleted (If not used somewhere else)
     auto busline = std::make_shared<BusLine>(BusLine(QString("3"), stops));
     auto bus3a = new Bus(QString("3a"), busline);
-    auto bus3b = new Bus(QString("3b"), busline);
-    bus3a->setPos(100, 300);
-    bus3b->setPos(200,300);
+    auto bus3b = new Bus(QString("3b"), busline, 2, 1);
+    auto bus3a_2 = new Bus(QString("3a"), busline, 2, 2, -1);
+
     scene->addItem(bus3a);
     scene->addItem(bus3b);
+    scene->addItem(bus3a_2);
 }
 
 void Game::resizeEvent(QResizeEvent *event)

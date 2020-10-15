@@ -22,7 +22,10 @@ private slots:
     void initBus_BusStartingAtSecondStop_ReturnsBusPositionAtSecondStop();
 
     void advance_StartingFromFirstStopAdvancingOnce_BusVelocityIsTowardsSecondStop();
-    void advance_StartingFromFirstStopToSecondStop_NewPosIsBusSpeedCloserToSecondStop();
+    void advance_StartingFromFirstStopToSecondStop_NewPosIsBusVelocityCloserToSecondStop();
+
+    void advance_StartingFromFirstStopMovingToSecondStop_BusReachesToSecondStop();
+
 
 private:
     Stop *firstStop_;
@@ -108,22 +111,40 @@ void BusTest::advance_StartingFromFirstStopAdvancingOnce_BusVelocityIsTowardsSec
 {
     auto expectedVelocity = QVector2D(secondStop_->pos() - firstStop_->pos()).normalized() * BUS_DEFAULT_SPEED_;
 
+    scene_->advance();
     auto busVelocity = bus_->getVelocityPixelsPerFrame();
 
     QCOMPARE(busVelocity, expectedVelocity);
 }
 
-void BusTest::advance_StartingFromFirstStopToSecondStop_NewPosIsBusSpeedCloserToSecondStop()
+void BusTest::advance_StartingFromFirstStopToSecondStop_NewPosIsBusVelocityCloserToSecondStop()
 {
     auto oldPos = bus_->pos();
-    // TODO bus direction times speed + old pos = new pos
-    // auto oldPosSpeedAmountCloserToSecondStop =
 
     scene_->advance();
     auto newPos = bus_->pos();
+    auto expectedPosition =  oldPos + (QVector2D(newPos - oldPos).normalized() * BUS_DEFAULT_SPEED_).toPointF();
+    auto actualPos = bus_->pos();
 
-
+    QCOMPARE(actualPos, expectedPosition);
 }
+
+void BusTest::advance_StartingFromFirstStopMovingToSecondStop_BusReachesToSecondStop()
+{
+    auto steps = 0;
+    auto stepsLimit = 1000;
+    while (QVector2D(secondStop_->pos() - bus_->pos()).length() >= BUS_DEFAULT_SPEED_) {
+        if (steps > stepsLimit){
+            QFAIL("Readhed limit but didn't reach second stop");
+        }
+        scene_->advance();
+        steps += 1;
+    }
+    qDebug() << "Successfully reached second stop after" << steps << "steps."
+             << "Bus position is now" << bus_->pos()
+             << "and stop position is" << secondStop_->pos();
+}
+
 
 QTEST_MAIN(BusTest)
 

@@ -19,3 +19,6 @@ HEADERS += \
 
 INCLUDEPATH += \
     ../../../teekkarinSekoiluSeikkailut
+
+RESOURCES += \
+    ../../../teekkarinSekoiluSeikkailut/map.qrc
