@@ -11,8 +11,8 @@ Teekkarin sekoilu seikkailut on peli, jossa kierretään Tamperetta ja tehdään
 
 ### Graafisten objektien tyypit
 
-Graafiset objektien tyyppejä käytetään objektin tunnistamiseen pelissä (scenessä).  
-Graafiset objektien tyypit ovat määritelty kyseisen objektin type metodissa. Lisätiedot Qt [docista](https://doc.qt.io/qt-5/qgraphicsitem.html#type).
+Graafisten objektien tyyppejä käytetään objektin tunnistamiseen pelissä (scenessä).  
+Graafisten objektien tyypit ovat määritelty kyseisen objektin type metodissa header tiedostossa. Lisätiedot Qt [docista](https://doc.qt.io/qt-5/qgraphicsitem.html#type).
 
 | Type              | Value         |
 |-------------------|---------------|
