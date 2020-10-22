@@ -6,16 +6,16 @@ Teekkarin sekoilu seikkailut on peli, jossa kierretään Tamperetta ja tehdään
 
 ### Sisällysluettelo
 
-- [Graafisten objektien tyypit](user-content-graafisten-objektien-tyypit)
+- [Graafisten objektien tyypit](#graafisten-objektien-tyypit)
 - ..
 
 .
 
 .
 
-.
+.https://course-gitlab.tuni.fi/tie-0240x-ohjelmointi-3-programming-3-2020-2021/tetj/-/blob/player/user-content-graafisten-objektien-tyypit
 
-.
+.https://course-gitlab.tuni.fi/tie-0240x-ohjelmointi-3-programming-3-2020-2021/tetj/-/blob/player/user-content-graafisten-objektien-tyypit
 
 .
 
