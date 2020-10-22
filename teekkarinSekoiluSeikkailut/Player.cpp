@@ -38,6 +38,7 @@ bool Player::dropFromBus()
         return false;
     }
 
+    setParentItem(0);
     setPos(currentBus_->pos());
     currentBus_ = nullptr;
     return true;

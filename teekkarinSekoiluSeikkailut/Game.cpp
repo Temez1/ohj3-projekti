@@ -1,12 +1,10 @@
 #include "Game.h"
 #include <QDebug>
-#include <QPushButton>
 
 #include "BusLine.h"
 #include "Bus.h"
 #include "Button.h"
 #include "Stop.h"
-#include "Player.h"
 
 Game::Game(QWidget *parent)
 {
@@ -19,8 +17,13 @@ Game::Game(QWidget *parent)
     scene->setSceneRect(0,0,1920,1080);
     setScene(scene);
 
+    player = nullptr;
+
     testMap_ = new QGraphicsSvgItem(":/map");
     scene->addItem(testMap_);
+
+    jumpAndDropBusButton = new QPushButton("Jump to bus!", this);
+    connect(jumpAndDropBusButton, &QPushButton::clicked, this, &Game::jumpAndDropBusButtonClicked);
 
     gameLoopTimer_ = new QTimer(this);
     connect(gameLoopTimer_, &QTimer::timeout, scene, &QGraphicsScene::advance);
@@ -32,6 +35,19 @@ Game::Game(QWidget *parent)
 void Game::start()
 {
     gameLoopTimer_->start(16);
+}
+
+void Game::jumpAndDropBusButtonClicked()
+{
+    if ( player->jumpToBus() ){
+        jumpAndDropBusButton->setText("Leave the bus!");
+        return;
+    }
+
+    if ( player->dropFromBus() ){
+        jumpAndDropBusButton->setText("Jump to bus!");
+        return;
+    }
 }
 
 void Game::initScene()
@@ -53,7 +69,8 @@ void Game::initScene()
     scene->addItem(lentavanniemi);
 
     // This will create a shared pointer that can be used in multiple busses using the same line
-    // Shared pointer gets deleted after last bus using the busline gets deleted (If not used somewhere else)
+    // Shared pointer gets deleted after last bus using the busline gets deleted
+    // i.e. If shared pointer is not used anymore
     auto busline = std::make_shared<BusLine>(BusLine(QString("3"), stops));
     auto bus3a = new Bus(QString("3a"), busline);
     auto bus3b = new Bus(QString("3b"), busline, 2, 1);
@@ -63,10 +80,9 @@ void Game::initScene()
     scene->addItem(bus3b);
     scene->addItem(bus3a_2);
 
-    auto player = new Player("Player name", scene);
+    player = new Player("Player name", scene);
     player->setPos(bus3a->pos());
     scene->addItem(player);
-    player->jumpToBus();
 }
 
 void Game::resizeEvent(QResizeEvent *event)
@@ -74,5 +90,11 @@ void Game::resizeEvent(QResizeEvent *event)
     qDebug() << scene->sceneRect();
     qDebug() << this->width() << this->height();
     this->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
+
+    jumpAndDropBusButton->setGeometry(width() - JUMP_AND_DROP_BUS_BUTTON_WIDTH_PADDING,
+                                      height() - JUMP_AND_DROP_BUS_BUTTON_HEIGHT_PADDING,
+                                      jumpAndDropBusButton->width(),
+                                      jumpAndDropBusButton->height());
+
     QGraphicsView::resizeEvent(event);
 }
