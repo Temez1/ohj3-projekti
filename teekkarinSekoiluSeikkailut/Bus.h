@@ -15,7 +15,8 @@ public:
         int busLineDirection = 1, int busStopWaitTimeInMilliseconds = 2000);
     ~Bus();
 
-    QString name;
+    enum { Type = UserType + 1};
+    int type() const override { return Type; }
 
     float getSpeedPixelsPerFrame();
     QVector2D getVelocityPixelsPerFrame();
@@ -30,6 +31,7 @@ private:
     const int BUS_LINE_DIRECTION_FROM_START_TO_END_ = 1;
     const int BUS_LINE_DIRECTION_FROM_END_TO_START_ = -1;
 
+    QString name_;
     std::shared_ptr<BusLine> busLine_;
     float speed_;
     int nextStopIndex_;

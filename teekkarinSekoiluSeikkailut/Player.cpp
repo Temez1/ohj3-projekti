@@ -2,7 +2,8 @@
 #include "Bus.h"
 #include <QDebug>
 
-Player::Player(QGraphicsScene *scene):
+Player::Player(QString name, QGraphicsScene *scene):
+    name_(name),
     scene_(scene),
     isOnTheBus_(false)
 {

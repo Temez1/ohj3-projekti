@@ -7,12 +7,16 @@
 class Player: public QGraphicsRectItem
 {
 public:
-    Player(QGraphicsScene *scene);
+    Player(QString name, QGraphicsScene *scene);
+
+    enum { Type = UserType + 2};
+    int type() const override { return Type; }
 
     bool jumpToBus();
     bool isOnTheBus();
 
 private:
+    QString name_;
     QGraphicsScene *scene_;
     bool isOnTheBus_;
 };
