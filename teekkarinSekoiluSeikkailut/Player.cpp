@@ -4,7 +4,7 @@
 Player::Player(QString name, QGraphicsScene *scene):
     name_(name),
     scene_(scene),
-    isOnTheBus_(false)
+    currentBus_(nullptr)
 {
     setRect(-10,-10,20,20);
     setBrush(QBrush(Qt::black, Qt::SolidPattern));
@@ -12,7 +12,7 @@ Player::Player(QString name, QGraphicsScene *scene):
 
 bool Player::jumpToBus()
 {
-    if (isOnTheBus_){
+    if ( isOnTheBus() ){
         return false;
     }
 
@@ -22,9 +22,24 @@ bool Player::jumpToBus()
         return false;
     }
 
-    isOnTheBus_ = true;
+    currentBus_ = bus;
     setPos(0,0);
     setParentItem(bus);
+    return true;
+}
+
+bool Player::dropFromBus()
+{
+    if ( not isOnTheBus() ){
+        return false;
+    }
+
+    if ( not currentBus_->isWaitingAtStop() ){
+        return false;
+    }
+
+    setPos(currentBus_->pos());
+    currentBus_ = nullptr;
     return true;
 }
 
@@ -44,5 +59,8 @@ Bus* Player::searchBusFromSceneAtCurrentPosition()
 
 bool Player::isOnTheBus()
 {
-    return isOnTheBus_;
+    if (currentBus_ == nullptr){
+        return false;
+    }
+    return true;
 }

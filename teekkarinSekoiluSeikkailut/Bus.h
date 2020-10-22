@@ -20,9 +20,10 @@ public:
 
     float getSpeedPixelsPerFrame();
     QVector2D getVelocityPixelsPerFrame();
+    bool isWaitingAtStop();
 
 protected:
-    void advance(int phase);
+    void advance(int phase) override;
 
 private slots:
     void busWaitTimerOnTimeout();

@@ -35,6 +35,11 @@ QVector2D Bus::getVelocityPixelsPerFrame()
     return velocity_;
 }
 
+bool Bus::isWaitingAtStop()
+{
+    return isWaitingAtStop_;
+}
+
 void Bus::advance(int phase)
 {
     if (phase == 0){

@@ -14,14 +14,15 @@ public:
     int type() const override { return Type; }
 
     bool jumpToBus();
+    bool dropFromBus();
     bool isOnTheBus();
 
 private:
     QString name_;
     QGraphicsScene *scene_;
+    Bus* currentBus_;
 
     Bus* searchBusFromSceneAtCurrentPosition();
-    bool isOnTheBus_;
 };
 
 #endif // PLAYER_H

@@ -21,8 +21,12 @@ private slots:
     void jumpToBus_BusIsAtSameLocationPlayerIsOnTheBus_PlayerIsOnTheBusAndReturnsFalse();
     void jumpToBus_BusIsNOTAtSameLocationPlayerIsNOTOnTheBus_PlayerIsNOTOnTheBusAndReturnsFalse();
 
-    void Scenario_PlayerIsOnTheBusAndSceneAdvances_PlayerPosEqualsBusPos();
+    void dropFromBus_PlayerIsNOTOnTheBus_PlayerIsNOTOnTheBusAndReturnsFalse();
+    void dropFromBus_PlayerIsOnTheBusAndBusIsNOTWaitingAtStop_PlayerIsOnTheBusAndReturnsFalse();
+    void dropFromBus_PlayerIsOnTheBusAndBusIsWaitingAtStop_PlayerIsNOTOnTheBusAndReturnsTrue();
 
+    void Scenario_PlayerIsOnTheBusAndSceneAdvances_PlayerParentPosEqualsBusPos();
+    void Scenario_PlayerDropsFromTheBusAndSceneAdvances_PlayerStaysAtStop();
 private:
     QGraphicsScene *scene_;
     Player *player_;
@@ -31,10 +35,6 @@ private:
     std::shared_ptr<BusLine> busline_;
     Bus *bus_;
     const float BUS_DEFAULT_SPEED_;
-    const int FIRST_STOP_INDEX = 0;
-    const int SECOND_STOP_INDEX = 1;
-    const int BUS_DIRECTION_FROM_START_TO_END_ = 1;
-    const int BUS_DIRECTION_FROM_END_TO_START_ = -1;
 };
 
 PlayerTest::PlayerTest():
@@ -103,7 +103,48 @@ void PlayerTest::jumpToBus_BusIsNOTAtSameLocationPlayerIsNOTOnTheBus_PlayerIsNOT
     QCOMPARE(jumpToBusReturnValue, false);
 }
 
-void PlayerTest::Scenario_PlayerIsOnTheBusAndSceneAdvances_PlayerPosEqualsBusPos()
+void PlayerTest::dropFromBus_PlayerIsNOTOnTheBus_PlayerIsNOTOnTheBusAndReturnsFalse()
+{
+    auto dropFromBusReturnValue = player_->dropFromBus();
+
+    QCOMPARE(player_->isOnTheBus(), false);
+    QCOMPARE(dropFromBusReturnValue, false);
+}
+
+void PlayerTest::dropFromBus_PlayerIsOnTheBusAndBusIsNOTWaitingAtStop_PlayerIsOnTheBusAndReturnsFalse()
+{
+    player_->setPos(bus_->pos());
+    player_->jumpToBus();
+
+    auto dropFromBusReturnValue = player_->dropFromBus();
+
+    QCOMPARE(player_->isOnTheBus(), true);
+    QCOMPARE(dropFromBusReturnValue, false);
+}
+
+void PlayerTest::dropFromBus_PlayerIsOnTheBusAndBusIsWaitingAtStop_PlayerIsNOTOnTheBusAndReturnsTrue()
+{
+    player_->setPos(bus_->pos());
+    player_->jumpToBus();
+    int stepsLimit = 1000;
+    int steps = 0;
+
+    // Reach the next stop, so bus starts waiting
+    while (not bus_->isWaitingAtStop()) {
+        if (steps > stepsLimit){
+            QFAIL("Readhed limit but didn't reach second stop");
+        }
+        scene_->advance();
+        steps += 1;
+    }
+
+    auto dropFromBusReturnValue = player_->dropFromBus();
+
+    QCOMPARE(player_->isOnTheBus(), false);
+    QCOMPARE(dropFromBusReturnValue, true);
+}
+
+void PlayerTest::Scenario_PlayerIsOnTheBusAndSceneAdvances_PlayerParentPosEqualsBusPos()
 {
     player_->setPos(bus_->pos());
     player_->jumpToBus();
@@ -112,6 +153,30 @@ void PlayerTest::Scenario_PlayerIsOnTheBusAndSceneAdvances_PlayerPosEqualsBusPos
     auto playerParentPos = player_->parentItem()->pos();
 
     QCOMPARE(playerParentPos, bus_->pos());
+}
+
+void PlayerTest::Scenario_PlayerDropsFromTheBusAndSceneAdvances_PlayerStaysAtStop()
+{
+    player_->setPos(bus_->pos());
+    player_->jumpToBus();
+    int stepsLimit = 1000;
+    int steps = 0;
+
+    // Reach the next stop, so bus starts waiting
+    while (not bus_->isWaitingAtStop()) {
+        if (steps > stepsLimit){
+            QFAIL("Readhed limit but didn't reach second stop");
+        }
+        scene_->advance();
+        steps += 1;
+    }
+
+    auto playerPosBeforeDrop = bus_->pos();
+    player_->dropFromBus();
+    scene_->advance();
+    auto playerPosAfterDrop = player_->pos();
+
+    QCOMPARE(playerPosAfterDrop, playerPosBeforeDrop);
 }
 
 
