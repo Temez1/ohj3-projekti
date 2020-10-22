@@ -16,7 +16,7 @@ Bus::Bus(QString name, std::shared_ptr<BusLine> busLine,
     isWaitingAtStop_ = false;
 
     setPos(busLine->getStopPosition(startingStop));
-    setRect(0,0,50,50);
+    setRect(-25,-25,50,50);
     setBrush(QBrush(Qt::darkCyan, Qt::SolidPattern));
 }
 

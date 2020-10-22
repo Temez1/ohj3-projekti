@@ -3,6 +3,7 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
+#include "Bus.h"
 
 class Player: public QGraphicsRectItem
 {
@@ -18,6 +19,8 @@ public:
 private:
     QString name_;
     QGraphicsScene *scene_;
+
+    Bus* searchBusFromSceneAtCurrentPosition();
     bool isOnTheBus_;
 };
 

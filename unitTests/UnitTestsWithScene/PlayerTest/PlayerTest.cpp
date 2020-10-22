@@ -39,7 +39,7 @@ private:
 
 PlayerTest::PlayerTest():
     scene_(new QGraphicsScene()),
-    player_(new Player(scene_)),
+    player_(new Player("Test", scene_)),
     firstStop_(new Stop(QString("testStop1"), QPointF(100,100))),
     secondStop_(new Stop(QString("testStop2"), QPointF(200,100))),
     busline_(std::make_shared<BusLine>(BusLine("Test busline", {firstStop_, secondStop_}))),
@@ -63,7 +63,7 @@ void PlayerTest::init()
     scene_->addItem(secondStop_);
     scene_->addItem(bus_);
 
-    player_ = new Player(scene_);
+    player_ = new Player("Test player", scene_);
     scene_->addItem(player_);
 }
 
@@ -109,8 +109,9 @@ void PlayerTest::Scenario_PlayerIsOnTheBusAndSceneAdvances_PlayerPosEqualsBusPos
     player_->jumpToBus();
 
     scene_->advance();
+    auto playerParentPos = player_->parentItem()->pos();
 
-    QCOMPARE(player_->pos(), bus_->pos());
+    QCOMPARE(playerParentPos, bus_->pos());
 }
 
 

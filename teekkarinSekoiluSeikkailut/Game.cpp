@@ -63,7 +63,7 @@ void Game::initScene()
     scene->addItem(bus3b);
     scene->addItem(bus3a_2);
 
-    auto player = new Player(scene);
+    auto player = new Player("Player name", scene);
     player->setPos(bus3a->pos());
     scene->addItem(player);
     player->jumpToBus();
