@@ -18,6 +18,7 @@ SOURCES += \
     BusLine.cpp \
     Button.cpp \
     Game.cpp \
+    Player.cpp \
     Stop.cpp \
     main.cpp
 
@@ -26,6 +27,7 @@ HEADERS += \
     BusLine.h \
     Button.h \
     Game.h \
+    Player.h \
     Stop.h
 
 RESOURCES += \

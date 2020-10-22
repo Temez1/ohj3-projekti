@@ -9,16 +9,18 @@ TEMPLATE = app
 SOURCES +=  \
     ../../../teekkarinSekoiluSeikkailut/Bus.cpp \
     ../../../teekkarinSekoiluSeikkailut/BusLine.cpp \
+    ../../../teekkarinSekoiluSeikkailut/Player.cpp \
     ../../../teekkarinSekoiluSeikkailut/Stop.cpp \
-    BusTest.cpp
+    PlayerTest.cpp
+
+RESOURCES += \
+    ../../../teekkarinSekoiluSeikkailut/map.qrc
 
 HEADERS += \
     ../../../teekkarinSekoiluSeikkailut/Bus.h \
     ../../../teekkarinSekoiluSeikkailut/BusLine.h \
+    ../../../teekkarinSekoiluSeikkailut/Player.h \
     ../../../teekkarinSekoiluSeikkailut/Stop.h
-
-RESOURCES += \
-    ../../../teekkarinSekoiluSeikkailut/map.qrc
 
 INCLUDEPATH += \
     ../../../teekkarinSekoiluSeikkailut

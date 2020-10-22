@@ -1,4 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    BusTest
+    BusTest \
+    PlayerTest

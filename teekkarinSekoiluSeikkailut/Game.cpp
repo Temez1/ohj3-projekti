@@ -6,6 +6,7 @@
 #include "Bus.h"
 #include "Button.h"
 #include "Stop.h"
+#include "Player.h"
 
 Game::Game(QWidget *parent)
 {
@@ -61,6 +62,11 @@ void Game::initScene()
     scene->addItem(bus3a);
     scene->addItem(bus3b);
     scene->addItem(bus3a_2);
+
+    auto player = new Player(scene);
+    player->setPos(bus3a->pos());
+    scene->addItem(player);
+    player->jumpToBus();
 }
 
 void Game::resizeEvent(QResizeEvent *event)
