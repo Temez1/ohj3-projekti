@@ -6,7 +6,7 @@ Teekkarin sekoilu seikkailut on peli, jossa kierretään Tamperetta ja tehdään
 
 ### Sisällysluettelo
 
-- [Graafisten objektien tyypit](graafisten-objektien-tyypit)
+- [Graafisten objektien tyypit](user-content-graafisten-objektien-tyypit)
 - ..
 
 .
