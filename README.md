@@ -1,6 +1,6 @@
 # Teekkarin Sekoilu Seikkailut (TSS) 🔥
 
-Teekkarin sekoilu seikkailut on peli, jossa kierretään Tamperetta ja tehdään tehtäviä. Tavoitteena on läpäistä peli ja tehdä tehtävät. 🔥 🔥 🔥
+Teekkarin sekoilu seikkailut on peli, jossa päähenkilö toimittaa ruokatilauksia nälkäisille Teekkareille. Tavoitteena on viedä tilaukset perille mahdollisimman nopeasti, jotta ruoka pysyy lämpimänä ja asiakkaat tyytyväisinä. Pelin voittaa, kun on kerännyt tarpeeksi rahaa maksaakseen opintolainan takaisin. 🔥 🔥 🔥
 
 ## Tekninen dokumentointi
 
