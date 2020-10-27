@@ -4,5 +4,6 @@
         <file alias="stopSign">resources/stopsign.svg</file>
         <file alias="map_1080">resources/Asset 7.svg</file>
         <file alias="player">resources/teekkar.svg</file>
+        <file alias="map_gridded">resources/ma_gridp.svg</file>
     </qresource>
 </RCC>
