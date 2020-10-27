@@ -146,6 +146,11 @@ void PlayerTest::dropFromBus_PlayerIsOnTheBusAndBusIsWaitingAtStop_PlayerIsNOTOn
     QCOMPARE(dropFromBusReturnValue, true);
 }
 
+void PlayerTest::orderFood_PlayerAtKioskWithoutFood_PlayerHasOneFood()
+{
+
+}
+
 void PlayerTest::Scenario_PlayerIsOnTheBusAndSceneAdvances_PlayerParentPosEqualsBusPos()
 {
     player_->setPos(bus_->pos());

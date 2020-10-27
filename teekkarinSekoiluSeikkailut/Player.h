@@ -10,7 +10,8 @@ class Player: public QGraphicsSvgItem
 public:
     Player(QString name, QGraphicsScene *scene);
 
-    int type() const override { return UserType + 2; }
+    enum { Type = UserType + 2};
+    int type() const override { return Type; }
 
     bool jumpToBus();
     bool dropFromBus();

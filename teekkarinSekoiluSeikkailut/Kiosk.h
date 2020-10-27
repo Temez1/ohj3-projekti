@@ -7,7 +7,8 @@ class Kiosk: public QGraphicsSvgItem
 {
 public:
 
-    int type() const override { return UserType + 4 ; }
+    enum { Type = UserType + 4};
+    int type() const override { return Type ; }
 
     Kiosk();
 };
