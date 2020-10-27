@@ -14,12 +14,12 @@ Game::Game(QWidget *parent)
 
     scene = new QGraphicsScene();
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-    scene->setSceneRect(0,0,1920,1080);
+    scene->setSceneRect(0,0,1920,1030);
     setScene(scene);
 
     player = nullptr;
 
-    testMap_ = new QGraphicsSvgItem(":/map");
+    testMap_ = new QGraphicsSvgItem(":/map_1080");
     scene->addItem(testMap_);
 
     jumpAndDropBusButton = new QPushButton("Jump to bus!", this);

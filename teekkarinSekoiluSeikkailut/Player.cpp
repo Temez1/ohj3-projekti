@@ -2,12 +2,14 @@
 #include <QDebug>
 
 Player::Player(QString name, QGraphicsScene *scene):
+    QGraphicsSvgItem(":/player"),
     name_(name),
     scene_(scene),
     currentBus_(nullptr)
 {
-    setRect(-10,-10,20,20);
-    setBrush(QBrush(Qt::black, Qt::SolidPattern));
+    setPos(10,20);
+
+
 }
 
 bool Player::jumpToBus()

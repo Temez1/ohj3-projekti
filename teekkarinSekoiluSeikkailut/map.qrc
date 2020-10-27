@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file alias="map">resources/map.svg</file>
         <file alias="stopSign">resources/stopsign.svg</file>
+        <file alias="map_1080">resources/Asset 7.svg</file>
+        <file alias="player">resources/teekkar.svg</file>
     </qresource>
 </RCC>

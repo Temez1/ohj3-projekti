@@ -2,10 +2,10 @@
 #define PLAYER_H
 
 #include <QGraphicsScene>
-#include <QGraphicsRectItem>
+#include <QGraphicsItem>
 #include "Bus.h"
 
-class Player: public QGraphicsRectItem
+class Player: public QGraphicsSvgItem
 {
 public:
     Player(QString name, QGraphicsScene *scene);
