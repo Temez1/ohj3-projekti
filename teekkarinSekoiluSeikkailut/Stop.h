@@ -8,8 +8,7 @@ class Stop: public QGraphicsSvgItem
 public:
     Stop(QString name, QPointF pos, QGraphicsItem* parent=NULL);
 
-    enum { Type = UserType + 3};
-    int type() const override { return Type; }
+    int type() const override { return UserType + 3; }
 
 private:
     QString name_;

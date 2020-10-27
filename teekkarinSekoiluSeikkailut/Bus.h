@@ -15,8 +15,7 @@ public:
         int busLineDirection = 1, int busStopWaitTimeInMilliseconds = 2000);
     ~Bus();
 
-    enum { Type = UserType + 1};
-    int type() const override { return Type; }
+    int type() const override { return UserType + 1; }
 
     float getSpeedPixelsPerFrame();
     QVector2D getVelocityPixelsPerFrame();

@@ -2,7 +2,7 @@
 #define PLAYER_H
 
 #include <QGraphicsScene>
-#include <QGraphicsItem>
+#include <QGraphicsSvgItem>
 #include "Bus.h"
 
 class Player: public QGraphicsSvgItem
@@ -10,12 +10,13 @@ class Player: public QGraphicsSvgItem
 public:
     Player(QString name, QGraphicsScene *scene);
 
-    enum { Type = UserType + 2};
-    int type() const override { return Type; }
+    int type() const override { return UserType + 2; }
 
     bool jumpToBus();
     bool dropFromBus();
     bool isOnTheBus();
+
+    bool orderFood();
 
 private:
     QString name_;

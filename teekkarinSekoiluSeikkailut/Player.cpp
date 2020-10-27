@@ -7,9 +7,6 @@ Player::Player(QString name, QGraphicsScene *scene):
     scene_(scene),
     currentBus_(nullptr)
 {
-    setPos(10,20);
-
-
 }
 
 bool Player::jumpToBus()
@@ -66,4 +63,9 @@ bool Player::isOnTheBus()
         return false;
     }
     return true;
+}
+
+bool Player::orderFood()
+{
+
 }

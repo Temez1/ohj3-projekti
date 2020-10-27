@@ -25,6 +25,8 @@ private slots:
     void dropFromBus_PlayerIsOnTheBusAndBusIsNOTWaitingAtStop_PlayerIsOnTheBusAndReturnsFalse();
     void dropFromBus_PlayerIsOnTheBusAndBusIsWaitingAtStop_PlayerIsNOTOnTheBusAndReturnsTrue();
 
+    void orderFood_PlayerAtKioskWithoutFood_PlayerHasOneFood();
+
     void Scenario_PlayerIsOnTheBusAndSceneAdvances_PlayerParentPosEqualsBusPos();
     void Scenario_PlayerDropsFromTheBusAndSceneAdvances_PlayerStaysAtStop();
 private:
