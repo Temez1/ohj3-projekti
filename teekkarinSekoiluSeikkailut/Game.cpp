@@ -25,6 +25,9 @@ Game::Game(QWidget *parent)
     jumpAndDropBusButton = new QPushButton("Jump to bus!", this);
     connect(jumpAndDropBusButton, &QPushButton::clicked, this, &Game::jumpAndDropBusButtonClicked);
 
+    orderAndDeliverFoodButton = new QPushButton("Order food", this);
+    connect(orderAndDeliverFoodButton, &QPushButton::clicked, this, &Game::orderAndDeliverFoodButtonClicked);
+
     gameLoopTimer_ = new QTimer(this);
     connect(gameLoopTimer_, &QTimer::timeout, scene, &QGraphicsScene::advance);
 
@@ -48,6 +51,11 @@ void Game::jumpAndDropBusButtonClicked()
         jumpAndDropBusButton->setText("Jump to bus!");
         return;
     }
+}
+
+void Game::orderAndDeliverFoodButtonClicked()
+{
+
 }
 
 void Game::initScene()
@@ -91,10 +99,20 @@ void Game::resizeEvent(QResizeEvent *event)
     qDebug() << this->width() << this->height();
     this->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
 
+    resizeButtons();
+
+    QGraphicsView::resizeEvent(event);
+}
+
+void Game::resizeButtons()
+{
     jumpAndDropBusButton->setGeometry(width() - JUMP_AND_DROP_BUS_BUTTON_WIDTH_PADDING,
                                       height() - JUMP_AND_DROP_BUS_BUTTON_HEIGHT_PADDING,
                                       jumpAndDropBusButton->width(),
                                       jumpAndDropBusButton->height());
 
-    QGraphicsView::resizeEvent(event);
+    orderAndDeliverFoodButton->setGeometry(width() - ORDER_AND_DELIVER_FOOD_BUTTON_WIDTH_PADDING,
+                                           height() - ORDER_AND_DELIVER_FOOD_BUTTON_HEIGHT_PADDING,
+                                           orderAndDeliverFoodButton->width(),
+                                           orderAndDeliverFoodButton->height());
 }
