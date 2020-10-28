@@ -5,7 +5,8 @@ Player::Player(QString name, QGraphicsScene *scene):
     QGraphicsSvgItem(":/player"),
     name_(name),
     scene_(scene),
-    currentBus_(nullptr)
+    currentBus_(nullptr),
+    foods_(QList<Food *>())
 {
 }
 
@@ -57,6 +58,20 @@ Bus* Player::searchBusFromSceneAtCurrentPosition()
     return bus;
 }
 
+Kiosk* Player::searchKioskFromSceneAtCurrentPosition()
+{
+    auto items = scene_->items(this->pos());
+    Kiosk *kiosk = nullptr;
+
+    for (const auto &item : items){
+        kiosk = qgraphicsitem_cast<Kiosk *>(item);
+        if (kiosk){
+            break;
+        }
+    }
+    return kiosk;
+}
+
 bool Player::isOnTheBus()
 {
     if (currentBus_ == nullptr){
@@ -68,4 +83,9 @@ bool Player::isOnTheBus()
 bool Player::orderFood()
 {
 
+}
+
+QList<Food *> Player::getFoods()
+{
+    return foods_;
 }

@@ -19,3 +19,4 @@ Graafisten objektien tyypit ovat määritelty kyseisen objektin type metodissa h
 | Bus               | UserType + 1  |
 | Player            | UserType + 2  |
 | Stop              | UserType + 3  |
+| Kiosk             | UserType + 4  |

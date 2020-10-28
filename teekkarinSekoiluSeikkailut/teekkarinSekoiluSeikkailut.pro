@@ -17,6 +17,7 @@ SOURCES += \
     Bus.cpp \
     BusLine.cpp \
     Button.cpp \
+    Food.cpp \
     Game.cpp \
     Kiosk.cpp \
     Player.cpp \
@@ -27,6 +28,7 @@ HEADERS += \
     Bus.h \
     BusLine.h \
     Button.h \
+    Food.h \
     Game.h \
     Kiosk.h \
     Player.h \

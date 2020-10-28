@@ -4,6 +4,8 @@
 
 #include "Player.h"
 #include "Bus.h"
+#include "Kiosk.h"
+
 
 class PlayerTest : public QObject
 {
@@ -25,7 +27,7 @@ private slots:
     void dropFromBus_PlayerIsOnTheBusAndBusIsNOTWaitingAtStop_PlayerIsOnTheBusAndReturnsFalse();
     void dropFromBus_PlayerIsOnTheBusAndBusIsWaitingAtStop_PlayerIsNOTOnTheBusAndReturnsTrue();
 
-    void orderFood_PlayerAtKioskWithoutFood_PlayerHasOneFood();
+    void orderFood_PlayerAtKioskWithoutFood_PlayerHasOneFoodAndReturnsTrue();
 
     void Scenario_PlayerIsOnTheBusAndSceneAdvances_PlayerParentPosEqualsBusPos();
     void Scenario_PlayerDropsFromTheBusAndSceneAdvances_PlayerStaysAtStop();
@@ -37,6 +39,7 @@ private:
     std::shared_ptr<BusLine> busline_;
     Bus *bus_;
     const float BUS_DEFAULT_SPEED_;
+    Kiosk *kiosk_;
 };
 
 PlayerTest::PlayerTest():
@@ -46,7 +49,8 @@ PlayerTest::PlayerTest():
     secondStop_(new Stop(QString("testStop2"), QPointF(200,100))),
     busline_(std::make_shared<BusLine>(BusLine("Test busline", {firstStop_, secondStop_}))),
     bus_(new Bus("Test Bus", busline_)),
-    BUS_DEFAULT_SPEED_(bus_->getSpeedPixelsPerFrame())
+    BUS_DEFAULT_SPEED_(bus_->getSpeedPixelsPerFrame()),
+    kiosk_(new Kiosk())
 {}
 
 PlayerTest::~PlayerTest()
@@ -60,10 +64,14 @@ void PlayerTest::init()
     busline_ = std::make_shared<BusLine>(BusLine("Test busline", {firstStop_, secondStop_}));
     bus_ = new Bus("Test Bus", busline_);
 
+    kiosk_ = new Kiosk();
+    kiosk_->setPos(firstStop_->pos());
+
     scene_ = new QGraphicsScene();
     scene_->addItem(firstStop_);
     scene_->addItem(secondStop_);
     scene_->addItem(bus_);
+    scene_->addItem(kiosk_);
 
     player_ = new Player("Test player", scene_);
     scene_->addItem(player_);
@@ -146,9 +154,15 @@ void PlayerTest::dropFromBus_PlayerIsOnTheBusAndBusIsWaitingAtStop_PlayerIsNOTOn
     QCOMPARE(dropFromBusReturnValue, true);
 }
 
-void PlayerTest::orderFood_PlayerAtKioskWithoutFood_PlayerHasOneFood()
+void PlayerTest::orderFood_PlayerAtKioskWithoutFood_PlayerHasOneFoodAndReturnsTrue()
 {
+    player_->setPos(kiosk_->pos());
 
+    auto orderFoodReturnValue = player_->orderFood();
+    auto playerFoodsAmount = player_->getFoods().length();
+
+    QCOMPARE(playerFoodsAmount, 1);
+    QCOMPARE(orderFoodReturnValue, true);
 }
 
 void PlayerTest::Scenario_PlayerIsOnTheBusAndSceneAdvances_PlayerParentPosEqualsBusPos()
