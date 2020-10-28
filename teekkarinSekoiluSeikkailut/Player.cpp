@@ -82,7 +82,7 @@ bool Player::isOnTheBus()
 
 bool Player::orderFood()
 {
-    if ( foods_.length() == FOOD_MAX_AMOUNT){
+    if ( isFullOfFood() ){
         return false;
     }
 
