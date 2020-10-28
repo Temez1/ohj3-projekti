@@ -9,6 +9,7 @@ TEMPLATE = app
 SOURCES +=  \
     ../../../teekkarinSekoiluSeikkailut/Bus.cpp \
     ../../../teekkarinSekoiluSeikkailut/BusLine.cpp \
+    ../../../teekkarinSekoiluSeikkailut/Food.cpp \
     ../../../teekkarinSekoiluSeikkailut/Kiosk.cpp \
     ../../../teekkarinSekoiluSeikkailut/Player.cpp \
     ../../../teekkarinSekoiluSeikkailut/Stop.cpp \
@@ -20,6 +21,7 @@ RESOURCES += \
 HEADERS += \
     ../../../teekkarinSekoiluSeikkailut/Bus.h \
     ../../../teekkarinSekoiluSeikkailut/BusLine.h \
+    ../../../teekkarinSekoiluSeikkailut/Food.h \
     ../../../teekkarinSekoiluSeikkailut/Kiosk.h \
     ../../../teekkarinSekoiluSeikkailut/Player.h \
     ../../../teekkarinSekoiluSeikkailut/Stop.h

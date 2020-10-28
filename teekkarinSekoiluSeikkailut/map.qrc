@@ -5,5 +5,6 @@
         <file alias="map_1080">resources/Asset 7.svg</file>
         <file alias="player">resources/teekkar.svg</file>
         <file alias="map_gridded">resources/ma_gridp.svg</file>
+        <file alias="placeholder">resources/Placeholder.svg</file>
     </qresource>
 </RCC>

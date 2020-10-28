@@ -6,7 +6,7 @@ Player::Player(QString name, QGraphicsScene *scene):
     name_(name),
     scene_(scene),
     currentBus_(nullptr),
-    foods_(QList<Food *>())
+    foods_(QList<Food>())
 {
 }
 
@@ -49,9 +49,9 @@ Bus* Player::searchBusFromSceneAtCurrentPosition()
     auto items = scene_->items(this->pos());
     Bus *bus = nullptr;
 
-    for (const auto &item : items){
+    for ( const auto &item : items ){
         bus = qgraphicsitem_cast<Bus *>(item);
-        if (bus){
+        if ( bus ){
             break;
         }
     }
@@ -63,9 +63,9 @@ Kiosk* Player::searchKioskFromSceneAtCurrentPosition()
     auto items = scene_->items(this->pos());
     Kiosk *kiosk = nullptr;
 
-    for (const auto &item : items){
+    for ( const auto &item : items ){
         kiosk = qgraphicsitem_cast<Kiosk *>(item);
-        if (kiosk){
+        if ( kiosk ){
             break;
         }
     }
@@ -74,7 +74,7 @@ Kiosk* Player::searchKioskFromSceneAtCurrentPosition()
 
 bool Player::isOnTheBus()
 {
-    if (currentBus_ == nullptr){
+    if ( currentBus_ == nullptr ){
         return false;
     }
     return true;
@@ -82,10 +82,30 @@ bool Player::isOnTheBus()
 
 bool Player::orderFood()
 {
+    if ( foods_.length() == FOOD_MAX_AMOUNT){
+        return false;
+    }
 
+    auto kiosk = searchKioskFromSceneAtCurrentPosition();
+
+    if ( not kiosk ){
+        return false;
+    }
+
+    auto food = kiosk->orderFood();
+    foods_.append(food);
+    return true;
 }
 
-QList<Food *> Player::getFoods()
+QList<Food> Player::getFoods()
 {
     return foods_;
+}
+
+bool Player::isFullOfFood()
+{
+    if ( foods_.length() == FOOD_MAX_AMOUNT ){
+        return true;
+    }
+    return false;
 }

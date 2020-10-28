@@ -3,6 +3,8 @@
 
 #include <QGraphicsSvgItem>
 
+#include "Food.h"
+
 class Kiosk: public QGraphicsSvgItem
 {
 public:
@@ -11,6 +13,10 @@ public:
     int type() const override { return Type ; }
 
     Kiosk();
+    Food orderFood();
+
+private:
+    Food food_;
 };
 
 #endif // KIOSK_H

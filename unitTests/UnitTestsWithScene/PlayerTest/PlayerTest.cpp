@@ -3,8 +3,6 @@
 #include <QGraphicsScene>
 
 #include "Player.h"
-#include "Bus.h"
-#include "Kiosk.h"
 
 
 class PlayerTest : public QObject
@@ -28,6 +26,11 @@ private slots:
     void dropFromBus_PlayerIsOnTheBusAndBusIsWaitingAtStop_PlayerIsNOTOnTheBusAndReturnsTrue();
 
     void orderFood_PlayerAtKioskWithoutFood_PlayerHasOneFoodAndReturnsTrue();
+    void orderFood_PlayerNOTAtKioskWithoutFood_PlayerHasZeroFoodAndReturnsFalse();
+    void orderFood_PlayerAtKioskWithMaxAmountOfFoods_PlayerHasMaxAmountOfFoodsAndReturnsFalse();
+
+    void isFullOfFood_PlayerAtKioskWithMaxAmountOfFoods_PlayerIsFullOfFood();
+    void isFullOfFood_PlayerAtKioskWithOneFood_PlayerIsNOTFullOfFood();
 
     void Scenario_PlayerIsOnTheBusAndSceneAdvances_PlayerParentPosEqualsBusPos();
     void Scenario_PlayerDropsFromTheBusAndSceneAdvances_PlayerStaysAtStop();
@@ -163,6 +166,55 @@ void PlayerTest::orderFood_PlayerAtKioskWithoutFood_PlayerHasOneFoodAndReturnsTr
 
     QCOMPARE(playerFoodsAmount, 1);
     QCOMPARE(orderFoodReturnValue, true);
+}
+
+void PlayerTest::orderFood_PlayerNOTAtKioskWithoutFood_PlayerHasZeroFoodAndReturnsFalse()
+{
+    player_->setPos(kiosk_->pos() + QPointF(500,500));
+
+    auto orderFoodReturnValue = player_->orderFood();
+    auto playerFoodsAmount = player_->getFoods().length();
+
+    QCOMPARE(playerFoodsAmount, 0);
+    QCOMPARE(orderFoodReturnValue, false);
+}
+
+void PlayerTest::orderFood_PlayerAtKioskWithMaxAmountOfFoods_PlayerHasMaxAmountOfFoodsAndReturnsFalse()
+{
+    player_->setPos(kiosk_->pos());
+
+    for (int i = 0; i < player_->FOOD_MAX_AMOUNT; i++) {
+        player_->orderFood();
+    }
+
+    auto orderFoodReturnValue = player_->orderFood();
+    auto playerFoodsAmount = player_->getFoods().length();
+
+    QCOMPARE(playerFoodsAmount, player_->FOOD_MAX_AMOUNT);
+    QCOMPARE(orderFoodReturnValue, false);
+}
+
+void PlayerTest::isFullOfFood_PlayerAtKioskWithMaxAmountOfFoods_PlayerIsFullOfFood()
+{
+    player_->setPos(kiosk_->pos());
+
+    for (int i = 0; i < player_->FOOD_MAX_AMOUNT; i++) {
+        player_->orderFood();
+    }
+
+    auto isFullOfFoodReturnValue = player_->isFullOfFood();
+
+    QCOMPARE(isFullOfFoodReturnValue, true);
+}
+
+void PlayerTest::isFullOfFood_PlayerAtKioskWithOneFood_PlayerIsNOTFullOfFood()
+{
+    player_->setPos(kiosk_->pos());
+    player_->orderFood();
+
+    auto isFullOfFoodReturnValue = player_->isFullOfFood();
+
+    QCOMPARE(isFullOfFoodReturnValue, false);
 }
 
 void PlayerTest::Scenario_PlayerIsOnTheBusAndSceneAdvances_PlayerParentPosEqualsBusPos()

@@ -55,7 +55,11 @@ void Game::jumpAndDropBusButtonClicked()
 
 void Game::orderAndDeliverFoodButtonClicked()
 {
-
+    if ( player->orderFood() ){
+        if ( player->isFullOfFood() ){
+            orderAndDeliverFoodButton->setText("Deliver food!");
+        }
+    }
 }
 
 void Game::initScene()
