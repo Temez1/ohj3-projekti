@@ -6,6 +6,8 @@
 #include "Button.h"
 #include "Stop.h"
 
+
+
 Game::Game(QWidget *parent)
 {
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -22,44 +24,21 @@ Game::Game(QWidget *parent)
     testMap_ = new QGraphicsSvgItem(":/map_1080");
     scene->addItem(testMap_);
 
+    gameLoopTimer_ = new QTimer(this);
+    connect(gameLoopTimer_, &QTimer::timeout, scene, &QGraphicsScene::advance);
+
+    initUI();
+    initScene();
+    start();
+}
+
+void Game::initUI()
+{
     jumpAndDropBusButton = new QPushButton("Jump to bus!", this);
     connect(jumpAndDropBusButton, &QPushButton::clicked, this, &Game::jumpAndDropBusButtonClicked);
 
     orderAndDeliverFoodButton = new QPushButton("Order food", this);
     connect(orderAndDeliverFoodButton, &QPushButton::clicked, this, &Game::orderAndDeliverFoodButtonClicked);
-
-    gameLoopTimer_ = new QTimer(this);
-    connect(gameLoopTimer_, &QTimer::timeout, scene, &QGraphicsScene::advance);
-
-    this->initScene();
-    this->start();
-}
-
-void Game::start()
-{
-    gameLoopTimer_->start(16);
-}
-
-void Game::jumpAndDropBusButtonClicked()
-{
-    if ( player->jumpToBus() ){
-        jumpAndDropBusButton->setText("Leave the bus!");
-        return;
-    }
-
-    if ( player->dropFromBus() ){
-        jumpAndDropBusButton->setText("Jump to bus!");
-        return;
-    }
-}
-
-void Game::orderAndDeliverFoodButtonClicked()
-{
-    if ( player->orderFood() ){
-        if ( player->isFullOfFood() ){
-            orderAndDeliverFoodButton->setText("Deliver food!");
-        }
-    }
 }
 
 void Game::initScene()
@@ -96,6 +75,35 @@ void Game::initScene()
     player->setPos(bus3a->pos());
     scene->addItem(player);
 }
+
+void Game::start()
+{
+    gameLoopTimer_->start(16);
+}
+
+void Game::jumpAndDropBusButtonClicked()
+{
+    if ( player->jumpToBus() ){
+        jumpAndDropBusButton->setText("Leave the bus!");
+        return;
+    }
+
+    if ( player->dropFromBus() ){
+        jumpAndDropBusButton->setText("Jump to bus!");
+        return;
+    }
+}
+
+void Game::orderAndDeliverFoodButtonClicked()
+{
+    if ( player->orderFood() ){
+        if ( player->isFullOfFood() ){
+            orderAndDeliverFoodButton->setText("Deliver food!");
+        }
+    }
+}
+
+
 
 void Game::resizeEvent(QResizeEvent *event)
 {

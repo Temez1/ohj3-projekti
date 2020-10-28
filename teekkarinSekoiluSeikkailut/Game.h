@@ -27,6 +27,7 @@ private slots:
     void orderAndDeliverFoodButtonClicked();
 
 private:
+    // TODO Siirrä samaan tiedostoon kun initScenen sisältö
     std::unordered_map<QString, QPointF> stopLocations_;
 
     QGraphicsSvgItem *testMap_;
@@ -40,6 +41,7 @@ private:
     const int ORDER_AND_DELIVER_FOOD_BUTTON_WIDTH_PADDING = 240;
     const int ORDER_AND_DELIVER_FOOD_BUTTON_HEIGHT_PADDING = 50;
 
+    void initUI();
     void initScene();
 
     void resizeButtons();
