@@ -5,6 +5,7 @@
 #include "Bus.h"
 #include "Button.h"
 #include "Stop.h"
+#include "Kiosk.h"
 
 
 
@@ -49,9 +50,12 @@ void Game::initScene()
     stopLocations_.insert({"hervanta", QPointF(900,700)});
     stopLocations_.insert({"lentavanniemi", QPointF(200,300)});
 
+    auto kiosk = new Kiosk();
+
     auto keskusta = new Stop(QString("keskusta"), stopLocations_.at("keskusta"));
     auto hervanta = new Stop(QString("hervanta"), stopLocations_.at("hervanta"));
-    auto lentavanniemi = new Stop(QString("lentavanniemi"), stopLocations_.at("lentavanniemi"));
+    auto lentavanniemi = new Stop(QString("lentavanniemi"), stopLocations_.at("lentavanniemi"), kiosk);
+    kiosk->setParentItem(lentavanniemi);
 
     auto stops = {keskusta, hervanta, lentavanniemi};
 
