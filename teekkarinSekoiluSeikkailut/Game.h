@@ -29,6 +29,7 @@ private slots:
     void orderAndDeliverFoodButtonClicked();
 
 private:
+    // TODO Siirrä samaan tiedostoon kun initScenen sisältö
     std::unordered_map<QString, QPointF> stopLocations_;
 
     QGraphicsSvgItem *testMap_;
@@ -45,6 +46,7 @@ private:
 
     const int INIT_TEEKKARI_AMOUNT = 2;
 
+    void initUI();
     void initScene();
 
     void resizeButtons();
