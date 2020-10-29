@@ -61,20 +61,20 @@ PlayerTest::~PlayerTest()
 
 void PlayerTest::init()
 {
-    firstStop_ = new Stop(QString("testStop1"), QPointF(100,100));
+    kiosk_ = new Kiosk();
+    firstStop_ = new Stop(QString("testStop1"), QPointF(100,100), kiosk_);
+    kiosk_->setParentItem(firstStop_);
     secondStop_ = new Stop(QString("testStop2"), QPointF(200,100));
+
 
     busline_ = std::make_shared<BusLine>(BusLine("Test busline", {firstStop_, secondStop_}));
     bus_ = new Bus("Test Bus", busline_);
 
-    kiosk_ = new Kiosk();
-    kiosk_->setPos(firstStop_->pos());
-
     scene_ = new QGraphicsScene();
+    scene_->addItem(kiosk_);
     scene_->addItem(firstStop_);
     scene_->addItem(secondStop_);
     scene_->addItem(bus_);
-    scene_->addItem(kiosk_);
 
     player_ = new Player("Test player", scene_);
     scene_->addItem(player_);
@@ -159,7 +159,7 @@ void PlayerTest::dropFromBus_PlayerIsOnTheBusAndBusIsWaitingAtStop_PlayerIsNOTOn
 
 void PlayerTest::orderFood_PlayerAtKioskWithoutFood_PlayerHasOneFoodAndReturnsTrue()
 {
-    player_->setPos(kiosk_->pos());
+    player_->setPos(firstStop_->pos());
 
     auto orderFoodReturnValue = player_->orderFood();
     auto playerFoodsAmount = player_->getFoods().length();
@@ -170,7 +170,7 @@ void PlayerTest::orderFood_PlayerAtKioskWithoutFood_PlayerHasOneFoodAndReturnsTr
 
 void PlayerTest::orderFood_PlayerNOTAtKioskWithoutFood_PlayerHasZeroFoodAndReturnsFalse()
 {
-    player_->setPos(kiosk_->pos() + QPointF(500,500));
+    player_->setPos(secondStop_->pos());
 
     auto orderFoodReturnValue = player_->orderFood();
     auto playerFoodsAmount = player_->getFoods().length();
@@ -181,7 +181,7 @@ void PlayerTest::orderFood_PlayerNOTAtKioskWithoutFood_PlayerHasZeroFoodAndRetur
 
 void PlayerTest::orderFood_PlayerAtKioskWithMaxAmountOfFoods_PlayerHasMaxAmountOfFoodsAndReturnsFalse()
 {
-    player_->setPos(kiosk_->pos());
+    player_->setPos(firstStop_->pos());
 
     for (int i = 0; i < player_->FOOD_MAX_AMOUNT; i++) {
         player_->orderFood();
@@ -196,7 +196,7 @@ void PlayerTest::orderFood_PlayerAtKioskWithMaxAmountOfFoods_PlayerHasMaxAmountO
 
 void PlayerTest::isFullOfFood_PlayerAtKioskWithMaxAmountOfFoods_PlayerIsFullOfFood()
 {
-    player_->setPos(kiosk_->pos());
+    player_->setPos(firstStop_->pos());
 
     for (int i = 0; i < player_->FOOD_MAX_AMOUNT; i++) {
         player_->orderFood();
@@ -209,7 +209,7 @@ void PlayerTest::isFullOfFood_PlayerAtKioskWithMaxAmountOfFoods_PlayerIsFullOfFo
 
 void PlayerTest::isFullOfFood_PlayerAtKioskWithOneFood_PlayerIsNOTFullOfFood()
 {
-    player_->setPos(kiosk_->pos());
+    player_->setPos(firstStop_->pos());
     player_->orderFood();
 
     auto isFullOfFoodReturnValue = player_->isFullOfFood();

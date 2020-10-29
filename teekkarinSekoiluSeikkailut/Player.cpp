@@ -1,5 +1,6 @@
 #include "Player.h"
-#include <QDebug>
+
+#include "Kiosk.h"
 
 Player::Player(QString name, QGraphicsScene *scene):
     QGraphicsSvgItem(":/player"),
@@ -58,18 +59,18 @@ Bus* Player::searchBusFromSceneAtCurrentPosition()
     return bus;
 }
 
-Kiosk* Player::searchKioskFromSceneAtCurrentPosition()
+Stop* Player::searchStopFromSceneAtCurrentPosition()
 {
     auto items = scene_->items(this->pos());
-    Kiosk *kiosk = nullptr;
+    Stop *stop = nullptr;
 
     for ( const auto &item : items ){
-        kiosk = qgraphicsitem_cast<Kiosk *>(item);
-        if ( kiosk ){
+        stop = qgraphicsitem_cast<Stop *>(item);
+        if ( stop ){
             break;
         }
     }
-    return kiosk;
+    return stop;
 }
 
 bool Player::isOnTheBus()
@@ -86,7 +87,13 @@ bool Player::orderFood()
         return false;
     }
 
-    auto kiosk = searchKioskFromSceneAtCurrentPosition();
+    auto stop = searchStopFromSceneAtCurrentPosition();
+
+    if ( not stop ){
+        throw std::logic_error("Player is not at stop, shouldn't be possible.");
+    }
+
+    Kiosk *kiosk = stop->getKiosk();
 
     if ( not kiosk ){
         return false;

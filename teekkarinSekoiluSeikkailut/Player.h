@@ -6,7 +6,7 @@
 
 #include "Bus.h"
 #include "Food.h"
-#include "Kiosk.h"
+#include "Stop.h"
 
 class Player: public QGraphicsSvgItem
 {
@@ -33,7 +33,7 @@ private:
     QList<Food> foods_;
 
     Bus* searchBusFromSceneAtCurrentPosition();
-    Kiosk* searchKioskFromSceneAtCurrentPosition();
+    Stop* searchStopFromSceneAtCurrentPosition();
 };
 
 #endif // PLAYER_H
