@@ -18,8 +18,6 @@ Game::Game(QWidget *parent)
     scene->setSceneRect(0,0,1920,1030);
     setScene(scene);
 
-    player = nullptr;
-
     testMap_ = new QGraphicsSvgItem(":/map_1080");
     scene->addItem(testMap_);
 
@@ -79,6 +77,8 @@ void Game::initScene()
     kiosk->setParentItem(lentavanniemi);
 
     auto stops = {keskusta, hervanta, lentavanniemi};
+
+    teekkariHandler_ = new TeekkariHandler(scene, stops, INIT_TEEKKARI_AMOUNT);
 
     scene->addItem(keskusta);
     scene->addItem(hervanta);

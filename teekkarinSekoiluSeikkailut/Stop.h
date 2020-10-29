@@ -4,6 +4,7 @@
 #include <QGraphicsSvgItem>
 
 #include "Kiosk.h"
+#include "Teekkari.h"
 
 class Stop: public QGraphicsSvgItem
 {

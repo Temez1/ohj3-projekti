@@ -22,6 +22,8 @@ SOURCES += \
     Kiosk.cpp \
     Player.cpp \
     Stop.cpp \
+    Teekkari.cpp \
+    TeekkariHandler.cpp \
     main.cpp
 
 HEADERS += \
@@ -32,7 +34,9 @@ HEADERS += \
     Game.h \
     Kiosk.h \
     Player.h \
-    Stop.h
+    Stop.h \
+    Teekkari.h \
+    TeekkariHandler.h
 
 RESOURCES += \
     map.qrc
