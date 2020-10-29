@@ -10,8 +10,8 @@
 #include <QString>
 #include <QPushButton>
 
-#include "Player.h"
-#include "TeekkariHandler.h"
+#include "gameObjects/graphical/Player.h"
+#include "gameObjects/handlers/TeekkariHandler.h"
 
 class Game: public QGraphicsView{
     Q_OBJECT
@@ -29,8 +29,9 @@ private slots:
     void orderAndDeliverFoodButtonClicked();
 
 private:
-    // TODO Siirrä samaan tiedostoon kun initScenen sisältö
+    // TODO Move to initGame.cpp
     std::unordered_map<QString, QPointF> stopLocations_;
+    // END initGame.cpp
 
     QGraphicsSvgItem *testMap_;
     QTimer *gameLoopTimer_;

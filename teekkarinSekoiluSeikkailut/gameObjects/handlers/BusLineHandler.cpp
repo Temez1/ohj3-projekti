@@ -1,6 +1,6 @@
-#include "BusLine.h"
+#include "BusLineHandler.h"
 
-BusLine::BusLine(QString name, std::vector<Stop *> stops):
+BusLineHandler::BusLineHandler(QString name, std::vector<Stop *> stops):
     name(name)
 {
     if (not (stops.size() > 1) ){
@@ -10,13 +10,13 @@ BusLine::BusLine(QString name, std::vector<Stop *> stops):
     updateLastStop();
 }
 
-void BusLine::addStop(Stop *stop)
+void BusLineHandler::addStop(Stop *stop)
 {
     stops_.push_back(stop);
     updateLastStop();
 }
 
-std::pair<int,int> BusLine::getNextStopIndexAndNewDirection(int currentStopIndex, int busDirection)
+std::pair<int,int> BusLineHandler::getNextStopIndexAndNewDirection(int currentStopIndex, int busDirection)
 {
     checkIsBusDirectionValid(busDirection);
     checkIsStopIndexValid(currentStopIndex);
@@ -40,14 +40,14 @@ std::pair<int,int> BusLine::getNextStopIndexAndNewDirection(int currentStopIndex
     throw std::logic_error("Logic error in program");
 }
 
-QPointF BusLine::getStopPosition(int stopIndex)
+QPointF BusLineHandler::getStopPosition(int stopIndex)
 {
     checkIsStopIndexValid(stopIndex);
 
     return stops_.at(stopIndex)->pos();
 }
 
-void BusLine::checkIsBusDirectionValid(int busDirection)
+void BusLineHandler::checkIsBusDirectionValid(int busDirection)
 {
     if ( not ( busDirection == BUS_DIRECTION_FROM_START_TO_END_ or
                busDirection == BUS_DIRECTION_FROM_END_TO_START_ ) ){
@@ -55,14 +55,14 @@ void BusLine::checkIsBusDirectionValid(int busDirection)
     }
 }
 
-void BusLine::checkIsStopIndexValid(int stopIndex)
+void BusLineHandler::checkIsStopIndexValid(int stopIndex)
 {
     if ( stopIndex < 0 or stopIndex > lastStopIndex){
         throw std::out_of_range("Stop index out of range of stops");
     }
 }
 
-void BusLine::updateLastStop()
+void BusLineHandler::updateLastStop()
 {
     lastStopIndex = static_cast<int>(stops_.size()) - 1;
 }

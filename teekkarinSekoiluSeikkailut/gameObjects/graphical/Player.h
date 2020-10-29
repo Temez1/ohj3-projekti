@@ -8,6 +8,7 @@
 #include "Food.h"
 #include "Stop.h"
 
+
 class Player: public QGraphicsSvgItem
 {
 public:

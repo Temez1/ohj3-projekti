@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="map">map.svg</file>
+        <file alias="placeholder">placeholder.svg</file>
+        <file alias="player">player.svg</file>
+        <file alias="stopSign">stopSign.svg</file>
+    </qresource>
+</RCC>

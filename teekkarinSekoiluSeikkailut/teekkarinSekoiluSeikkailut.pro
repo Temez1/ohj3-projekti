@@ -14,32 +14,31 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    Bus.cpp \
-    BusLine.cpp \
-    Button.cpp \
-    Food.cpp \
+    main.cpp \
     Game.cpp \
-    Kiosk.cpp \
-    Player.cpp \
-    Stop.cpp \
-    Teekkari.cpp \
-    TeekkariHandler.cpp \
-    main.cpp
+    initGame.cpp \
+    gameObjects/graphical/Bus.cpp \
+    gameObjects/graphical/Food.cpp \
+    gameObjects/graphical/Kiosk.cpp \
+    gameObjects/graphical/Player.cpp \
+    gameObjects/graphical/Stop.cpp \
+    gameObjects/graphical/Teekkari.cpp \
+    gameObjects/handlers/BusLineHandler.cpp \
+    gameObjects/handlers/TeekkariHandler.cpp
 
 HEADERS += \
-    Bus.h \
-    BusLine.h \
-    Button.h \
-    Food.h \
     Game.h \
-    Kiosk.h \
-    Player.h \
-    Stop.h \
-    Teekkari.h \
-    TeekkariHandler.h
+    gameObjects/graphical/Bus.h \
+    gameObjects/graphical/Food.h \
+    gameObjects/graphical/Kiosk.h \
+    gameObjects/graphical/Player.h \
+    gameObjects/graphical/Stop.h \
+    gameObjects/graphical/Teekkari.h \
+    gameObjects/handlers/BusLineHandler.h \
+    gameObjects/handlers/TeekkariHandler.h
 
 RESOURCES += \
-    map.qrc
+    gameObjects/graphical/assets/assets.qrc
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

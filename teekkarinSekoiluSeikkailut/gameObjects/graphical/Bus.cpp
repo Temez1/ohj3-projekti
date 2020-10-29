@@ -1,7 +1,7 @@
 #include "Bus.h"
 #include <QBrush>
 
-Bus::Bus(QString name, std::shared_ptr<BusLine> busLine,
+Bus::Bus(QString name, std::shared_ptr<BusLineHandler> busLine,
          float speedPixelsPerFrame, int startingStop, int busLineDirection, int busStopWaitTimeInMilliseconds) :
     QGraphicsRectItem(),
     name_(name),

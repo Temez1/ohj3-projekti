@@ -3,7 +3,7 @@
 
 #include <QGraphicsSvgItem>
 
-#include "Food.h"
+#include "gameObjects/graphical/Food.h"
 
 class Kiosk: public QGraphicsSvgItem
 {

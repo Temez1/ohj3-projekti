@@ -1,13 +1,11 @@
 #include "Game.h"
+
 #include <QDebug>
 
-#include "BusLine.h"
-#include "Bus.h"
-#include "Button.h"
-#include "Stop.h"
-#include "Kiosk.h"
-
-
+#include "gameObjects/handlers/BusLineHandler.h"
+#include "gameObjects/graphical/Bus.h"
+#include "gameObjects/graphical/Stop.h"
+#include "gameObjects/graphical/Kiosk.h"
 
 Game::Game(QWidget *parent)
 {
@@ -20,7 +18,7 @@ Game::Game(QWidget *parent)
     scene->setSceneRect(0,0,1920,1030);
     setScene(scene);
 
-    testMap_ = new QGraphicsSvgItem(":/map_1080");
+    testMap_ = new QGraphicsSvgItem(":/map");
     scene->addItem(testMap_);
 
     gameLoopTimer_ = new QTimer(this);
@@ -43,7 +41,11 @@ void Game::initUI()
 void Game::initScene()
 {
     // TODO
-    // Create a helper c++ source file to do all this
+    // Move to initGame.cpp
+
+    // When using rand, use srand to change seed in each game
+    srand(time(0));
+
     stopLocations_.insert({"keskusta", QPointF(500,300)});
     stopLocations_.insert({"hervanta", QPointF(900,700)});
     stopLocations_.insert({"lentavanniemi", QPointF(200,300)});
@@ -57,8 +59,6 @@ void Game::initScene()
 
     auto stops = {keskusta, hervanta, lentavanniemi};
 
-    teekkariHandler_ = new TeekkariHandler(scene, stops, INIT_TEEKKARI_AMOUNT);
-
     scene->addItem(keskusta);
     scene->addItem(hervanta);
     scene->addItem(lentavanniemi);
@@ -66,7 +66,7 @@ void Game::initScene()
     // This will create a shared pointer that can be used in multiple busses using the same line
     // Shared pointer gets deleted after last bus using the busline gets deleted
     // i.e. If shared pointer is not used anymore
-    auto busline = std::make_shared<BusLine>(BusLine(QString("3"), stops));
+    auto busline = std::make_shared<BusLineHandler>(BusLineHandler(QString("3"), stops));
     auto bus3a = new Bus(QString("3a"), busline);
     auto bus3b = new Bus(QString("3b"), busline, 2, 1);
     auto bus3a_2 = new Bus(QString("3a"), busline, 2, 2, -1);
@@ -74,6 +74,19 @@ void Game::initScene()
     scene->addItem(bus3a);
     scene->addItem(bus3b);
     scene->addItem(bus3a_2);
+
+    QList<Teekkari *> teekkarit;
+
+    for (int i=0; i<INIT_TEEKKARI_AMOUNT; i++) {
+        auto teekkari = new Teekkari();
+        auto randomStop = *std::next(std::begin(stops), rand()%(stops.size()));
+        teekkari->setPos(randomStop->pos());
+        scene->addItem(teekkari);
+        teekkarit.append(teekkari);
+    }
+    // END initGame.cpp ?
+
+    teekkariHandler_ = new TeekkariHandler(teekkarit, stops);
 
     player = new Player("Player name", scene);
     player->setPos(bus3a->pos());
@@ -106,8 +119,6 @@ void Game::orderAndDeliverFoodButtonClicked()
         }
     }
 }
-
-
 
 void Game::resizeEvent(QResizeEvent *event)
 {

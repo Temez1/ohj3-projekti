@@ -3,12 +3,13 @@
 
 #include <vector>
 #include <QString>
-#include "Stop.h"
 
-class BusLine
+#include "gameObjects/graphical/Stop.h"
+
+class BusLineHandler
 {
 public:
-    BusLine(QString name, std::vector<Stop *> stops);
+    BusLineHandler(QString name, std::vector<Stop *> stops);
     QString name;
     int lastStopIndex;
 
