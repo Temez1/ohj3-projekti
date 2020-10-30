@@ -1,14 +1,18 @@
 #include "Player.h"
+#include <QDebug>
 
 #include "Kiosk.h"
 
-Player::Player(QString name, QGraphicsScene *scene):
+Player::Player(QString name, QGraphicsScene *scene, Stop* startingStop, int startingMoney):
     QGraphicsSvgItem(":/player"),
     name_(name),
     scene_(scene),
+    currentStop_(startingStop),
     currentBus_(nullptr),
-    foods_(QList<Food>())
+    foods_(QList<Food>()),
+    wallet_(Wallet(startingMoney))
 {
+    setPos(startingStop->pos());
 }
 
 bool Player::jumpToBus()
@@ -23,25 +27,10 @@ bool Player::jumpToBus()
         return false;
     }
 
+    currentStop_ = nullptr;
     currentBus_ = bus;
     setPos(0,0);
     setParentItem(bus);
-    return true;
-}
-
-bool Player::dropFromBus()
-{
-    if ( not isOnTheBus() ){
-        return false;
-    }
-
-    if ( not currentBus_->isWaitingAtStop() ){
-        return false;
-    }
-
-    setParentItem(0);
-    setPos(currentBus_->pos());
-    currentBus_ = nullptr;
     return true;
 }
 
@@ -59,18 +48,62 @@ Bus* Player::searchBusFromSceneAtCurrentPosition()
     return bus;
 }
 
-Stop* Player::searchStopFromSceneAtCurrentPosition()
+bool Player::dropFromBus()
 {
-    auto items = scene_->items(this->pos());
-    Stop *stop = nullptr;
-
-    for ( const auto &item : items ){
-        stop = qgraphicsitem_cast<Stop *>(item);
-        if ( stop ){
-            break;
-        }
+    if ( not isOnTheBus() ){
+        return false;
     }
-    return stop;
+
+    if ( not currentBus_->isWaitingAtStop() ){
+        return false;
+    }
+
+    currentStop_ = currentBus_->getCurrentStop();
+
+    if ( not isAtStop() ){
+        throw std::logic_error("If player dropped from bus, player should be at stop!");
+    }
+
+    setParentItem(0);
+    setPos(currentBus_->pos());
+    currentBus_ = nullptr;
+    return true;
+}
+
+bool Player::orderFood()
+{
+    if ( isFullOfFood() ){
+        return false;
+    }
+
+    if ( isOnTheBus() ){
+        return false;
+    }
+
+    if ( not isAtStop() ){
+        throw std::logic_error("If player is not on the bus, player should be at stop!");
+    }
+
+    Kiosk *kiosk = currentStop_->getKiosk();
+
+    if ( not kiosk ){
+        return false;
+    }
+
+    if ( not wallet_.pay(kiosk->getFoodPrice())){
+        emit playerOutOfMoney();
+        return false;
+    }
+
+    auto food = kiosk->orderFood();
+    emit playerOrderedFood();
+    foods_.append(food);
+    return true;
+}
+
+QList<Food> Player::getFoods()
+{
+    return foods_;
 }
 
 bool Player::isOnTheBus()
@@ -81,32 +114,12 @@ bool Player::isOnTheBus()
     return true;
 }
 
-bool Player::orderFood()
+bool Player::isAtStop()
 {
-    if ( isFullOfFood() ){
+    if ( currentStop_ == nullptr ){
         return false;
     }
-
-    auto stop = searchStopFromSceneAtCurrentPosition();
-
-    if ( not stop ){
-        throw std::logic_error("Player is not at stop, shouldn't be possible.");
-    }
-
-    Kiosk *kiosk = stop->getKiosk();
-
-    if ( not kiosk ){
-        return false;
-    }
-
-    auto food = kiosk->orderFood();
-    foods_.append(food);
     return true;
-}
-
-QList<Food> Player::getFoods()
-{
-    return foods_;
 }
 
 bool Player::isFullOfFood()

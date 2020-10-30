@@ -1,17 +1,17 @@
 #ifndef SCENEDATA_H
 #define SCENEDATA_H
 
+#include "gameObjects/handlers/TeekkariHandler.h"
 #include "gameObjects/graphical/Player.h"
 #include "gameObjects/graphical/Stop.h"
-#include "gameObjects/graphical/Teekkari.h"
 
-class SceneData
+class GameObjects
 {
 public:
-    SceneData(Player *player, std::vector<Stop *> stops, QList<Teekkari *>teekkarit);
+    GameObjects(Player *player, std::vector<Stop *> stops, TeekkariHandler *teekkariHandler);
     Player *player;
     std::vector<Stop *> stops;
-    QList<Teekkari *>teekkarit;
+    TeekkariHandler *teekkariHandler;
 };
 
 #endif // SCENEDATA_H

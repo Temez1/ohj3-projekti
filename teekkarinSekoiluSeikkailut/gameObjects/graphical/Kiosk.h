@@ -8,15 +8,17 @@
 class Kiosk: public QGraphicsSvgItem
 {
 public:
-
     enum { Type = UserType + 4};
     int type() const override { return Type ; }
 
-    Kiosk();
+    Kiosk(int foodPrice);
+
     Food orderFood();
+    int getFoodPrice();
 
 private:
     Food food_;
+    int foodPrice_;
 };
 
 #endif // KIOSK_H

@@ -33,26 +33,32 @@ private slots:
 
     void Scenario_PlayerIsOnTheBusAndSceneAdvances_PlayerParentPosEqualsBusPos();
     void Scenario_PlayerDropsFromTheBusAndSceneAdvances_PlayerStaysAtStop();
+    void Scenario_PlayerOrdersFoodWithoutMoney_PlayerSignalsOutOfMoney();
+    void Scenario_PlayerOrdersFood_PlayerSignalsPlayerOrderedFood();
+
 private:
+    const int KIOSK_FOOD_PRICE_ = 10;
+    const int PLAYER_STARTING_MONEY_ = 50;
+
     QGraphicsScene *scene_;
-    Player *player_;
     Stop *firstStop_;
     Stop *secondStop_;
     std::shared_ptr<BusLineHandler> busline_;
     Bus *bus_;
     const float BUS_DEFAULT_SPEED_;
     Kiosk *kiosk_;
+    Player *player_;
 };
 
 PlayerTest::PlayerTest():
     scene_(new QGraphicsScene()),
-    player_(new Player("Test", scene_)),
     firstStop_(new Stop(QString("testStop1"), QPointF(100,100))),
     secondStop_(new Stop(QString("testStop2"), QPointF(200,100))),
     busline_(std::make_shared<BusLineHandler>(BusLineHandler("Test busline", {firstStop_, secondStop_}))),
     bus_(new Bus("Test Bus", busline_)),
     BUS_DEFAULT_SPEED_(bus_->getSpeedPixelsPerFrame()),
-    kiosk_(new Kiosk())
+    kiosk_(new Kiosk(KIOSK_FOOD_PRICE_)),
+    player_(new Player("Test", scene_, firstStop_, PLAYER_STARTING_MONEY_))
 {}
 
 PlayerTest::~PlayerTest()
@@ -60,7 +66,7 @@ PlayerTest::~PlayerTest()
 
 void PlayerTest::init()
 {
-    kiosk_ = new Kiosk();
+    kiosk_ = new Kiosk(KIOSK_FOOD_PRICE_);
     firstStop_ = new Stop(QString("testStop1"), QPointF(100,100), kiosk_);
     kiosk_->setParentItem(firstStop_);
     secondStop_ = new Stop(QString("testStop2"), QPointF(200,100));
@@ -75,7 +81,7 @@ void PlayerTest::init()
     scene_->addItem(secondStop_);
     scene_->addItem(bus_);
 
-    player_ = new Player("Test player", scene_);
+    player_ = new Player("Test player", scene_, firstStop_, PLAYER_STARTING_MONEY_);
     scene_->addItem(player_);
 }
 
@@ -158,8 +164,6 @@ void PlayerTest::dropFromBus_PlayerIsOnTheBusAndBusIsWaitingAtStop_PlayerIsNOTOn
 
 void PlayerTest::orderFood_PlayerAtKioskWithoutFood_PlayerHasOneFoodAndReturnsTrue()
 {
-    player_->setPos(firstStop_->pos());
-
     auto orderFoodReturnValue = player_->orderFood();
     auto playerFoodsAmount = player_->getFoods().length();
 
@@ -169,7 +173,7 @@ void PlayerTest::orderFood_PlayerAtKioskWithoutFood_PlayerHasOneFoodAndReturnsTr
 
 void PlayerTest::orderFood_PlayerNOTAtKioskWithoutFood_PlayerHasZeroFoodAndReturnsFalse()
 {
-    player_->setPos(secondStop_->pos());
+    player_->jumpToBus();
 
     auto orderFoodReturnValue = player_->orderFood();
     auto playerFoodsAmount = player_->getFoods().length();
@@ -180,8 +184,6 @@ void PlayerTest::orderFood_PlayerNOTAtKioskWithoutFood_PlayerHasZeroFoodAndRetur
 
 void PlayerTest::orderFood_PlayerAtKioskWithMaxAmountOfFoods_PlayerHasMaxAmountOfFoodsAndReturnsFalse()
 {
-    player_->setPos(firstStop_->pos());
-
     for (int i = 0; i < player_->FOOD_MAX_AMOUNT; i++) {
         player_->orderFood();
     }
@@ -249,6 +251,27 @@ void PlayerTest::Scenario_PlayerDropsFromTheBusAndSceneAdvances_PlayerStaysAtSto
     auto playerPosAfterDrop = player_->pos();
 
     QCOMPARE(playerPosAfterDrop, playerPosBeforeDrop);
+}
+
+void PlayerTest::Scenario_PlayerOrdersFoodWithoutMoney_PlayerSignalsOutOfMoney()
+{
+    player_ = new Player("persaukinen", scene_, firstStop_, 0);
+    QSignalSpy spy(player_, &Player::playerOutOfMoney);
+    QVERIFY(spy.isValid());
+
+    player_->orderFood();
+
+    QCOMPARE(spy.count(), 1);
+}
+
+void PlayerTest::Scenario_PlayerOrdersFood_PlayerSignalsPlayerOrderedFood()
+{
+    QSignalSpy spy(player_, &Player::playerOrderedFood);
+    QVERIFY(spy.isValid());
+
+    player_->orderFood();
+
+    QCOMPARE(spy.count(), 1);
 }
 
 

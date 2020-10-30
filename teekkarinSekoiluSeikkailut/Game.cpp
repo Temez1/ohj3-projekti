@@ -2,7 +2,7 @@
 #include <QDebug>
 
 #include "initScene.h"
-#include "sceneData.h"
+#include "gameObjects.h"
 
 Game::Game(QWidget *parent)
 {
@@ -18,14 +18,8 @@ Game::Game(QWidget *parent)
     gameLoopTimer_ = new QTimer(this);
     connect(gameLoopTimer_, &QTimer::timeout, scene, &QGraphicsScene::advance);
 
-    // When using rand, use srand to change seed in each game
-    srand(time(0));
-
     initUI();
-    sceneData_ = initScene::populateMap(scene);
-
-    teekkariHandler_ = new TeekkariHandler(sceneData_->teekkarit, sceneData_->stops);
-
+    gameObjects_ = initScene::populateMap(scene);
     start();
 }
 
@@ -45,12 +39,12 @@ void Game::start()
 
 void Game::jumpAndDropBusButtonClicked()
 {
-    if ( sceneData_->player->jumpToBus() ){
+    if ( gameObjects_->player->jumpToBus() ){
         jumpAndDropBusButton->setText("Leave the bus!");
         return;
     }
 
-    if ( sceneData_->player->dropFromBus() ){
+    if ( gameObjects_->player->dropFromBus() ){
         jumpAndDropBusButton->setText("Jump to bus!");
         return;
     }
@@ -58,8 +52,8 @@ void Game::jumpAndDropBusButtonClicked()
 
 void Game::orderAndDeliverFoodButtonClicked()
 {
-    if ( sceneData_->player->orderFood() ){
-        if ( sceneData_->player->isFullOfFood() ){
+    if ( gameObjects_->player->orderFood() ){
+        if ( gameObjects_->player->isFullOfFood() ){
             orderAndDeliverFoodButton->setText("Deliver food!");
         }
     }

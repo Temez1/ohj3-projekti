@@ -3,13 +3,15 @@
 
 #include <QGraphicsScene>
 
-#include "sceneData.h"
+#include "gameObjects.h"
 
 namespace initScene {
-    SceneData *populateMap(QGraphicsScene *scene);
+    GameObjects *populateMap(QGraphicsScene *scene);
+
+    const int PLAYER_STARTING_MONEY = 50;
 
     const int INIT_TEEKKARI_AMOUNT = 2;
-    const QString PLAYER_STARTING_STOP = "hervanta";
+    const int TEEKKARI_SPAWN_TIME_IN_SECONDS = 20;
 }
 
 

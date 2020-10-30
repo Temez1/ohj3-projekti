@@ -8,6 +8,11 @@ Stop::Stop(QString name, QPointF pos, Kiosk *kiosk, QGraphicsItem* parent):
     setPos(pos);
 }
 
+QString Stop::getName()
+{
+    return name_;
+}
+
 Kiosk *Stop::getKiosk()
 {
     return kiosk_;

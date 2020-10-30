@@ -7,12 +7,13 @@
 #include <QTimer>
 
 #include "gameObjects/handlers/BusLineHandler.h"
+#include "gameObjects/graphical/Stop.h"
 
 class Bus: public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
 public:
-    Bus(QString name, std::shared_ptr<BusLineHandler> busLine, float speedPixelsPerFrame = 2, int startingStop = 0,
+    Bus(QString name, std::shared_ptr<BusLineHandler> busLineHandler, float speedPixelsPerFrame = 2, int startingStop = 0,
         int busLineDirection = 1, int busStopWaitTimeInMilliseconds = 2000);
     ~Bus();
 
@@ -21,6 +22,7 @@ public:
 
     float getSpeedPixelsPerFrame();
     QVector2D getVelocityPixelsPerFrame();
+    Stop* getCurrentStop();
     bool isWaitingAtStop();
 
 protected:
@@ -34,8 +36,9 @@ private:
     const int BUS_LINE_DIRECTION_FROM_END_TO_START_ = -1;
 
     QString name_;
-    std::shared_ptr<BusLineHandler> busLine_;
+    std::shared_ptr<BusLineHandler> busLineHandler_;
     float speed_;
+    Stop *currentStop_;
     int nextStopIndex_;
     int busLineDirection_;
     QVector2D velocity_;

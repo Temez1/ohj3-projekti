@@ -13,7 +13,7 @@
 #include "gameObjects/graphical/Player.h"
 #include "gameObjects/handlers/TeekkariHandler.h"
 
-#include "sceneData.h"
+#include "gameObjects.h"
 
 class Game: public QGraphicsView{
     Q_OBJECT
@@ -31,7 +31,7 @@ private slots:
 
 private:
     QTimer *gameLoopTimer_;
-    SceneData *sceneData_;
+    GameObjects *gameObjects_;
 
     TeekkariHandler *teekkariHandler_;
 
@@ -44,8 +44,6 @@ private:
 
     const int ORDER_AND_DELIVER_FOOD_BUTTON_WIDTH_PADDING = 240;
     const int ORDER_AND_DELIVER_FOOD_BUTTON_HEIGHT_PADDING = 50;
-
-    const int INIT_TEEKKARI_AMOUNT = 2;
 
     void initUI();
 

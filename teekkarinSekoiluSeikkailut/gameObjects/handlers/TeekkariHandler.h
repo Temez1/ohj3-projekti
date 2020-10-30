@@ -1,21 +1,30 @@
 #ifndef TEEKKARIHANDLER_H
 #define TEEKKARIHANDLER_H
 
-#include <unordered_map>
-
 #include <QGraphicsScene>
+#include <QTimer>
 
 #include "gameObjects/graphical/Teekkari.h"
 #include "gameObjects/graphical/Stop.h"
 
-class TeekkariHandler
-{
+class TeekkariHandler: public QObject
+{ Q_OBJECT
 public:
-    TeekkariHandler(QList<Teekkari *> initTeekkarit, std::vector<Stop *> stops);
+    TeekkariHandler(QGraphicsScene *scene, std::vector<Stop *> stops, int initTeekkariAmount,
+                    int teekkariSpawnTimeInSeconds);
+    ~TeekkariHandler();
+
+private slots:
+    void teekkariSpawnTimerOnTimeout();
 
 private:
-    QList<Teekkari *> teekkarit_;
+    QGraphicsScene *scene_;
     std::vector<Stop *> stops_;
+    int teekkariSpawnTimeInMilliseconds_;
+
+    QList<Teekkari *> teekkarit_;
+    QTimer *teekkariSpawnTimer_;
+    void spawnTeekkari();
 };
 
 #endif // TEEKKARIHANDLER_H

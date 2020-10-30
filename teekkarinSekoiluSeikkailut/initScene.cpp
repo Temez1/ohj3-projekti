@@ -2,6 +2,7 @@
 
 #include <unordered_map>
 
+#include "gameObjects/handlers/TeekkariHandler.h"
 #include "gameObjects/handlers/BusLineHandler.h"
 #include "gameObjects/graphical/Bus.h"
 #include "gameObjects/graphical/Stop.h"
@@ -10,7 +11,10 @@
 
 namespace initScene {
 
-SceneData* populateMap(QGraphicsScene *scene){
+GameObjects* populateMap(QGraphicsScene *scene){
+    // When using rand, use srand to change seed in each game
+    srand(time(0));
+
     auto map = new QGraphicsSvgItem(":/map");
     scene->addItem(map);
 
@@ -19,7 +23,8 @@ SceneData* populateMap(QGraphicsScene *scene){
     stopLocations_.insert({"hervanta", QPointF(900,700)});
     stopLocations_.insert({"lentavanniemi", QPointF(200,300)});
 
-    auto kiosk = new Kiosk();
+    int kioskFoodPrice = 10;
+    auto kiosk = new Kiosk(kioskFoodPrice);
 
     auto keskusta = new Stop(QString("keskusta"), stopLocations_.at("keskusta"));
     auto hervanta = new Stop(QString("hervanta"), stopLocations_.at("hervanta"));
@@ -44,21 +49,12 @@ SceneData* populateMap(QGraphicsScene *scene){
     scene->addItem(bus3b);
     scene->addItem(bus3a_2);
 
-    QList<Teekkari *> teekkarit;
+    auto teekkariHandler_ = new TeekkariHandler(scene, stops, INIT_TEEKKARI_AMOUNT, TEEKKARI_SPAWN_TIME_IN_SECONDS);
 
-    for (int i=0; i<INIT_TEEKKARI_AMOUNT; i++) {
-        auto teekkari = new Teekkari();
-        auto randomStop = *std::next(std::begin(stops), rand()%(stops.size()));
-        teekkari->setPos(randomStop->pos());
-        scene->addItem(teekkari);
-        teekkarit.append(teekkari);
-    }
-
-    auto player = new Player("Player name", scene);
-    player->setPos(stopLocations_.at(PLAYER_STARTING_STOP));
+    auto player = new Player("Player name", scene, hervanta, PLAYER_STARTING_MONEY);
     scene->addItem(player);
 
-    return new SceneData(player, stops, teekkarit);
+    return new GameObjects(player, stops, teekkariHandler_);
 }
 
 }

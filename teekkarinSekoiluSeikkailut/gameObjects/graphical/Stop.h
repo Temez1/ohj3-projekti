@@ -14,6 +14,7 @@ public:
     enum { Type = UserType + 3};
     int type() const override { return Type; }
 
+    QString getName();
     Kiosk *getKiosk();
 
 private:
