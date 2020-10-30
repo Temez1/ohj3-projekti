@@ -24,7 +24,8 @@ SOURCES += \
     gameObjects/graphical/Stop.cpp \
     gameObjects/graphical/Teekkari.cpp \
     gameObjects/handlers/BusLineHandler.cpp \
-    gameObjects/handlers/TeekkariHandler.cpp
+    gameObjects/handlers/TeekkariHandler.cpp \
+    sceneData.cpp
 
 HEADERS += \
     Game.h \
@@ -35,7 +36,9 @@ HEADERS += \
     gameObjects/graphical/Stop.h \
     gameObjects/graphical/Teekkari.h \
     gameObjects/handlers/BusLineHandler.h \
-    gameObjects/handlers/TeekkariHandler.h
+    gameObjects/handlers/TeekkariHandler.h \
+    initGame.h \
+    sceneData.h
 
 RESOURCES += \
     gameObjects/graphical/assets/assets.qrc

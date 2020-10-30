@@ -13,12 +13,13 @@
 #include "gameObjects/graphical/Player.h"
 #include "gameObjects/handlers/TeekkariHandler.h"
 
+#include "sceneData.h"
+
 class Game: public QGraphicsView{
     Q_OBJECT
 public:
     Game(QWidget *parent=NULL);
     QGraphicsScene *scene;
-    Player *player;
 
 protected:
     void resizeEvent(QResizeEvent *event) override;
@@ -29,13 +30,12 @@ private slots:
     void orderAndDeliverFoodButtonClicked();
 
 private:
-    // TODO Move to initGame.cpp
-    std::unordered_map<QString, QPointF> stopLocations_;
-    // END initGame.cpp
-
-    QGraphicsSvgItem *testMap_;
     QTimer *gameLoopTimer_;
+    SceneData *sceneData_;
+
     TeekkariHandler *teekkariHandler_;
+
+    // UI Stuff
     QPushButton *jumpAndDropBusButton;
     QPushButton *orderAndDeliverFoodButton;
 
@@ -48,7 +48,6 @@ private:
     const int INIT_TEEKKARI_AMOUNT = 2;
 
     void initUI();
-    void initScene();
 
     void resizeButtons();
 };
