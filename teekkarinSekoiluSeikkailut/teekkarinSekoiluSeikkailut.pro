@@ -14,9 +14,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    initScene.cpp \
     main.cpp \
     Game.cpp \
-    initGame.cpp \
     gameObjects/graphical/Bus.cpp \
     gameObjects/graphical/Food.cpp \
     gameObjects/graphical/Kiosk.cpp \
@@ -37,7 +37,7 @@ HEADERS += \
     gameObjects/graphical/Teekkari.h \
     gameObjects/handlers/BusLineHandler.h \
     gameObjects/handlers/TeekkariHandler.h \
-    initGame.h \
+    initScene.h \
     sceneData.h
 
 RESOURCES += \

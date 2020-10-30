@@ -1,7 +1,7 @@
 #include "Game.h"
 #include <QDebug>
 
-#include "initGame.h"
+#include "initScene.h"
 #include "sceneData.h"
 
 Game::Game(QWidget *parent)
