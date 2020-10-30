@@ -1,15 +1,15 @@
-#include "suite.hpp"
-#include "BusLine.h"
-#include "Stop.h"
 #include <QtTest>
-#include <vector>
 
-class BusLineTest : public TestSuite
+#include "gameObjects/handlers/BusLineHandler.h"
+#include "gameObjects/graphical/Stop.h"
+
+class BusLineHandlerTest : public QObject
 {
     Q_OBJECT
+
 public:
-    using TestSuite::TestSuite;
-    BusLineTest();
+    BusLineHandlerTest();
+    ~BusLineHandlerTest();
 
 private slots:
     void init();
@@ -37,37 +37,37 @@ private slots:
 private:
     Stop *firstStop_;
     Stop *secondStop_;
-    BusLine *busline_;
+    BusLineHandler *busline_;
     const int FIRST_STOP_INDEX = 0;
     const int SECOND_STOP_INDEX = 1;
     const int BUS_DIRECTION_FROM_START_TO_END_ = 1;
     const int BUS_DIRECTION_FROM_END_TO_START_ = -1;
 };
 
-BusLineTest::BusLineTest():
+BusLineHandlerTest::BusLineHandlerTest():
     firstStop_(new Stop(QString("testStop1"), QPointF(100,100))),
     secondStop_(new Stop(QString("testStop2"), QPointF(200,100))),
-    busline_(new BusLine("testBusLine", {firstStop_, secondStop_}))
+    busline_(new BusLineHandler("testBusLine", {firstStop_, secondStop_}))
 {}
 
-void BusLineTest::init()
+void BusLineHandlerTest::init()
 {
     firstStop_ = new Stop(QString("testStop1"), QPointF(100,100));
     secondStop_ = new Stop(QString("testStop2"), QPointF(200,100));
-    busline_ = new BusLine("testBusLine", {firstStop_, secondStop_});
+    busline_ = new BusLineHandler("testBusLine", {firstStop_, secondStop_});
 }
 
-void BusLineTest::cleanup()
+void BusLineHandlerTest::cleanup()
 {
     delete firstStop_;
     delete secondStop_;
     delete busline_;
 }
 
-void BusLineTest::initBusLine_withoutStops_ThrowsInvalidArgument()
+void BusLineHandlerTest::initBusLine_withoutStops_ThrowsInvalidArgument()
 {
     try {
-        BusLine("Failing", {});
+        BusLineHandler("Failing", {});
         QFAIL("initBusLine did not throw invalid argument exception!");
     }
     catch (const std::invalid_argument &e) {
@@ -75,12 +75,12 @@ void BusLineTest::initBusLine_withoutStops_ThrowsInvalidArgument()
     }
 }
 
-void BusLineTest::initBusLine_TwoStops_LastStopIsValid()
+void BusLineHandlerTest::initBusLine_TwoStops_LastStopIsValid()
 {
     QCOMPARE(busline_->lastStopIndex, 1);
 }
 
-void BusLineTest::addStop_AfterTwoStopsAreAdded_checkLastStopIndexIsValid()
+void BusLineHandlerTest::addStop_AfterTwoStopsAreAdded_checkLastStopIndexIsValid()
 {
     int lastStopIndexBeforeAdding = busline_->lastStopIndex;
     busline_->addStop(new Stop(QString("testStop"), QPointF(0,0)));
@@ -92,7 +92,7 @@ void BusLineTest::addStop_AfterTwoStopsAreAdded_checkLastStopIndexIsValid()
     QCOMPARE(lastStopIndexAfterAdding, lastStopIndexBeforeAddingPlusTwo);
 }
 
-void BusLineTest::getNextStopIndexAndNewDirection_InvalidDirection_ThrowsInvalidArgument()
+void BusLineHandlerTest::getNextStopIndexAndNewDirection_InvalidDirection_ThrowsInvalidArgument()
 {
     int invalidDirection = 0;
 
@@ -105,7 +105,7 @@ void BusLineTest::getNextStopIndexAndNewDirection_InvalidDirection_ThrowsInvalid
     }
 }
 
-void BusLineTest::getNextStopIndexAndNewDirection_InvalidStopIndex_ThrowsOutOfRange()
+void BusLineHandlerTest::getNextStopIndexAndNewDirection_InvalidStopIndex_ThrowsOutOfRange()
 {
     int invalidStopIndex = -1;
 
@@ -118,7 +118,7 @@ void BusLineTest::getNextStopIndexAndNewDirection_InvalidStopIndex_ThrowsOutOfRa
     }
 }
 
-void BusLineTest::getNextStopIndexAndNewDirection_TwoStopsAtFirstStopGoingFromStartToEnd_ReturnsSecondStopGoingFromStartToEnd()
+void BusLineHandlerTest::getNextStopIndexAndNewDirection_TwoStopsAtFirstStopGoingFromStartToEnd_ReturnsSecondStopGoingFromStartToEnd()
 {
     std::pair<int,int> nextStop = busline_->getNextStopIndexAndNewDirection(FIRST_STOP_INDEX, BUS_DIRECTION_FROM_START_TO_END_);
 
@@ -126,7 +126,7 @@ void BusLineTest::getNextStopIndexAndNewDirection_TwoStopsAtFirstStopGoingFromSt
     QCOMPARE(nextStop.second, BUS_DIRECTION_FROM_START_TO_END_);
 }
 
-void BusLineTest::getNextStopIndexAndNewDirection_TwoStopsAtSecondStopGoingFromEndToStart_ReturnsFirstStopGoingFromEndToStart()
+void BusLineHandlerTest::getNextStopIndexAndNewDirection_TwoStopsAtSecondStopGoingFromEndToStart_ReturnsFirstStopGoingFromEndToStart()
 {
     std::pair<int,int> nextStop = busline_->getNextStopIndexAndNewDirection(SECOND_STOP_INDEX, BUS_DIRECTION_FROM_END_TO_START_);
 
@@ -134,7 +134,7 @@ void BusLineTest::getNextStopIndexAndNewDirection_TwoStopsAtSecondStopGoingFromE
     QCOMPARE(nextStop.second, BUS_DIRECTION_FROM_END_TO_START_);
 }
 
-void BusLineTest::getNextStopIndexAndNewDirection_ThreeStopsAtSecondStopGoingFromStartToEnd_ReturnsLastStopGoingFromStartToEnd()
+void BusLineHandlerTest::getNextStopIndexAndNewDirection_ThreeStopsAtSecondStopGoingFromStartToEnd_ReturnsLastStopGoingFromStartToEnd()
 {
     busline_->addStop(new Stop(QString("testStop"), QPointF(0,0)));
     int lastStop = busline_->lastStopIndex;
@@ -145,7 +145,7 @@ void BusLineTest::getNextStopIndexAndNewDirection_ThreeStopsAtSecondStopGoingFro
     QCOMPARE(nextStop.second, BUS_DIRECTION_FROM_START_TO_END_);
 }
 
-void BusLineTest::getNextStopIndexAndNewDirection_ThreeStopsAtSecondStopGoingFromEndToStart_ReturnsFirstStopGoingFromEndToStart()
+void BusLineHandlerTest::getNextStopIndexAndNewDirection_ThreeStopsAtSecondStopGoingFromEndToStart_ReturnsFirstStopGoingFromEndToStart()
 {
     busline_->addStop(new Stop(QString("testStop"), QPointF(0,0)));
 
@@ -155,7 +155,7 @@ void BusLineTest::getNextStopIndexAndNewDirection_ThreeStopsAtSecondStopGoingFro
     QCOMPARE(nextStop.second, BUS_DIRECTION_FROM_END_TO_START_);
 }
 
-void BusLineTest::getNextStopIndexAndNewDirection_ThreeStopsAtLastStopGoingFromStartToEnd_ReturnsSecondStopGoingFromEndToStart()
+void BusLineHandlerTest::getNextStopIndexAndNewDirection_ThreeStopsAtLastStopGoingFromStartToEnd_ReturnsSecondStopGoingFromEndToStart()
 {
     busline_->addStop(new Stop(QString("testStop"), QPointF(0,0)));
     int lastStop = busline_->lastStopIndex;
@@ -166,7 +166,7 @@ void BusLineTest::getNextStopIndexAndNewDirection_ThreeStopsAtLastStopGoingFromS
     QCOMPARE(nextStop.second, BUS_DIRECTION_FROM_END_TO_START_);
 }
 
-void BusLineTest::getNextStopIndexAndNewDirection_ThreeStopsAtFirstStopGoingFromEndToStart_ReturnsSecondStopGoingFromStartToEnd()
+void BusLineHandlerTest::getNextStopIndexAndNewDirection_ThreeStopsAtFirstStopGoingFromEndToStart_ReturnsSecondStopGoingFromStartToEnd()
 {
     busline_->addStop(new Stop(QString("testStop"), QPointF(0,0)));
 
@@ -176,7 +176,7 @@ void BusLineTest::getNextStopIndexAndNewDirection_ThreeStopsAtFirstStopGoingFrom
     QCOMPARE(nextStop.second, BUS_DIRECTION_FROM_START_TO_END_);
 }
 
-void BusLineTest::getStopPosition_TwoStopsStopIndexGreaterThanStopSize_ThrowsOutOfRange()
+void BusLineHandlerTest::getStopPosition_TwoStopsStopIndexGreaterThanStopSize_ThrowsOutOfRange()
 {
     int outOfRangeIndex = 2;
 
@@ -189,7 +189,7 @@ void BusLineTest::getStopPosition_TwoStopsStopIndexGreaterThanStopSize_ThrowsOut
     }
 }
 
-void BusLineTest::getStopPosition_TwoStopsStopIndexLessThanZero_ThrowsOutOfRange()
+void BusLineHandlerTest::getStopPosition_TwoStopsStopIndexLessThanZero_ThrowsOutOfRange()
 {
     int outOfRangeIndex = -1;
 
@@ -202,14 +202,14 @@ void BusLineTest::getStopPosition_TwoStopsStopIndexLessThanZero_ThrowsOutOfRange
     }
 }
 
-void BusLineTest::getStopPosition_TwoStopsStopIndexFirstStop_ReturnsFirstStopPosition()
+void BusLineHandlerTest::getStopPosition_TwoStopsStopIndexFirstStop_ReturnsFirstStopPosition()
 {
     QPointF firstStopPosition = busline_->getStopPosition(FIRST_STOP_INDEX);
 
     QCOMPARE(firstStopPosition, firstStop_->pos());
 }
 
-void BusLineTest::getStopPostiion_ThreeStopsStopIndexLastStop_ReturnsLastStopPosition()
+void BusLineHandlerTest::getStopPostiion_ThreeStopsStopIndexLastStop_ReturnsLastStopPosition()
 {
     QPointF expectedLastStopPosition = QPointF(500,500);
     busline_->addStop(new Stop(QString("testStop3"), expectedLastStopPosition));
@@ -220,6 +220,13 @@ void BusLineTest::getStopPostiion_ThreeStopsStopIndexLastStop_ReturnsLastStopPos
     QCOMPARE(actualLastStopPosition, expectedLastStopPosition);
 }
 
-static BusLineTest BUSLINE_TEST;
 
-#include "BusLineTest.moc"
+
+BusLineHandlerTest::~BusLineHandlerTest()
+{
+
+}
+
+QTEST_APPLESS_MAIN(BusLineHandlerTest)
+
+#include "BusLineHandlerTest.moc"
