@@ -39,6 +39,7 @@ private slots:
 private:
     const int KIOSK_FOOD_PRICE_ = 10;
     const int PLAYER_STARTING_MONEY_ = 50;
+    const int PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY = 2;
 
     QGraphicsScene *scene_;
     Stop *firstStop_;
@@ -58,7 +59,7 @@ PlayerTest::PlayerTest():
     bus_(new Bus("Test Bus", busline_)),
     BUS_DEFAULT_SPEED_(bus_->getSpeedPixelsPerFrame()),
     kiosk_(new Kiosk(KIOSK_FOOD_PRICE_)),
-    player_(new Player("Test", scene_, firstStop_, PLAYER_STARTING_MONEY_))
+    player_(new Player("Test", scene_, firstStop_, PLAYER_STARTING_MONEY_, PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY))
 {}
 
 PlayerTest::~PlayerTest()
@@ -81,7 +82,7 @@ void PlayerTest::init()
     scene_->addItem(secondStop_);
     scene_->addItem(bus_);
 
-    player_ = new Player("Test player", scene_, firstStop_, PLAYER_STARTING_MONEY_);
+    player_ = new Player("Test player", scene_, firstStop_, PLAYER_STARTING_MONEY_, PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY);
     scene_->addItem(player_);
 }
 
@@ -255,7 +256,7 @@ void PlayerTest::Scenario_PlayerDropsFromTheBusAndSceneAdvances_PlayerStaysAtSto
 
 void PlayerTest::Scenario_PlayerOrdersFoodWithoutMoney_PlayerSignalsOutOfMoney()
 {
-    player_ = new Player("persaukinen", scene_, firstStop_, 0);
+    player_ = new Player("persaukinen", scene_, firstStop_, 0, PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY);
     QSignalSpy spy(player_, &Player::playerOutOfMoney);
     QVERIFY(spy.isValid());
 

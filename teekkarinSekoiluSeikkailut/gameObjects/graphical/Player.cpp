@@ -3,8 +3,9 @@
 
 #include "Kiosk.h"
 
-Player::Player(QString name, QGraphicsScene *scene, Stop* startingStop, int startingMoney):
+Player::Player(QString name, QGraphicsScene *scene, Stop* startingStop, int startingMoney, int maxFoodAmountToCarry):
     QGraphicsSvgItem(":/player"),
+    FOOD_MAX_AMOUNT(maxFoodAmountToCarry),
     name_(name),
     scene_(scene),
     currentStop_(startingStop),
@@ -99,6 +100,11 @@ bool Player::orderFood()
     emit playerOrderedFood();
     foods_.append(food);
     return true;
+}
+
+bool Player::deliverFood()
+{
+
 }
 
 QList<Food> Player::getFoods()

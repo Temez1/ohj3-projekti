@@ -51,7 +51,7 @@ GameObjects* populateMap(QGraphicsScene *scene){
 
     auto teekkariHandler_ = new TeekkariHandler(scene, stops, INIT_TEEKKARI_AMOUNT, TEEKKARI_SPAWN_TIME_IN_SECONDS);
 
-    auto player = new Player("Player name", scene, hervanta, PLAYER_STARTING_MONEY);
+    auto player = new Player("Player name", scene, hervanta, PLAYER_STARTING_MONEY, PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY);
     scene->addItem(player);
 
     return new GameObjects(player, stops, teekkariHandler_);

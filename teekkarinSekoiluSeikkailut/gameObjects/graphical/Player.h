@@ -12,17 +12,18 @@
 class Player: public QGraphicsSvgItem
 { Q_OBJECT
 public:
-    Player(QString name, QGraphicsScene *scene, Stop* startingStop, int startingMoney);
+    Player(QString name, QGraphicsScene *scene, Stop* startingStop, int startingMoney, int maxFoodAmountToCarry);
 
     enum { Type = UserType + 2};
     int type() const override { return Type; }
 
-    const int FOOD_MAX_AMOUNT = 2;
+    const int FOOD_MAX_AMOUNT;
 
     bool jumpToBus();
     bool dropFromBus();
 
     bool orderFood();
+    bool deliverFood();
     QList<Food> getFoods();
 
     bool isOnTheBus();
