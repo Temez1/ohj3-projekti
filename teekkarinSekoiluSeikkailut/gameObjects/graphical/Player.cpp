@@ -61,10 +61,6 @@ bool Player::dropFromBus()
 
     currentStop_ = currentBus_->getCurrentStop();
 
-    if ( not isAtStop() ){
-        throw std::logic_error("If player dropped from bus, player should be at stop!");
-    }
-
     setParentItem(0);
     setPos(currentBus_->pos());
     currentBus_ = nullptr;
@@ -79,10 +75,6 @@ bool Player::orderFood()
 
     if ( isOnTheBus() ){
         return false;
-    }
-
-    if ( not isAtStop() ){
-        throw std::logic_error("If player is not on the bus, player should be at stop!");
     }
 
     Kiosk *kiosk = currentStop_->getKiosk();
@@ -104,7 +96,16 @@ bool Player::orderFood()
 
 bool Player::deliverFood()
 {
+    if ( foods_.empty() ){
+        return false;
+    }
 
+    if ( isOnTheBus() ){
+        return false;
+    }
+
+
+    return true;
 }
 
 QList<Food> Player::getFoods()
@@ -115,14 +116,9 @@ QList<Food> Player::getFoods()
 bool Player::isOnTheBus()
 {
     if ( currentBus_ == nullptr ){
-        return false;
-    }
-    return true;
-}
-
-bool Player::isAtStop()
-{
-    if ( currentStop_ == nullptr ){
+        if ( currentStop_ == nullptr ){
+            throw std::logic_error("If player is not on the bus, player should be at stop!");
+        }
         return false;
     }
     return true;

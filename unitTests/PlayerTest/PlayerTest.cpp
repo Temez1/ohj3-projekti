@@ -28,6 +28,8 @@ private slots:
     void orderFood_PlayerNOTAtKioskWithoutFood_PlayerHasZeroFoodAndReturnsFalse();
     void orderFood_PlayerAtKioskWithMaxAmountOfFoods_PlayerHasMaxAmountOfFoodsAndReturnsFalse();
 
+    void deliverFood_PlayerHasNoFood_PlayersHasNoFoodAndReturnsFalse();
+
     void isFullOfFood_PlayerAtKioskWithMaxAmountOfFoods_PlayerIsFullOfFood();
     void isFullOfFood_PlayerAtKioskWithOneFood_PlayerIsNOTFullOfFood();
 
@@ -194,6 +196,15 @@ void PlayerTest::orderFood_PlayerAtKioskWithMaxAmountOfFoods_PlayerHasMaxAmountO
 
     QCOMPARE(playerFoodsAmount, player_->FOOD_MAX_AMOUNT);
     QCOMPARE(orderFoodReturnValue, false);
+}
+
+void PlayerTest::deliverFood_PlayerHasNoFood_PlayersHasNoFoodAndReturnsFalse()
+{
+    auto deliverFoodReturnValue = player_->deliverFood();
+    auto playerFoodsAmount = player_->getFoods().length();
+
+    QCOMPARE(playerFoodsAmount, 0);
+    QCOMPARE(deliverFoodReturnValue, false);
 }
 
 void PlayerTest::isFullOfFood_PlayerAtKioskWithMaxAmountOfFoods_PlayerIsFullOfFood()

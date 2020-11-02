@@ -27,7 +27,6 @@ public:
     QList<Food> getFoods();
 
     bool isOnTheBus();
-    bool isAtStop();
     bool isFullOfFood();
 
 signals:

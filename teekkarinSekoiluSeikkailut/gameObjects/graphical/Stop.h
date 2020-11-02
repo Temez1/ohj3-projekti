@@ -17,9 +17,14 @@ public:
     QString getName();
     Kiosk *getKiosk();
 
+    bool addTeekkari(Teekkari *teekkari);
+    bool removeTeekkari();
+    bool hasTeekkari();
+
 private:
     QString name_;
     Kiosk *kiosk_;
+    Teekkari *teekkari_;
 };
 
 #endif // STOP_H

@@ -3,4 +3,5 @@ TEMPLATE = subdirs
 SUBDIRS += \
     BusLineHandlerTest \
     BusTest \
-    PlayerTest
+    PlayerTest \
+    StopTest
