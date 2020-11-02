@@ -29,6 +29,7 @@ private slots:
     void orderFood_PlayerAtKioskWithMaxAmountOfFoods_PlayerHasMaxAmountOfFoodsAndReturnsFalse();
 
     void deliverFood_PlayerHasNoFood_PlayersHasNoFoodAndReturnsFalse();
+    void deliverFood_PlayerHasFood_PlayersHasNoFoodAndReturnsTrue();
 
     void isFullOfFood_PlayerAtKioskWithMaxAmountOfFoods_PlayerIsFullOfFood();
     void isFullOfFood_PlayerAtKioskWithOneFood_PlayerIsNOTFullOfFood();
@@ -37,6 +38,7 @@ private slots:
     void Scenario_PlayerDropsFromTheBusAndSceneAdvances_PlayerStaysAtStop();
     void Scenario_PlayerOrdersFoodWithoutMoney_PlayerSignalsOutOfMoney();
     void Scenario_PlayerOrdersFood_PlayerSignalsPlayerOrderedFood();
+    void Scenario_PlayerDeliversFood_PlayerSignalsPlayerDeliveredFood();
 
 private:
     const int KIOSK_FOOD_PRICE_ = 10;
@@ -207,6 +209,17 @@ void PlayerTest::deliverFood_PlayerHasNoFood_PlayersHasNoFoodAndReturnsFalse()
     QCOMPARE(deliverFoodReturnValue, false);
 }
 
+void PlayerTest::deliverFood_PlayerHasFood_PlayersHasNoFoodAndReturnsTrue()
+{
+    player_->orderFood();
+
+    auto deliverFoodReturnValue = player_->deliverFood();
+    auto playerFoodsAmount = player_->getFoods().length();
+
+    QCOMPARE(playerFoodsAmount, 0);
+    QCOMPARE(deliverFoodReturnValue, true);
+}
+
 void PlayerTest::isFullOfFood_PlayerAtKioskWithMaxAmountOfFoods_PlayerIsFullOfFood()
 {
     player_->setPos(firstStop_->pos());
@@ -282,6 +295,17 @@ void PlayerTest::Scenario_PlayerOrdersFood_PlayerSignalsPlayerOrderedFood()
     QVERIFY(spy.isValid());
 
     player_->orderFood();
+
+    QCOMPARE(spy.count(), 1);
+}
+
+void PlayerTest::Scenario_PlayerDeliversFood_PlayerSignalsPlayerDeliveredFood()
+{
+    player_->orderFood();
+    QSignalSpy spy(player_, &Player::playerDeliveredFood);
+    QVERIFY(spy.isValid());
+
+    player_->deliverFood();
 
     QCOMPARE(spy.count(), 1);
 }

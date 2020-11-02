@@ -11,14 +11,13 @@ public:
     enum { Type = UserType + 4};
     int type() const override { return Type ; }
 
-    Kiosk(int foodPrice);
+    Kiosk(Food food);
 
     Food orderFood();
     int getFoodPrice();
 
 private:
     Food food_;
-    int foodPrice_;
 };
 
 #endif // KIOSK_H

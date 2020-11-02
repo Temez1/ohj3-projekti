@@ -104,13 +104,20 @@ bool Player::deliverFood()
         return false;
     }
 
+    auto food = foods_.takeFirst();
 
+    emit playerDeliveredFood();
     return true;
 }
 
 QList<Food> Player::getFoods()
 {
     return foods_;
+}
+
+Stop *Player::getCurrentStop()
+{
+    return currentStop_;
 }
 
 bool Player::isOnTheBus()
@@ -120,6 +127,9 @@ bool Player::isOnTheBus()
             throw std::logic_error("If player is not on the bus, player should be at stop!");
         }
         return false;
+    }
+    if ( currentStop_ != nullptr ){
+        throw std::logic_error("If player is on the bus, player should not be at stop!");
     }
     return true;
 }

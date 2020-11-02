@@ -8,12 +8,13 @@
 #include "gameObjects/graphical/Stop.h"
 #include "gameObjects/graphical/Kiosk.h"
 #include "gameObjects/graphical/Player.h"
+#include "gameObjects/graphical/Food.h"
 
 namespace initScene {
 
-GameObjects* populateMap(QGraphicsScene *scene){
+GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     // When using rand, use srand to change seed in each game
-    srand(time(0));
+    srand(seed);
 
     auto map = new QGraphicsSvgItem(":/map");
     scene->addItem(map);
@@ -23,8 +24,8 @@ GameObjects* populateMap(QGraphicsScene *scene){
     stopLocations_.insert({"hervanta", QPointF(900,700)});
     stopLocations_.insert({"lentavanniemi", QPointF(200,300)});
 
-    int kioskFoodPrice = 10;
-    auto kiosk = new Kiosk(kioskFoodPrice);
+    auto food = Food(FOOD_PRICE);
+    auto kiosk = new Kiosk(food);
 
     auto keskusta = new Stop(QString("keskusta"), stopLocations_.at("keskusta"));
     auto hervanta = new Stop(QString("hervanta"), stopLocations_.at("hervanta"));

@@ -31,6 +31,7 @@ private slots:
 
 private:
     QTimer *gameLoopTimer_;
+    unsigned int mapSeed_;
     GameObjects *gameObjects_;
 
     TeekkariHandler *teekkariHandler_;

@@ -24,7 +24,9 @@ public:
 
     bool orderFood();
     bool deliverFood();
+
     QList<Food> getFoods();
+    Stop* getCurrentStop();
 
     bool isOnTheBus();
     bool isFullOfFood();
@@ -32,6 +34,7 @@ public:
 signals:
     void playerOutOfMoney();
     void playerOrderedFood();
+    void playerDeliveredFood();
 
 private:
     QString name_;

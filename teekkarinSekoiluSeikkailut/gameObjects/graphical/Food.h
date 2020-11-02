@@ -5,7 +5,12 @@
 class Food
 {
 public:
-    Food();
+    Food(int price);
+
+    int getPrice();
+
+private:
+    int price_;
 };
 
 #endif // FOOD_H

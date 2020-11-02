@@ -18,8 +18,10 @@ Game::Game(QWidget *parent)
     gameLoopTimer_ = new QTimer(this);
     connect(gameLoopTimer_, &QTimer::timeout, scene, &QGraphicsScene::advance);
 
+    mapSeed_ = time(0);
+
     initUI();
-    gameObjects_ = initScene::populateMap(scene);
+    gameObjects_ = initScene::populateMap(scene, mapSeed_);
     start();
 }
 

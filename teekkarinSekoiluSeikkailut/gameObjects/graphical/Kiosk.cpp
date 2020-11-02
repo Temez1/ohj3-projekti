@@ -1,9 +1,8 @@
 #include "Kiosk.h"
 
-Kiosk::Kiosk(int foodPrice):
+Kiosk::Kiosk(Food food):
     QGraphicsSvgItem(":/placeholder"),
-    food_(Food()),
-    foodPrice_(foodPrice)
+    food_(food)
 {
 }
 
@@ -14,5 +13,5 @@ Food Kiosk::orderFood()
 
 int Kiosk::getFoodPrice()
 {
-    return foodPrice_;
+    return food_.getPrice();
 }
