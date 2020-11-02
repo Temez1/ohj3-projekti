@@ -8,10 +8,13 @@
 class GameObjects
 {
 public:
-    GameObjects(Player *player, std::vector<Stop *> stops, TeekkariHandler *teekkariHandler);
+    GameObjects(Player *player,
+                std::vector<std::shared_ptr<BusLineHandler>> buslines,
+                std::unique_ptr<TeekkariHandler> teekkariHandler);
+
     Player *player;
-    std::vector<Stop *> stops;
-    TeekkariHandler *teekkariHandler;
+    std::vector<std::shared_ptr<BusLineHandler>> buslines;
+    std::unique_ptr<TeekkariHandler> teekkariHandler;
 };
 
 #endif // SCENEDATA_H

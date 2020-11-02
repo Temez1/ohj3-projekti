@@ -19,13 +19,14 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     auto map = new QGraphicsSvgItem(":/map");
     scene->addItem(map);
 
+    auto food = Food(FOOD_PRICE);
+    auto kiosk = new Kiosk(food);
+
+    // BEGIN Best way to crete stops&buses would be one busline at time ?
     std::unordered_map<QString, QPointF> stopLocations_;
     stopLocations_.insert({"keskusta", QPointF(500,300)});
     stopLocations_.insert({"hervanta", QPointF(900,700)});
     stopLocations_.insert({"lentavanniemi", QPointF(200,300)});
-
-    auto food = Food(FOOD_PRICE);
-    auto kiosk = new Kiosk(food);
 
     auto keskusta = new Stop(QString("keskusta"), stopLocations_.at("keskusta"));
     auto hervanta = new Stop(QString("hervanta"), stopLocations_.at("hervanta"));
@@ -38,24 +39,24 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     scene->addItem(hervanta);
     scene->addItem(lentavanniemi);
 
-    // This will create a shared pointer that can be used in multiple busses using the same line
-    // Shared pointer gets deleted after last bus using the busline gets deleted
-    // i.e. If shared pointer is not used anymore
-    auto busline = std::make_shared<BusLineHandler>(BusLineHandler(QString("3"), stops));
-    auto bus3a = new Bus(QString("3a"), busline);
-    auto bus3b = new Bus(QString("3b"), busline, 2, 1);
-    auto bus3a_2 = new Bus(QString("3a"), busline, 2, 2, -1);
+    auto busLine3 = std::make_shared<BusLineHandler>(BusLineHandler(QString("3"), stops));
+    auto bus3a = new Bus(QString("3a"), busLine3);
+    auto bus3b = new Bus(QString("3b"), busLine3, 2, 1);
+    auto bus3a_2 = new Bus(QString("3a"), busLine3, 2, 2, -1);
 
     scene->addItem(bus3a);
     scene->addItem(bus3b);
     scene->addItem(bus3a_2);
 
-    auto teekkariHandler_ = new TeekkariHandler(scene, stops, INIT_TEEKKARI_AMOUNT, TEEKKARI_SPAWN_TIME_IN_SECONDS);
+    std::vector<std::shared_ptr<BusLineHandler>> buslines = { busLine3 };
+    // END Busline creation
+
+    auto teekkariHandler_ = std::make_unique<TeekkariHandler>(scene, buslines, INIT_TEEKKARI_AMOUNT, TEEKKARI_SPAWN_TIME_IN_SECONDS);
 
     auto player = new Player("Player name", scene, hervanta, PLAYER_STARTING_MONEY, PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY);
     scene->addItem(player);
 
-    return new GameObjects(player, stops, teekkariHandler_);
+    return new GameObjects(player, buslines, std::move(teekkariHandler_));
 }
 
 }

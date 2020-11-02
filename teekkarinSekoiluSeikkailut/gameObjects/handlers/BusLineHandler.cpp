@@ -53,6 +53,11 @@ Stop *BusLineHandler::getStop(int stopIndex)
     return stops_.at(stopIndex);
 }
 
+Stop *BusLineHandler::getRandomStop()
+{
+    return *std::next(std::begin(stops_), rand()%(stops_.size()));
+}
+
 void BusLineHandler::checkIsBusDirectionValid(int busDirection)
 {
     if ( not ( busDirection == BUS_DIRECTION_FROM_START_TO_END_ or

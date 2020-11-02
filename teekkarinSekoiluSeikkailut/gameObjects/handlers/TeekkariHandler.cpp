@@ -2,10 +2,12 @@
 
 #include <QDebug>
 
-TeekkariHandler::TeekkariHandler(QGraphicsScene *scene, std::vector<Stop *> stops, int initTeekkariAmount,
+TeekkariHandler::TeekkariHandler(QGraphicsScene *scene,
+                                 std::vector<std::shared_ptr<BusLineHandler>> buslines,
+                                 int initTeekkariAmount,
                                  int teekkariSpawnTimeInSeconds):
     scene_(scene),
-    stops_(stops),
+    buslines_(buslines),
     teekkariSpawnTimeInMilliseconds_(teekkariSpawnTimeInSeconds * 1000)
 {
     for (int i=0; i<initTeekkariAmount; i++) {
@@ -30,7 +32,8 @@ void TeekkariHandler::teekkariSpawnTimerOnTimeout()
 void TeekkariHandler::spawnTeekkari()
 {
     auto teekkari = new Teekkari();
-    auto randomStop = *std::next(std::begin(stops_), rand()%(stops_.size()));
+    auto randomBusline = *std::next(std::begin(buslines_), rand()%(buslines_.size()));
+    auto randomStop = randomBusline->getRandomStop();
     teekkari->setPos(randomStop->pos());
     qDebug() << "Spawned teekkari at" << randomStop->getName();
     scene_->addItem(teekkari);

@@ -5,12 +5,12 @@
 #include <QTimer>
 
 #include "gameObjects/graphical/Teekkari.h"
-#include "gameObjects/graphical/Stop.h"
+#include "gameObjects/handlers/BusLineHandler.h"
 
 class TeekkariHandler: public QObject
 { Q_OBJECT
 public:
-    TeekkariHandler(QGraphicsScene *scene, std::vector<Stop *> stops, int initTeekkariAmount,
+    TeekkariHandler(QGraphicsScene *scene, std::vector<std::shared_ptr<BusLineHandler>> buslines, int initTeekkariAmount,
                     int teekkariSpawnTimeInSeconds);
     ~TeekkariHandler();
 
@@ -19,7 +19,7 @@ private slots:
 
 private:
     QGraphicsScene *scene_;
-    std::vector<Stop *> stops_;
+    std::vector<std::shared_ptr<BusLineHandler>> buslines_;
     int teekkariSpawnTimeInMilliseconds_;
 
     QList<Teekkari *> teekkarit_;

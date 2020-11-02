@@ -1,8 +1,10 @@
 #include "gameObjects.h"
 
-GameObjects::GameObjects(Player *player, std::vector<Stop *> stops, TeekkariHandler *teekkariHandler):
+GameObjects::GameObjects(Player *player,
+                         std::vector<std::shared_ptr<BusLineHandler>> buslines,
+                         std::unique_ptr<TeekkariHandler> teekkariHandler):
     player(player),
-    stops(stops),
-    teekkariHandler(teekkariHandler)
+    buslines(buslines),
+    teekkariHandler(std::move(teekkariHandler))
 {
 }
