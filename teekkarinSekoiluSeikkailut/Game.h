@@ -27,7 +27,8 @@ protected:
 private slots:
     void start();
     void jumpAndDropBusButtonClicked();
-    void orderAndDeliverFoodButtonClicked();
+    void orderFoodButtonClicked();
+    void deliverFoodButtonClicked();
 
 private:
     QTimer *gameLoopTimer_;
@@ -38,13 +39,17 @@ private:
 
     // UI Stuff
     QPushButton *jumpAndDropBusButton;
-    QPushButton *orderAndDeliverFoodButton;
+    QPushButton *orderFoodButton;
+    QPushButton *deliverFoodButton;
 
     const int JUMP_AND_DROP_BUS_BUTTON_WIDTH_PADDING = 120;
     const int JUMP_AND_DROP_BUS_BUTTON_HEIGHT_PADDING = 50;
 
-    const int ORDER_AND_DELIVER_FOOD_BUTTON_WIDTH_PADDING = 240;
-    const int ORDER_AND_DELIVER_FOOD_BUTTON_HEIGHT_PADDING = 50;
+    const int ORDER_FOOD_BUTTON_WIDTH_PADDING = 240;
+    const int ORDER_FOOD_BUTTON_HEIGHT_PADDING = 50;
+
+    const int DELIVER_FOOD_BUTTON_WIDTH_PADDING = 360;
+    const int DELIVER_FOOD_BUTTON_HEIGHT_PADDING = 50;
 
     void initUI();
 

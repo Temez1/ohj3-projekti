@@ -27,9 +27,11 @@ public:
 
     QList<Food> getFoods();
     Stop* getCurrentStop();
+    int getWalletBalance();
 
     bool isOnTheBus();
     bool isFullOfFood();
+    bool isOutOfFood();
 
 signals:
     void playerOutOfMoney();

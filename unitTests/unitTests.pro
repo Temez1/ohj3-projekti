@@ -4,4 +4,5 @@ SUBDIRS += \
     BusLineHandlerTest \
     BusTest \
     PlayerTest \
-    StopTest
+    StopTest \
+    TeekkariHandlerTest

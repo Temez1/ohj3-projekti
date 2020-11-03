@@ -16,6 +16,11 @@ bool Wallet::pay(int amount)
     return true;
 }
 
+void Wallet::receive(unsigned int amount)
+{
+    balance_ += amount;
+}
+
 int Wallet::getBalance()
 {
     return balance_;

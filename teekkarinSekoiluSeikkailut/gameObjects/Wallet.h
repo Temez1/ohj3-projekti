@@ -8,6 +8,8 @@ public:
     Wallet(int StartingMoney);
 
     bool pay(int amount);
+    void receive(unsigned int amount);
+
     int getBalance();
 
 private:

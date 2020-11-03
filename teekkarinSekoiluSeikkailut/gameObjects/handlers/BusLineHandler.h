@@ -16,7 +16,7 @@ public:
     void addStop(Stop *stop);
     std::pair<int,int> getNextStopIndexAndNewDirection(int currentStopIndex, int busDirection);
     QPointF getStopPosition(int stopIndex);
-    Stop *getStop(int stopIndex);
+    Stop *getStopByIndex(int stopIndex);
     Stop *getRandomStop();
 
 private:

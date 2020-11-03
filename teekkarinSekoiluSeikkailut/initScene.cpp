@@ -13,6 +13,7 @@
 namespace initScene {
 
 GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
+    int totalAmountOfStops = 0;
     // When using rand, use srand to change seed in each game
     srand(seed);
 
@@ -49,9 +50,22 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     scene->addItem(bus3a_2);
 
     std::vector<std::shared_ptr<BusLineHandler>> buslines = { busLine3 };
+
+    totalAmountOfStops += stops.size();
     // END Busline creation
 
-    auto teekkariHandler_ = std::make_unique<TeekkariHandler>(scene, buslines, INIT_TEEKKARI_AMOUNT, TEEKKARI_SPAWN_TIME_IN_SECONDS);
+    if ( MAX_AMOUNT_OF_TEEKKARIT_IN_THE_MAP > totalAmountOfStops ){
+        throw std::logic_error("Game can't have more teekkarit than stops!");
+    }
+
+    if ( INIT_TEEKKARI_AMOUNT > MAX_AMOUNT_OF_TEEKKARIT_IN_THE_MAP){
+        throw std::logic_error("Init teekkarit amount can't be more than MAX_AMOUNT_OF_TEEKKARIT_IN_THE_MAP");
+    }
+
+    auto teekkariHandler_ = std::make_unique<TeekkariHandler>(scene, buslines,
+                                                              INIT_TEEKKARI_AMOUNT,
+                                                              TEEKKARI_SPAWN_TIME_IN_SECONDS,
+                                                              MAX_AMOUNT_OF_TEEKKARIT_IN_THE_MAP);
 
     auto player = new Player("Player name", scene, hervanta, PLAYER_STARTING_MONEY, PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY);
     scene->addItem(player);

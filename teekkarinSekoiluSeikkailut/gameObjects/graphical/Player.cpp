@@ -89,14 +89,16 @@ bool Player::orderFood()
     }
 
     auto food = kiosk->orderFood();
-    emit playerOrderedFood();
     foods_.append(food);
+    qDebug() << "Player ordered food";
+    qDebug() << "Balance" << getWalletBalance();
+    emit playerOrderedFood();
     return true;
 }
 
 bool Player::deliverFood()
 {
-    if ( foods_.empty() ){
+    if ( isOutOfFood() ){
         return false;
     }
 
@@ -105,6 +107,15 @@ bool Player::deliverFood()
     }
 
     auto food = foods_.takeFirst();
+
+    if ( currentStop_->hasTeekkari() ){
+        auto teekkari = currentStop_->getTeekkari();
+        auto money = teekkari->receiveFood(food);
+        wallet_.receive(money);
+
+        qDebug() << "Player delivered food to teekkari";
+        qDebug() << "Balance" << getWalletBalance();
+    }
 
     emit playerDeliveredFood();
     return true;
@@ -118,6 +129,11 @@ QList<Food> Player::getFoods()
 Stop *Player::getCurrentStop()
 {
     return currentStop_;
+}
+
+int Player::getWalletBalance()
+{
+    return wallet_.getBalance();
 }
 
 bool Player::isOnTheBus()
@@ -137,7 +153,19 @@ bool Player::isOnTheBus()
 bool Player::isFullOfFood()
 {
     if ( foods_.length() == FOOD_MAX_AMOUNT ){
+        qDebug() << "Player is full of food";
         return true;
     }
+    qDebug() << "Player is not full of food. Player has" << foods_.length() << "food(s)";
+    return false;
+}
+
+bool Player::isOutOfFood()
+{
+    if ( foods_.empty() ){
+        qDebug() << "Player is out of food";
+        return true;
+    }
+    qDebug() << "Player is not out of food";
     return false;
 }

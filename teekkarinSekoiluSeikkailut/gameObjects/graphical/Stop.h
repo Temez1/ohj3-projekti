@@ -14,11 +14,13 @@ public:
     enum { Type = UserType + 3};
     int type() const override { return Type; }
 
-    QString getName();
-    Kiosk *getKiosk();
-
     bool addTeekkari(Teekkari *teekkari);
     bool removeTeekkari();
+
+    QString getName();
+    Kiosk *getKiosk();
+    Teekkari *getTeekkari();
+
     bool hasTeekkari();
 
 private:

@@ -47,7 +47,7 @@ QPointF BusLineHandler::getStopPosition(int stopIndex)
     return stops_.at(stopIndex)->pos();
 }
 
-Stop *BusLineHandler::getStop(int stopIndex)
+Stop *BusLineHandler::getStopByIndex(int stopIndex)
 {
     checkIsStopIndexValid(stopIndex);
     return stops_.at(stopIndex);

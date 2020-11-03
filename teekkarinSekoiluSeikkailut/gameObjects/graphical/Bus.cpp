@@ -9,7 +9,7 @@ Bus::Bus(QString name, std::shared_ptr<BusLineHandler> busLineHandler,
     speed_(speedPixelsPerFrame),
     busStopWaitTimeMilliseconds_(busStopWaitTimeInMilliseconds)
 {
-    currentStop_ = busLineHandler_->getStop(startingStop);
+    currentStop_ = busLineHandler_->getStopByIndex(startingStop);
     std::tie(nextStopIndex_, busLineDirection_) = busLineHandler_->getNextStopIndexAndNewDirection(startingStop, busLineDirection);
     velocity_ = QVector2D(0,0);
     busWaitTimer_ = new QTimer(this);
@@ -57,7 +57,7 @@ void Bus::advance(int phase)
     }
 
     if ( QVector2D(busLineHandler_->getStopPosition(nextStopIndex_) - this->pos()).length() < speed_ ){
-        currentStop_ = busLineHandler_->getStop(nextStopIndex_);
+        currentStop_ = busLineHandler_->getStopByIndex(nextStopIndex_);
         std::tie(nextStopIndex_, busLineDirection_) = busLineHandler_->getNextStopIndexAndNewDirection(nextStopIndex_, busLineDirection_);
         isWaitingAtStop_ = true;
         busWaitTimer_->start(busStopWaitTimeMilliseconds_);

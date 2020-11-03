@@ -39,6 +39,7 @@ private slots:
     void Scenario_PlayerOrdersFoodWithoutMoney_PlayerSignalsOutOfMoney();
     void Scenario_PlayerOrdersFood_PlayerSignalsPlayerOrderedFood();
     void Scenario_PlayerDeliversFood_PlayerSignalsPlayerDeliveredFood();
+    void Scenario_PlayerDeliversFood_PlayerReceivesMoney();
 
 private:
     const int KIOSK_FOOD_PRICE_ = 10;
@@ -75,7 +76,6 @@ void PlayerTest::init()
     firstStop_ = new Stop(QString("testStop1"), QPointF(100,100), kiosk_);
     kiosk_->setParentItem(firstStop_);
     secondStop_ = new Stop(QString("testStop2"), QPointF(200,100));
-
 
     busline_ = std::make_shared<BusLineHandler>(BusLineHandler("Test busline", {firstStop_, secondStop_}));
     bus_ = new Bus("Test Bus", busline_);
@@ -308,6 +308,18 @@ void PlayerTest::Scenario_PlayerDeliversFood_PlayerSignalsPlayerDeliveredFood()
     player_->deliverFood();
 
     QCOMPARE(spy.count(), 1);
+}
+
+void PlayerTest::Scenario_PlayerDeliversFood_PlayerReceivesMoney()
+{
+    firstStop_->addTeekkari(new Teekkari());
+    player_->orderFood();
+
+    auto playerBalanceBeforeDelivery = player_->getWalletBalance();
+    player_->deliverFood();
+    auto playerBalanceAfterDelivery = player_->getWalletBalance();
+
+    QCOMPARE(playerBalanceAfterDelivery > playerBalanceBeforeDelivery, true);
 }
 
 

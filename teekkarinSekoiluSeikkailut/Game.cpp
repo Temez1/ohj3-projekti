@@ -30,8 +30,11 @@ void Game::initUI()
     jumpAndDropBusButton = new QPushButton("Jump to bus!", this);
     connect(jumpAndDropBusButton, &QPushButton::clicked, this, &Game::jumpAndDropBusButtonClicked);
 
-    orderAndDeliverFoodButton = new QPushButton("Order food", this);
-    connect(orderAndDeliverFoodButton, &QPushButton::clicked, this, &Game::orderAndDeliverFoodButtonClicked);
+    orderFoodButton = new QPushButton("Order food", this);
+    connect(orderFoodButton, &QPushButton::clicked, this, &Game::orderFoodButtonClicked);
+
+    deliverFoodButton = new QPushButton("Deliver food", this);
+    connect(deliverFoodButton, &QPushButton::clicked, this, &Game::deliverFoodButtonClicked);
 }
 
 void Game::start()
@@ -52,13 +55,14 @@ void Game::jumpAndDropBusButtonClicked()
     }
 }
 
-void Game::orderAndDeliverFoodButtonClicked()
+void Game::orderFoodButtonClicked()
 {
-    if ( gameObjects_->player->orderFood() ){
-        if ( gameObjects_->player->isFullOfFood() ){
-            orderAndDeliverFoodButton->setText("Deliver food!");
-        }
-    }
+    gameObjects_->player->orderFood();
+}
+
+void Game::deliverFoodButtonClicked()
+{
+    gameObjects_->player->deliverFood();
 }
 
 void Game::resizeEvent(QResizeEvent *event)
@@ -79,8 +83,13 @@ void Game::resizeButtons()
                                       jumpAndDropBusButton->width(),
                                       jumpAndDropBusButton->height());
 
-    orderAndDeliverFoodButton->setGeometry(width() - ORDER_AND_DELIVER_FOOD_BUTTON_WIDTH_PADDING,
-                                           height() - ORDER_AND_DELIVER_FOOD_BUTTON_HEIGHT_PADDING,
-                                           orderAndDeliverFoodButton->width(),
-                                           orderAndDeliverFoodButton->height());
+    orderFoodButton->setGeometry(width() - ORDER_FOOD_BUTTON_WIDTH_PADDING,
+                                           height() - ORDER_FOOD_BUTTON_HEIGHT_PADDING,
+                                           orderFoodButton->width(),
+                                           orderFoodButton->height());
+
+    deliverFoodButton->setGeometry(width() - DELIVER_FOOD_BUTTON_WIDTH_PADDING,
+                                           height() - DELIVER_FOOD_BUTTON_HEIGHT_PADDING,
+                                           orderFoodButton->width(),
+                                           orderFoodButton->height());
 }

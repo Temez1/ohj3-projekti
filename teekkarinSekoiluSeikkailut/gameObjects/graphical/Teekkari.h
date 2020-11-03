@@ -6,11 +6,14 @@
 #include "Food.h"
 
 class Teekkari : public QGraphicsSvgItem
-{
+{ Q_OBJECT
 public:
     Teekkari();
 
-    int receiveFood(Food food);
+    unsigned int receiveFood(Food food);
+
+signals:
+    void teekkariReceivedFood(Teekkari *sender);
 };
 
 #endif // TEEKKARI_H
