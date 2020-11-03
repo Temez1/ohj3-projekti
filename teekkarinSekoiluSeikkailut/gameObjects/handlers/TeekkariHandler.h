@@ -10,7 +10,7 @@
 class TeekkariHandler: public QObject
 { Q_OBJECT
 public:
-    TeekkariHandler(QGraphicsScene *scene, std::vector<std::shared_ptr<BusLineHandler>> buslines, int initTeekkariAmount,
+    TeekkariHandler(QGraphicsScene *scene, std::shared_ptr<BusLineHandler> busLineHandler, int initTeekkariAmount,
                     int teekkariSpawnTimeInSeconds, int maxAmountOfTeekkarit);
     ~TeekkariHandler();
 
@@ -20,21 +20,18 @@ public:
 
 private slots:
     void teekkariSpawnTimerOnTimeout();
-    void teekkariReceivedFood(Teekkari *teekkari);
+    void teekkariReceivedFood(Stop *teekkariStop);
 
 private:
     QGraphicsScene *scene_;
-    std::vector<std::shared_ptr<BusLineHandler>> buslines_;
-
+    std::shared_ptr<BusLineHandler> busLineHandler_;
     QTimer *teekkariSpawnTimer_;
     int teekkariSpawnTimeInMilliseconds_;
 
     int teekkaritAmount_;
 
     void spawnTeekkari();
-    void destroyTeekkari(Teekkari *teekkari);
-
-    std::shared_ptr<BusLineHandler> getRandomBusLine();
+    void destroyTeekkari();
 };
 
 #endif // TEEKKARIHANDLER_H

@@ -2,6 +2,7 @@
 
 #include <unordered_map>
 
+#include "gameObjects/BusLine.h"
 #include "gameObjects/handlers/TeekkariHandler.h"
 #include "gameObjects/handlers/BusLineHandler.h"
 #include "gameObjects/graphical/Bus.h"
@@ -40,7 +41,7 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     scene->addItem(hervanta);
     scene->addItem(lentavanniemi);
 
-    auto busLine3 = std::make_shared<BusLineHandler>(BusLineHandler(QString("3"), stops));
+    auto busLine3 = std::make_shared<BusLine>(BusLine(QString("3"), stops));
     auto bus3a = new Bus(QString("3a"), busLine3);
     auto bus3b = new Bus(QString("3b"), busLine3, 2, 1);
     auto bus3a_2 = new Bus(QString("3a"), busLine3, 2, 2, -1);
@@ -49,7 +50,9 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     scene->addItem(bus3b);
     scene->addItem(bus3a_2);
 
-    std::vector<std::shared_ptr<BusLineHandler>> buslines = { busLine3 };
+    std::vector<std::shared_ptr<BusLine>> buslines = { busLine3 };
+
+    auto busLineHandler = std::make_shared<BusLineHandler>(buslines);
 
     totalAmountOfStops += stops.size();
     // END Busline creation
@@ -62,7 +65,7 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
         throw std::logic_error("Init teekkarit amount can't be more than MAX_AMOUNT_OF_TEEKKARIT_IN_THE_MAP");
     }
 
-    auto teekkariHandler_ = std::make_unique<TeekkariHandler>(scene, buslines,
+    auto teekkariHandler_ = std::make_shared<TeekkariHandler>(scene, busLineHandler,
                                                               INIT_TEEKKARI_AMOUNT,
                                                               TEEKKARI_SPAWN_TIME_IN_SECONDS,
                                                               MAX_AMOUNT_OF_TEEKKARIT_IN_THE_MAP);
@@ -70,7 +73,7 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     auto player = new Player("Player name", scene, hervanta, PLAYER_STARTING_MONEY, PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY);
     scene->addItem(player);
 
-    return new GameObjects(player, buslines, std::move(teekkariHandler_));
+    return new GameObjects(player, busLineHandler, teekkariHandler_);
 }
 
 }

@@ -2,13 +2,13 @@
 #include <QDebug>
 
 TeekkariHandler::TeekkariHandler(QGraphicsScene *scene,
-                                 std::vector<std::shared_ptr<BusLineHandler>> buslines,
+                                 std::shared_ptr<BusLineHandler> busLineHandler,
                                  int initTeekkariAmount,
                                  int teekkariSpawnTimeInSeconds,
                                  int maxAmountOfTeekkarit):
     MAX_AMOUNT_OF_TEEKKARIT(maxAmountOfTeekkarit),
     scene_(scene),
-    buslines_(buslines),
+    busLineHandler_(busLineHandler),
     teekkariSpawnTimeInMilliseconds_(teekkariSpawnTimeInSeconds * 1000),
     teekkaritAmount_(0)
 {
@@ -36,9 +36,9 @@ void TeekkariHandler::teekkariSpawnTimerOnTimeout()
     spawnTeekkari();
 }
 
-void TeekkariHandler::teekkariReceivedFood(Teekkari *teekkari)
+void TeekkariHandler::teekkariReceivedFood(Stop *teekkariStop)
 {
-    destroyTeekkari(teekkari);
+    destroyTeekkari(teekkariStop);
 }
 
 void TeekkariHandler::spawnTeekkari()
@@ -47,17 +47,17 @@ void TeekkariHandler::spawnTeekkari()
         return;
     }
 
-    auto teekkari = new Teekkari();
-    connect(teekkari, &Teekkari::teekkariReceivedFood, this, &TeekkariHandler::teekkariReceivedFood);
-
-    auto randomBusLine = getRandomBusLine();
+    auto randomBusLine = busLineHandler_->getRandomBusLine();
     auto randomStop = randomBusLine->getRandomStop();
 
-    while ( randomStop->addTeekkari(teekkari) == false ) {
+    while ( randomStop->hasTeekkari() ) {
         qDebug() << randomStop->getName() << "has teekkari already, trying to find stop without teekkari.";
-        randomBusLine = getRandomBusLine();
+        randomBusLine = busLineHandler_->getRandomBusLine();
         randomStop = randomBusLine->getRandomStop();
     }
+
+    auto teekkari = new Teekkari(randomStop);
+    randomStop->addTeekkari(teekkari);
 
     teekkari->setParentItem(randomStop);
     teekkaritAmount_ += 1;
@@ -65,16 +65,11 @@ void TeekkariHandler::spawnTeekkari()
     qDebug() << "Amount of teekkarit now" << teekkaritAmount_;
 }
 
-void TeekkariHandler::destroyTeekkari(Teekkari *teekkari)
+void TeekkariHandler::destroyTeekkari(Stop *teekkariStop)
 {
-    qDebug() << teekkari->parentItem()->type();
+
     scene_->removeItem(teekkari);
     teekkaritAmount_ -= 1;
     qDebug() << "Amount of teekkarit now" << teekkaritAmount_;
     delete teekkari;
-}
-
-std::shared_ptr<BusLineHandler> TeekkariHandler::getRandomBusLine()
-{
-    return *std::next(std::begin(buslines_), rand()%(buslines_.size()));
 }

@@ -3,17 +3,21 @@
 
 #include <QGraphicsSvgItem>
 
+#include "Stop.h"
 #include "Food.h"
 
 class Teekkari : public QGraphicsSvgItem
 { Q_OBJECT
 public:
-    Teekkari();
+    Teekkari(Stop *stop);
 
     unsigned int receiveFood(Food food);
 
+private:
+    Stop *currentStop_;
+
 signals:
-    void teekkariReceivedFood(Teekkari *sender);
+    void teekkariReceivedFood(Stop *currentStop);
 };
 
 #endif // TEEKKARI_H

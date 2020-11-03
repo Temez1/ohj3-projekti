@@ -26,8 +26,8 @@ private:
     QGraphicsScene *scene_;
     Stop *firstStop_;
     Stop *secondStop_;
-    std::shared_ptr<BusLineHandler> busline_;
-    std::vector<std::shared_ptr<BusLineHandler>> buslines_;
+    std::shared_ptr<BusLine> busline_;
+    std::vector<std::shared_ptr<BusLine>> buslines_;
     TeekkariHandler *teekkariHandler_;
 };
 
@@ -35,7 +35,7 @@ TeekkariHandlerTest::TeekkariHandlerTest():
     scene_(new QGraphicsScene()),
     firstStop_(new Stop(QString("testStop1"), QPointF(100,100))),
     secondStop_(new Stop(QString("testStop2"), QPointF(200,100))),
-    busline_(std::make_shared<BusLineHandler>(BusLineHandler(QString("3"), {firstStop_, secondStop_}))),
+    busline_(std::make_shared<BusLine>(BusLine(QString("3"), {firstStop_, secondStop_}))),
     buslines_({busline_}),
     teekkariHandler_(new TeekkariHandler(scene_, buslines_, INIT_TEEKKARI_AMOUNT,
                                          TEEKKARI_SPAWN_TIME_IN_SECONDS, MAX_AMOUNT_OF_TEEKKARIT_IN_THE_MAP))
@@ -49,7 +49,7 @@ void TeekkariHandlerTest::init()
     scene_ = new QGraphicsScene();
     firstStop_ = new Stop(QString("testStop1"), QPointF(100,100));
     secondStop_ = new Stop(QString("testStop2"), QPointF(200,100));
-    busline_ = std::make_shared<BusLineHandler>(BusLineHandler(QString("3"), {firstStop_, secondStop_}));
+    busline_ = std::make_shared<BusLine>(BusLine(QString("3"), {firstStop_, secondStop_}));
     buslines_ = {busline_};
     teekkariHandler_ = new TeekkariHandler(scene_, buslines_, INIT_TEEKKARI_AMOUNT,
                                            TEEKKARI_SPAWN_TIME_IN_SECONDS, MAX_AMOUNT_OF_TEEKKARIT_IN_THE_MAP);

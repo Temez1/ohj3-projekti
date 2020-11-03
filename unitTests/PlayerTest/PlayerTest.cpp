@@ -49,7 +49,7 @@ private:
     QGraphicsScene *scene_;
     Stop *firstStop_;
     Stop *secondStop_;
-    std::shared_ptr<BusLineHandler> busline_;
+    std::shared_ptr<BusLine> busline_;
     Bus *bus_;
     const float BUS_DEFAULT_SPEED_;
     Kiosk *kiosk_;
@@ -60,7 +60,7 @@ PlayerTest::PlayerTest():
     scene_(new QGraphicsScene()),
     firstStop_(new Stop(QString("testStop1"), QPointF(100,100))),
     secondStop_(new Stop(QString("testStop2"), QPointF(200,100))),
-    busline_(std::make_shared<BusLineHandler>(BusLineHandler("Test busline", {firstStop_, secondStop_}))),
+    busline_(std::make_shared<BusLine>(BusLine("Test busline", {firstStop_, secondStop_}))),
     bus_(new Bus("Test Bus", busline_)),
     BUS_DEFAULT_SPEED_(bus_->getSpeedPixelsPerFrame()),
     kiosk_(new Kiosk(KIOSK_FOOD_PRICE_)),
@@ -77,7 +77,7 @@ void PlayerTest::init()
     kiosk_->setParentItem(firstStop_);
     secondStop_ = new Stop(QString("testStop2"), QPointF(200,100));
 
-    busline_ = std::make_shared<BusLineHandler>(BusLineHandler("Test busline", {firstStop_, secondStop_}));
+    busline_ = std::make_shared<BusLine>(BusLine("Test busline", {firstStop_, secondStop_}));
     bus_ = new Bus("Test Bus", busline_);
 
     scene_ = new QGraphicsScene();

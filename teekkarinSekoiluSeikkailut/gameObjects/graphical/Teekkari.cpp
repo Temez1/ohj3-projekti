@@ -1,7 +1,8 @@
 #include "Teekkari.h"
 
-Teekkari::Teekkari():
-    QGraphicsSvgItem(":/placeholder")
+Teekkari::Teekkari(Stop *stop):
+    QGraphicsSvgItem(":/placeholder"),
+    currentStop_(stop)
 {
 
 }
@@ -9,6 +10,6 @@ Teekkari::Teekkari():
 unsigned int Teekkari::receiveFood(Food food)
 {
     // TODO Return money accordingly to the warmth of the food
-    emit teekkariReceivedFood(this);
+    emit teekkariReceivedFood(currentStop_);
     return 15;
 }
