@@ -7,6 +7,8 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES +=  \
+    ../../teekkarinSekoiluSeikkailut/gameObjects/BusLine.cpp \
+    ../../teekkarinSekoiluSeikkailut/gameObjects/graphical/Bus.cpp \
     ../../teekkarinSekoiluSeikkailut/gameObjects/graphical/Food.cpp \
     ../../teekkarinSekoiluSeikkailut/gameObjects/graphical/Stop.cpp \
     ../../teekkarinSekoiluSeikkailut/gameObjects/graphical/Teekkari.cpp \
@@ -18,6 +20,8 @@ RESOURCES += \
     ../../teekkarinSekoiluSeikkailut/gameObjects/graphical/assets/assets.qrc
 
 HEADERS += \
+    ../../teekkarinSekoiluSeikkailut/gameObjects/BusLine.h \
+    ../../teekkarinSekoiluSeikkailut/gameObjects/graphical/Bus.h \
     ../../teekkarinSekoiluSeikkailut/gameObjects/graphical/Food.h \
     ../../teekkarinSekoiluSeikkailut/gameObjects/graphical/Stop.h \
     ../../teekkarinSekoiluSeikkailut/gameObjects/graphical/Teekkari.h \

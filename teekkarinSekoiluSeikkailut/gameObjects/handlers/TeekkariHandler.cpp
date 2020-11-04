@@ -9,8 +9,7 @@ TeekkariHandler::TeekkariHandler(QGraphicsScene *scene,
     MAX_AMOUNT_OF_TEEKKARIT(maxAmountOfTeekkarit),
     scene_(scene),
     busLineHandler_(busLineHandler),
-    teekkariSpawnTimeInMilliseconds_(teekkariSpawnTimeInSeconds * 1000),
-    teekkaritAmount_(0)
+    teekkariSpawnTimeInMilliseconds_(teekkariSpawnTimeInSeconds * 1000)
 {
     for (int i=0; i<initTeekkariAmount; i++) {
         spawnTeekkari();
@@ -28,7 +27,7 @@ TeekkariHandler::~TeekkariHandler()
 
 int TeekkariHandler::getTeekkaritAmount()
 {
-    return teekkaritAmount_;
+    return teekkariStop.size();
 }
 
 void TeekkariHandler::teekkariSpawnTimerOnTimeout()
@@ -36,17 +35,32 @@ void TeekkariHandler::teekkariSpawnTimerOnTimeout()
     spawnTeekkari();
 }
 
-void TeekkariHandler::teekkariReceivedFood(Stop *teekkariStop)
+void TeekkariHandler::teekkariReceivedFood(Teekkari *teekkari)
 {
-    destroyTeekkari(teekkariStop);
+    destroyTeekkari(teekkari);
 }
 
 void TeekkariHandler::spawnTeekkari()
 {
-    if ( teekkaritAmount_ == MAX_AMOUNT_OF_TEEKKARIT ){
+    if ( getTeekkaritAmount() == MAX_AMOUNT_OF_TEEKKARIT ){
         return;
     }
 
+    auto randomStop = findRandomStopWithoutTeekkari();
+
+    auto teekkari = new Teekkari();
+    connect(teekkari, &Teekkari::teekkariReceivedFood, this, &TeekkariHandler::teekkariReceivedFood);
+
+    randomStop->addTeekkari(teekkari);
+    teekkariStop.insert({teekkari, randomStop});
+    teekkari->setParentItem(randomStop);
+
+    qDebug() << "Spawned teekkari at" << randomStop->getName();
+    qDebug() << "Amount of teekkarit now" << getTeekkaritAmount();
+}
+
+Stop *TeekkariHandler::findRandomStopWithoutTeekkari()
+{
     auto randomBusLine = busLineHandler_->getRandomBusLine();
     auto randomStop = randomBusLine->getRandomStop();
 
@@ -56,20 +70,18 @@ void TeekkariHandler::spawnTeekkari()
         randomStop = randomBusLine->getRandomStop();
     }
 
-    auto teekkari = new Teekkari(randomStop);
-    randomStop->addTeekkari(teekkari);
-
-    teekkari->setParentItem(randomStop);
-    teekkaritAmount_ += 1;
-    qDebug() << "Spawned teekkari at" << randomStop->getName();
-    qDebug() << "Amount of teekkarit now" << teekkaritAmount_;
+    return randomStop;
 }
 
-void TeekkariHandler::destroyTeekkari(Stop *teekkariStop)
+void TeekkariHandler::destroyTeekkari(Teekkari *teekkari)
 {
+    auto stop = teekkariStop.at(teekkari);
 
+    stop->removeTeekkari();
+    teekkariStop.erase(teekkari);
     scene_->removeItem(teekkari);
-    teekkaritAmount_ -= 1;
-    qDebug() << "Amount of teekkarit now" << teekkaritAmount_;
+
     delete teekkari;
+
+    qDebug() << "Amount of teekkarit now" << getTeekkaritAmount();
 }

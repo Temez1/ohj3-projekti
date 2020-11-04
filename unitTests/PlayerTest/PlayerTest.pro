@@ -8,6 +8,7 @@ TEMPLATE = app
 
 SOURCES +=  \
     ../../teekkarinSekoiluSeikkailut/gameObjects/Wallet.cpp \
+    ../../teekkarinSekoiluSeikkailut/gameObjects/BusLine.cpp \
     ../../teekkarinSekoiluSeikkailut/gameObjects/graphical/Bus.cpp \
     ../../teekkarinSekoiluSeikkailut/gameObjects/graphical/Food.cpp \
     ../../teekkarinSekoiluSeikkailut/gameObjects/graphical/Kiosk.cpp \
@@ -23,6 +24,7 @@ RESOURCES += \
 
 HEADERS += \
     ../../teekkarinSekoiluSeikkailut/gameObjects/Wallet.h \
+    ../../teekkarinSekoiluSeikkailut/gameObjects/BusLine.h \
     ../../teekkarinSekoiluSeikkailut/gameObjects/graphical/Bus.h \
     ../../teekkarinSekoiluSeikkailut/gameObjects/graphical/Food.h \
     ../../teekkarinSekoiluSeikkailut/gameObjects/graphical/Kiosk.h \

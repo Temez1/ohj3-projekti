@@ -15,7 +15,6 @@ namespace initScene {
     const int INIT_TEEKKARI_AMOUNT = 2;
     const int TEEKKARI_SPAWN_TIME_IN_SECONDS = 20;
 
-
     const int FOOD_PRICE = 10;
 }
 

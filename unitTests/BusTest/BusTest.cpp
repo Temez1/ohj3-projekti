@@ -4,7 +4,7 @@
 
 #include "gameObjects/graphical/Bus.h"
 #include "gameObjects/graphical/Stop.h"
-#include "gameObjects/handlers/BusLine.h"
+#include "gameObjects/BusLine.h"
 
 class BusTest : public QObject
 {

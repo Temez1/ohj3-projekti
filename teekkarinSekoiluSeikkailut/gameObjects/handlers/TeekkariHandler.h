@@ -1,6 +1,8 @@
 #ifndef TEEKKARIHANDLER_H
 #define TEEKKARIHANDLER_H
 
+#include <unordered_map>
+
 #include <QGraphicsScene>
 #include <QTimer>
 
@@ -20,7 +22,7 @@ public:
 
 private slots:
     void teekkariSpawnTimerOnTimeout();
-    void teekkariReceivedFood(Stop *teekkariStop);
+    void teekkariReceivedFood(Teekkari *teekkari);
 
 private:
     QGraphicsScene *scene_;
@@ -29,9 +31,11 @@ private:
     int teekkariSpawnTimeInMilliseconds_;
 
     int teekkaritAmount_;
+    std::unordered_map<Teekkari *, Stop*> teekkariStop;
 
     void spawnTeekkari();
-    void destroyTeekkari();
+    void destroyTeekkari(Teekkari *teekkari);
+    Stop *findRandomStopWithoutTeekkari();
 };
 
 #endif // TEEKKARIHANDLER_H
