@@ -1,8 +1,9 @@
 #ifndef WALLET_H
 #define WALLET_H
 
+#include <QObject>
 
-class Wallet
+class Wallet: public QObject
 {
 public:
     Wallet(int StartingMoney);
@@ -11,6 +12,9 @@ public:
     void receive(unsigned int amount);
 
     int getBalance();
+
+signals:
+    void balanceChanged(int balance);
 
 private:
     int balance_;
