@@ -4,5 +4,17 @@
         <file alias="placeholder">placeholder.svg</file>
         <file alias="player">player.svg</file>
         <file alias="stopSign">stopSign.svg</file>
+        <file alias="bus1_E">bussi1_itaan.svg</file>
+        <file alias="bus1_W">bussi1_lanteen.svg</file>
+        <file alias="bus3_E">bussi3_itaan.svg</file>
+        <file alias="bus3_W">bussi3_lanteen.svg</file>
+        <file alias="bus4_E">bussi4_itaan.svg</file>
+        <file alias="bus4_W">bussi4_lanteen.svg</file>
+        <file alias="bus8_E">bussi8_itaan.svg</file>
+        <file alias="bus8_W">bussi8_lanteen.svg</file>
+        <file>pelaaja.svg</file>
+        <file alias="teekkari">teekkari.svg</file>
+        <file alias="vNakki">vaakonNakki.svg</file>
+        <file alias="tyhja">tyhjaLautanen.svg</file>
     </qresource>
 </RCC>
