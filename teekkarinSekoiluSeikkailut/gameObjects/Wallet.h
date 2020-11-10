@@ -4,7 +4,7 @@
 #include <QObject>
 
 class Wallet: public QObject
-{
+{ Q_OBJECT
 public:
     Wallet(int StartingMoney);
 

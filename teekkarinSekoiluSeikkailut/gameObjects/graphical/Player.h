@@ -44,7 +44,7 @@ private:
     Stop* currentStop_;
     Bus* currentBus_;
     QList<Food> foods_;
-    Wallet wallet_;
+    Wallet *wallet_;
 
     Bus* searchBusFromSceneAtCurrentPosition();
 };

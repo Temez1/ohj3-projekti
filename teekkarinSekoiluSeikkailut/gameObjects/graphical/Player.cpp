@@ -11,7 +11,7 @@ Player::Player(QString name, QGraphicsScene *scene, Stop* startingStop, int star
     currentStop_(startingStop),
     currentBus_(nullptr),
     foods_(QList<Food>()),
-    wallet_(Wallet(startingMoney))
+    wallet_(new Wallet(startingMoney))
 {
     setPos(startingStop->pos());
 }
@@ -83,7 +83,7 @@ bool Player::orderFood()
         return false;
     }
 
-    if ( not wallet_.pay(kiosk->getFoodPrice())){
+    if ( not wallet_->pay(kiosk->getFoodPrice())){
         emit playerOutOfMoney();
         return false;
     }
@@ -111,7 +111,7 @@ bool Player::deliverFood()
     if ( currentStop_->hasTeekkari() ){
         auto teekkari = currentStop_->getTeekkari();
         auto money = teekkari->receiveFood(food);
-        wallet_.receive(money);
+        wallet_->receive(money);
 
         qDebug() << "Player delivered food to teekkari";
         qDebug() << "Balance" << getWalletBalance();
@@ -133,7 +133,7 @@ Stop *Player::getCurrentStop()
 
 int Player::getWalletBalance()
 {
-    return wallet_.getBalance();
+    return wallet_->getBalance();
 }
 
 bool Player::isOnTheBus()
