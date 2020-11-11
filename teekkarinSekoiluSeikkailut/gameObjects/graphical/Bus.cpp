@@ -3,7 +3,7 @@
 
 Bus::Bus(QString name, std::shared_ptr<BusLine> busLine,
          float speedPixelsPerFrame, int startingStop, int busLineDirection, int busStopWaitTimeInMilliseconds) :
-    QGraphicsSvgItem(":/testiBussi"),
+    QGraphicsSvgItem(":/stackBus"),
     name_(name),
     busLine_(busLine),
     speed_(speedPixelsPerFrame),
@@ -76,12 +76,12 @@ void Bus::updateVelocity()
 void Bus::updateGraphics()
 {
     if (velocity_.x() >= 0){
-        setElementId("itaan");
+        setElementId("bus1_E");
         return;
     }
 
     if (velocity_.x() < 0){
-        setElementId("lanteen");
+        setElementId("bus1_W");
         return;
     }
 }
