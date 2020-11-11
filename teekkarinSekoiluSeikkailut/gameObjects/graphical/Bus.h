@@ -1,7 +1,7 @@
 #ifndef BUS_H
 #define BUS_H
 
-#include <QGraphicsRectItem>
+#include <QGraphicsSvgItem>
 #include <QString>
 #include <QVector2D>
 #include <QTimer>
@@ -9,7 +9,7 @@
 #include "gameObjects/BusLine.h"
 #include "gameObjects/graphical/Stop.h"
 
-class Bus: public QObject, public QGraphicsRectItem
+class Bus: public QGraphicsSvgItem
 {
     Q_OBJECT
 public:
@@ -45,6 +45,9 @@ private:
     QTimer *busWaitTimer_;
     bool isWaitingAtStop_;
     int busStopWaitTimeMilliseconds_;
+
+    void updateGraphics();
+    void updateVelocity();
 };
 
 #endif // BUS_H

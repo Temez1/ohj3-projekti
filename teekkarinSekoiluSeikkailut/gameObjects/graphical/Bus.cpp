@@ -3,7 +3,7 @@
 
 Bus::Bus(QString name, std::shared_ptr<BusLine> busLine,
          float speedPixelsPerFrame, int startingStop, int busLineDirection, int busStopWaitTimeInMilliseconds) :
-    QGraphicsRectItem(),
+    QGraphicsSvgItem(":/testiBussi"),
     name_(name),
     busLine_(busLine),
     speed_(speedPixelsPerFrame),
@@ -17,8 +17,6 @@ Bus::Bus(QString name, std::shared_ptr<BusLine> busLine,
     isWaitingAtStop_ = false;
 
     setPos(busLine_->getStopPosition(startingStop));
-    setRect(-25,-25,50,50);
-    setBrush(QBrush(Qt::darkCyan, Qt::SolidPattern));
 }
 
 Bus::~Bus()
@@ -60,12 +58,32 @@ void Bus::advance(int phase)
         currentStop_ = busLine_->getStopByIndex(nextStopIndex_);
         std::tie(nextStopIndex_, busLineDirection_) = busLine_->getNextStopIndexAndNewDirection(nextStopIndex_, busLineDirection_);
         isWaitingAtStop_ = true;
+        updateVelocity();
+        updateGraphics();
         busWaitTimer_->start(busStopWaitTimeMilliseconds_);
         return;
     }
 
-    velocity_ = (QVector2D(busLine_->getStopPosition(nextStopIndex_) - this->pos()).normalized()) * speed_;
+    updateVelocity();
     setPos(this->pos() + velocity_.toPointF());
+}
+
+void Bus::updateVelocity()
+{
+    velocity_ = (QVector2D(busLine_->getStopPosition(nextStopIndex_) - this->pos()).normalized()) * speed_;
+}
+
+void Bus::updateGraphics()
+{
+    if (velocity_.x() >= 0){
+        setElementId("itaan");
+        return;
+    }
+
+    if (velocity_.x() < 0){
+        setElementId("lanteen");
+        return;
+    }
 }
 
 void Bus::busWaitTimerOnTimeout()
