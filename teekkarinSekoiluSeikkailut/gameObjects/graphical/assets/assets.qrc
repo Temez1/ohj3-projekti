@@ -16,5 +16,6 @@
         <file alias="teekkari">teekkari.svg</file>
         <file alias="vNakki">vaakonNakki.svg</file>
         <file alias="tyhja">tyhjaLautanen.svg</file>
+        <file alias="testiBussi">testibussi.svg</file>
     </qresource>
 </RCC>
