@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <QDebug>
 
+#include "MainMenu.h"
 #include "initScene.h"
 #include "gameObjects.h"
 
@@ -20,9 +21,13 @@ Game::Game(QWidget *parent)
 
     mapSeed_ = time(0);
 
+    MainMenu mainmenu(this);
+    connect(&mainmenu, &MainMenu::accepted, this, &Game::start);
+    connect(&mainmenu, &MainMenu::rejected, this, &Game::quit);
+    mainmenu.exec();
+
     initUI();
     gameObjects_ = initScene::populateMap(scene, mapSeed_);
-    start();
 }
 
 void Game::initUI()
@@ -40,6 +45,11 @@ void Game::initUI()
 void Game::start()
 {
     gameLoopTimer_->start(16);
+}
+
+void Game::quit()
+{
+    exit(0);
 }
 
 void Game::jumpAndDropBusButtonClicked()

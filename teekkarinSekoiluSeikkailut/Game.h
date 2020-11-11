@@ -26,6 +26,7 @@ protected:
 
 private slots:
     void start();
+    void quit();
     void jumpAndDropBusButtonClicked();
     void orderFoodButtonClicked();
     void deliverFoodButtonClicked();
