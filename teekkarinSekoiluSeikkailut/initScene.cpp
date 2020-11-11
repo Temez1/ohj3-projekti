@@ -71,7 +71,10 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
 
     kiosk->setParentItem(lentavanniemi);
 
-    auto stops = {keskusta, hervanta, lentavanniemi};
+    auto stops4 = {keskusta, linjaautoasema, viinikka, turtola, hervanta};
+    auto stops3 = {lentavanniemi, Amuri, koskipuisto, keskusta, kaleva, hakametsa, turtola, hervanta};
+    auto stops8 = {Haukiluoma, Tesoma, Amuri, koskipuisto, keskusta, kaleva, kissanmaa, linnainmaa, atala};
+    auto stops1 = {partola, harmala, hatanpaa, keskusta, kaleva, kissanmaa, linnainmaa, lentola};
 
     scene->addItem(keskusta);
     scene->addItem(hervanta);
@@ -94,20 +97,25 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     scene->addItem(lentola);
 
 
-    auto busLine3 = std::make_shared<BusLine>(BusLine(QString("3"), stops));
-    auto bus3a = new Bus(QString("3a"), busLine3);
-    auto bus3b = new Bus(QString("3b"), busLine3, 2, 1);
-    auto bus3a_2 = new Bus(QString("3a"), busLine3, 2, 2, -1);
+    auto busLine3 = std::make_shared<BusLine>(BusLine(QString("3"), stops3));
+    auto busLine4 = std::make_shared<BusLine>(BusLine(QString("4"), stops4));
+    auto busLine1 = std::make_shared<BusLine>(BusLine(QString("1"), stops1));
+    auto busLine8 = std::make_shared<BusLine>(BusLine(QString("8"), stops8));
+    auto bus3 = new Bus(QString("3"), busLine3);
+    auto bus4 = new Bus(QString("4"), busLine4);
+    auto bus8 = new Bus(QString("8"), busLine8);
+    auto bus1 = new Bus(QString("1"), busLine1);
 
-    scene->addItem(bus3a);
-    scene->addItem(bus3b);
-    scene->addItem(bus3a_2);
+    scene->addItem(bus3);
+    scene->addItem(bus4);
+    scene->addItem(bus8);
+    scene->addItem(bus1);
 
     std::vector<std::shared_ptr<BusLine>> buslines = { busLine3 };
 
     auto busLineHandler = std::make_shared<BusLineHandler>(buslines);
 
-    totalAmountOfStops += stops.size();
+    totalAmountOfStops += stops3.size();
     // END Busline creation
 
     if ( MAX_AMOUNT_OF_TEEKKARIT_IN_THE_MAP > totalAmountOfStops ){
