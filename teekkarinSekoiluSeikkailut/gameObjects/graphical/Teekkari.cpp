@@ -1,7 +1,7 @@
 #include "Teekkari.h"
 
 Teekkari::Teekkari():
-    QGraphicsSvgItem(":/placeholder")
+    QGraphicsSvgItem(":/teekkari")
 {
 
 }

@@ -6,8 +6,10 @@ Stop::Stop(QString name, QPointF pos, Kiosk *kiosk, QGraphicsItem* parent):
     kiosk_(kiosk),
     teekkari_(nullptr)
 {
+
     setPos(pos);
 }
+
 
 bool Stop::addTeekkari(Teekkari *teekkari)
 {
