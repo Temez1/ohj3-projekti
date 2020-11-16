@@ -2,7 +2,7 @@
 #define FOOD_H
 
 #include <QTimer>
-#include <Qstring>
+#include <QString>
 
 
 class Food: public QObject
@@ -16,7 +16,7 @@ public:
     int getPrice();
     int getState();
 
-private slots:
+public slots:
     void foodStateTimeout();
 
 signals:

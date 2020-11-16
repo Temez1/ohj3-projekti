@@ -2,6 +2,7 @@
 #include <QDebug>
 
 #include "Kiosk.h"
+#include "gameObjects/graphical/lautanen.h"
 
 Player::Player(QString name, QGraphicsScene *scene, Stop* startingStop, int startingMoney, int maxFoodAmountToCarry):
     QGraphicsSvgItem(":/player"),

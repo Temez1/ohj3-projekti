@@ -7,7 +7,9 @@ Food::Food(int price, int foodStateChangeTimeInSeconds):
     state_ = HOT;
     QTimer *foodStateTimer_ = new QTimer(this);
     connect(foodStateTimer_, &QTimer::timeout, this, &Food::foodStateTimeout);
+
     foodStateTimer_->start(foodStateChangeTimeInSeconds_*1000);
+
 }
 
 Food::~Food()

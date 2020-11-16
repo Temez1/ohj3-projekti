@@ -7,7 +7,10 @@
         <file>pelaaja.svg</file>
         <file alias="teekkari">teekkari.svg</file>
         <file alias="vNakki">vaakonNakki.svg</file>
-        <file alias="tyhja">tyhjaLautanen.svg</file>
+        <file alias="lautanen">tyhjaLautanen.svg</file>
         <file alias="stackBus">stack_bus.svg</file>
+        <file alias="assetti">Asset 5.svg</file>
+        <file alias="testitausta">Artboard 1.svg</file>
+        <file alias="lautaScaled">lautanen_scaled.svg</file>
     </qresource>
 </RCC>

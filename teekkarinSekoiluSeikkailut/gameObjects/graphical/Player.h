@@ -8,6 +8,7 @@
 #include "Food.h"
 #include "Stop.h"
 #include "gameObjects/Wallet.h"
+#include "gameObjects/graphical/lautanen.h"
 
 class Player: public QGraphicsSvgItem
 { Q_OBJECT

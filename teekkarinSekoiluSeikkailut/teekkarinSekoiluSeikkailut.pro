@@ -18,8 +18,10 @@ SOURCES += \
     gameObjects.cpp \
     gameObjects/BusLine.cpp \
     gameObjects/Wallet.cpp \
+    gameObjects/graphical/lautanen.cpp \
     gameObjects/handlers/BusLineHandler.cpp \
     initScene.cpp \
+    lautanen.cpp \
     main.cpp \
     Game.cpp \
     gameObjects/graphical/Bus.cpp \
@@ -42,9 +44,11 @@ HEADERS += \
     gameObjects/graphical/Player.h \
     gameObjects/graphical/Stop.h \
     gameObjects/graphical/Teekkari.h \
+    gameObjects/graphical/lautanen.h \
     gameObjects/handlers/BusLineHandler.h \
     gameObjects/handlers/TeekkariHandler.h \
-    initScene.h
+    initScene.h \
+    lautanen.h
 
 RESOURCES += \
     gameObjects/graphical/assets/assets.qrc

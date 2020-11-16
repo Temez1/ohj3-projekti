@@ -9,6 +9,7 @@ Bus::Bus(QString name, std::shared_ptr<BusLine> busLine,
     speed_(speedPixelsPerFrame),
     busStopWaitTimeMilliseconds_(busStopWaitTimeInMilliseconds)
 {
+
     currentStop_ = busLine_->getStopByIndex(startingStop);
     std::tie(nextStopIndex_, busLineDirection_) = busLine_->getNextStopIndexAndNewDirection(startingStop, busLineDirection);
     velocity_ = QVector2D(0,0);
@@ -17,6 +18,7 @@ Bus::Bus(QString name, std::shared_ptr<BusLine> busLine,
     isWaitingAtStop_ = false;
 
     setPos(busLine_->getStopPosition(startingStop));
+    updateGraphics();
 }
 
 Bus::~Bus()
@@ -76,12 +78,12 @@ void Bus::updateVelocity()
 void Bus::updateGraphics()
 {
     if (velocity_.x() >= 0){
-        setElementId("bus1_E");
+        setElementId(name_+"_E");
         return;
     }
 
     if (velocity_.x() < 0){
-        setElementId("bus1_W");
+        setElementId(name_+"_W");
         return;
     }
 }

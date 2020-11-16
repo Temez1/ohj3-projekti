@@ -10,6 +10,7 @@
 #include "gameObjects/graphical/Kiosk.h"
 #include "gameObjects/graphical/Player.h"
 #include "gameObjects/graphical/Food.h"
+#include "gameObjects/graphical/lautanen.h"
 
 namespace initScene {
 
@@ -18,7 +19,7 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     // When using rand, use srand to change seed in each game
     srand(seed);
 
-    auto map = new QGraphicsSvgItem(":/map");
+    auto map = new QGraphicsSvgItem(":/testitausta");
     scene->addItem(map);
 
     auto kiosk = new Kiosk(FOOD_PRICE,FOOD_STATE_TIME_IN_SECONDS);
@@ -100,15 +101,26 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     auto busLine4 = std::make_shared<BusLine>(BusLine(QString("4"), stops4));
     auto busLine1 = std::make_shared<BusLine>(BusLine(QString("1"), stops1));
     auto busLine8 = std::make_shared<BusLine>(BusLine(QString("8"), stops8));
-    auto bus3 = new Bus(QString("3"), busLine3);
-    auto bus4 = new Bus(QString("4"), busLine4);
-    auto bus8 = new Bus(QString("8"), busLine8);
-    auto bus1 = new Bus(QString("1"), busLine1);
+    auto bus3 = new Bus(QString("bus3"), busLine3);
+    auto bus4 = new Bus(QString("bus4"), busLine4);
+    auto bus8 = new Bus(QString("bus8"), busLine8);
+    auto bus1 = new Bus(QString("bus1"), busLine1);
 
     scene->addItem(bus3);
     scene->addItem(bus4);
     scene->addItem(bus8);
     scene->addItem(bus1);
+
+
+    auto lautanen1 = new Lautanen("Lautanen1");
+    lautanen1->setPos(100,100);
+    scene->addItem(lautanen1);
+
+    auto lautanen2 = new Lautanen("Lautanen1");
+    lautanen2->setPos(100,300);
+    scene->addItem(lautanen2);
+
+
 
     std::vector<std::shared_ptr<BusLine>> buslines = { busLine3 };
 
