@@ -40,6 +40,9 @@ void Game::initUI()
 
     deliverFoodButton = new QPushButton("Deliver food", this);
     connect(deliverFoodButton, &QPushButton::clicked, this, &Game::deliverFoodButtonClicked);
+
+    foodStateIndicator = new QGraphicsSvgItem(":/placeholder");
+
 }
 
 void Game::start()

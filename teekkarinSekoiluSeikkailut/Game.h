@@ -42,6 +42,7 @@ private:
     QPushButton *jumpAndDropBusButton;
     QPushButton *orderFoodButton;
     QPushButton *deliverFoodButton;
+    QGraphicsSvgItem *foodStateIndicator;
 
     const int JUMP_AND_DROP_BUS_BUTTON_WIDTH_PADDING = 120;
     const int JUMP_AND_DROP_BUS_BUTTON_HEIGHT_PADDING = 50;

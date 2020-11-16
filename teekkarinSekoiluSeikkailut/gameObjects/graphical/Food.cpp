@@ -1,12 +1,38 @@
 #include "Food.h"
 
-Food::Food(int price):
-    price_(price)
+Food::Food(int price, int foodStateChangeTimeInSeconds):
+    price_(price),
+    foodStateChangeTimeInSeconds_(foodStateChangeTimeInSeconds)
+{
+    state_ = HOT;
+    QTimer *foodStateTimer_ = new QTimer(this);
+    connect(foodStateTimer_, &QTimer::timeout, this, &Food::foodStateTimeout);
+    foodStateTimer_->start(foodStateChangeTimeInSeconds_*1000);
+}
+
+Food::~Food()
 {
 
 }
 
 int Food::getPrice()
 {
-    return price_;
+    return price_ * state_;
 }
+
+int Food::getState()
+{
+    return state_;
+}
+
+void Food::foodStateTimeout()
+{
+    if (state_ == COLD)
+    {
+        return;
+    }
+    state_ -=1;
+    emit foodStateChanged(this, state_);
+
+}
+

@@ -10,7 +10,7 @@ Player::Player(QString name, QGraphicsScene *scene, Stop* startingStop, int star
     scene_(scene),
     currentStop_(startingStop),
     currentBus_(nullptr),
-    foods_(QList<Food>()),
+    foods_(QList<Food*>()),
     wallet_(new Wallet(startingMoney))
 {
     setPos(startingStop->pos());
@@ -121,7 +121,7 @@ bool Player::deliverFood()
     return true;
 }
 
-QList<Food> Player::getFoods()
+QList<Food*> Player::getFoods()
 {
     return foods_;
 }

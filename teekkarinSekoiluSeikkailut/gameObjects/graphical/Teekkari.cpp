@@ -6,9 +6,9 @@ Teekkari::Teekkari():
 
 }
 
-unsigned int Teekkari::receiveFood(Food food)
+unsigned int Teekkari::receiveFood(Food *food)
 {
     // TODO Return money accordingly to the warmth of the food
     emit teekkariReceivedFood(this);
-    return 15;
+    return food->getPrice();
 }

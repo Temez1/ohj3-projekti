@@ -21,8 +21,7 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     auto map = new QGraphicsSvgItem(":/map");
     scene->addItem(map);
 
-    auto food = Food(FOOD_PRICE);
-    auto kiosk = new Kiosk(food);
+    auto kiosk = new Kiosk(FOOD_PRICE,FOOD_STATE_TIME_IN_SECONDS);
 
     // BEGIN Best way to crete stops&buses would be one busline at time ?
     std::unordered_map<QString, QPointF> stopLocations_;
@@ -50,7 +49,7 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
 
     auto keskusta = new Stop(QString("keskusta"), stopLocations_.at("keskusta"));
     auto hervanta = new Stop(QString("hervanta"), stopLocations_.at("hervanta"));
-    auto lentavanniemi = new Stop(QString("lentavanniemi"), stopLocations_.at("lentavanniemi"), kiosk);
+    auto lentavanniemi = new Stop(QString("lentavanniemi"), stopLocations_.at("lentavanniemi"));
     auto koskipuisto = new Stop(QString("koskipuisto"), stopLocations_.at("koskipuisto"));
     auto atala = new Stop(QString("atala"), stopLocations_.at("atala"));
     auto partola = new Stop(QString("partola"), stopLocations_.at("partola"));

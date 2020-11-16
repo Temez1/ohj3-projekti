@@ -1,17 +1,19 @@
 #include "Kiosk.h"
 
-Kiosk::Kiosk(Food food):
+Kiosk::Kiosk(int foodPrice, int foodStateChangeTimeInSeconds):
     QGraphicsSvgItem(":/placeholder"),
-    food_(food)
+    foodPrice_(foodPrice),
+    foodStateChangeTimeInSeconds_(foodStateChangeTimeInSeconds)
 {
+
 }
 
-Food Kiosk::orderFood()
+Food *Kiosk::orderFood()
 {
-    return food_;
+    return new Food(foodPrice_, foodStateChangeTimeInSeconds_);
 }
 
 int Kiosk::getFoodPrice()
 {
-    return food_.getPrice();
+    return foodPrice_;
 }

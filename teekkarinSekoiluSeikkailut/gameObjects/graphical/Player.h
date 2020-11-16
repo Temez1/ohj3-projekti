@@ -25,7 +25,7 @@ public:
     bool orderFood();
     bool deliverFood();
 
-    QList<Food> getFoods();
+    QList<Food*> getFoods();
     Stop* getCurrentStop();
     int getWalletBalance();
 
@@ -43,7 +43,7 @@ private:
     QGraphicsScene *scene_;
     Stop* currentStop_;
     Bus* currentBus_;
-    QList<Food> foods_;
+    QList<Food*> foods_;
     Wallet *wallet_;
 
     Bus* searchBusFromSceneAtCurrentPosition();
