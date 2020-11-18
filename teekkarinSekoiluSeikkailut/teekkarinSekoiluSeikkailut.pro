@@ -21,7 +21,6 @@ SOURCES += \
     gameObjects/graphical/lautanen.cpp \
     gameObjects/handlers/BusLineHandler.cpp \
     initScene.cpp \
-    lautanen.cpp \
     main.cpp \
     Game.cpp \
     gameObjects/graphical/Bus.cpp \
@@ -47,8 +46,7 @@ HEADERS += \
     gameObjects/graphical/lautanen.h \
     gameObjects/handlers/BusLineHandler.h \
     gameObjects/handlers/TeekkariHandler.h \
-    initScene.h \
-    lautanen.h
+    initScene.h
 
 RESOURCES += \
     gameObjects/graphical/assets/assets.qrc
