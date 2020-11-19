@@ -13,12 +13,14 @@
 class Player: public QGraphicsSvgItem
 { Q_OBJECT
 public:
-    Player(QString name, QGraphicsScene *scene, Stop* startingStop, int startingMoney, int maxFoodAmountToCarry);
+    Player(QString name, QGraphicsScene *scene, Stop* startingStop, int startingMoney,
+           int maxFoodAmountToCarry, int cheapestFoodPrice);
 
     enum { Type = UserType + 2};
     int type() const override { return Type; }
 
     const int FOOD_MAX_AMOUNT;
+    const int CHEAPEST_FOOD_PRICE;
 
     bool jumpToBus();
     bool dropFromBus();
@@ -28,7 +30,7 @@ public:
 
     QList<Food*> getFoods();
     Stop* getCurrentStop();
-    int getWalletBalance();
+    Wallet* getWallet();
 
     bool isOnTheBus();
     bool isFullOfFood();

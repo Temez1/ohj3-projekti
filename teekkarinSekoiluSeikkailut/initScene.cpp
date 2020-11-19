@@ -68,7 +68,6 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     auto linnainmaa = new Stop(QString("linnainmaa"), stopLocations_.at("linnainmaa"));
     auto lentola = new Stop(QString("lentola"), stopLocations_.at("lentola"));
 
-
     kiosk->setParentItem(lentavanniemi);
 
     auto stops4 = {keskusta, linjaautoasema, viinikka, turtola, hervanta};
@@ -142,10 +141,18 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
                                                               TEEKKARI_SPAWN_TIME_IN_SECONDS,
                                                               MAX_AMOUNT_OF_TEEKKARIT_IN_THE_MAP);
 
-    auto player = new Player("Player name", scene, hervanta, PLAYER_STARTING_MONEY, PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY);
+    auto player = new Player("Player name", scene, hervanta, PLAYER_STARTING_MONEY,
+                             PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY, CHEAPEST_FOOD_PRICE);
     scene->addItem(player);
 
     return new GameObjects(player, busLineHandler, teekkariHandler_);
+}
+
+void configUI(GameObjects *gameobjects, QProgressBar *progressBar)
+{
+    progressBar->setMaximum(STUDENT_LOAN);
+    progressBar->setValue(PLAYER_STARTING_MONEY);
+    QObject::connect(gameobjects->player->getWallet(), &Wallet::balanceChanged, progressBar, &QProgressBar::setValue);
 }
 
 }

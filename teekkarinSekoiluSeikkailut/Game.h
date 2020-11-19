@@ -1,17 +1,13 @@
 #ifndef PELI_H
 #define PELI_H
 
-#include <unordered_map>
-
 #include <QGraphicsView>
 #include <QGraphicsScene>
-#include <QGraphicsSvgItem>
 #include <QTimer>
 #include <QString>
 #include <QPushButton>
-
-#include "gameObjects/graphical/Player.h"
-#include "gameObjects/handlers/TeekkariHandler.h"
+#include <QProgressBar>
+#include <QLabel>
 
 #include "gameObjects.h"
 
@@ -31,6 +27,8 @@ private slots:
     void orderFoodButtonClicked();
     void deliverFoodButtonClicked();
 
+    void gameOver();
+
 private:
     QTimer *gameLoopTimer_;
     unsigned int mapSeed_;
@@ -39,10 +37,12 @@ private:
     TeekkariHandler *teekkariHandler_;
 
     // UI Stuff
-    QPushButton *jumpAndDropBusButton;
-    QPushButton *orderFoodButton;
-    QPushButton *deliverFoodButton;
-    QGraphicsSvgItem *foodStateIndicator;
+    QPushButton *jumpAndDropBusButton_;
+    QPushButton *orderFoodButton_;
+    QPushButton *deliverFoodButton_;
+    QProgressBar *progressBar_;
+    QLabel *youLostText_;
+    QLabel *youWonText_;
 
     const int JUMP_AND_DROP_BUS_BUTTON_WIDTH_PADDING = 120;
     const int JUMP_AND_DROP_BUS_BUTTON_HEIGHT_PADDING = 50;
@@ -53,9 +53,14 @@ private:
     const int DELIVER_FOOD_BUTTON_WIDTH_PADDING = 360;
     const int DELIVER_FOOD_BUTTON_HEIGHT_PADDING = 50;
 
+    const int PROGRESS_BAR_WIDTH = 400;
+    const int PROGRESS_BAR_HEIGHT = 30;
+    const int PROGRESS_BAR_TOP_PADDING = 20;
+
     void initUI();
 
     void resizeButtons();
+    void resizeIndicators();
 };
 
 #endif // PELI_H

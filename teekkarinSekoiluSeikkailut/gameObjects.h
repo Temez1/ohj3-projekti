@@ -4,7 +4,6 @@
 #include "gameObjects/handlers/BusLineHandler.h"
 #include "gameObjects/handlers/TeekkariHandler.h"
 #include "gameObjects/graphical/Player.h"
-#include "gameObjects/graphical/Stop.h"
 
 class GameObjects
 {

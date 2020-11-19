@@ -28,21 +28,30 @@ Game::Game(QWidget *parent)
 
     initUI();
     gameObjects_ = initScene::populateMap(scene, mapSeed_);
+    initScene::configUI(gameObjects_, progressBar_);
+
+    connect(gameObjects_->player, &Player::playerOutOfMoney, this, &Game::gameOver);
 }
 
 void Game::initUI()
 {
-    jumpAndDropBusButton = new QPushButton("Jump to bus!", this);
-    connect(jumpAndDropBusButton, &QPushButton::clicked, this, &Game::jumpAndDropBusButtonClicked);
+    jumpAndDropBusButton_ = new QPushButton("Jump to bus!", this);
+    connect(jumpAndDropBusButton_, &QPushButton::clicked, this, &Game::jumpAndDropBusButtonClicked);
 
-    orderFoodButton = new QPushButton("Order food", this);
-    connect(orderFoodButton, &QPushButton::clicked, this, &Game::orderFoodButtonClicked);
+    orderFoodButton_ = new QPushButton("Order food", this);
+    connect(orderFoodButton_, &QPushButton::clicked, this, &Game::orderFoodButtonClicked);
 
-    deliverFoodButton = new QPushButton("Deliver food", this);
-    connect(deliverFoodButton, &QPushButton::clicked, this, &Game::deliverFoodButtonClicked);
+    deliverFoodButton_ = new QPushButton("Deliver food", this);
+    connect(deliverFoodButton_, &QPushButton::clicked, this, &Game::deliverFoodButtonClicked);
 
-    foodStateIndicator = new QGraphicsSvgItem(":/placeholder");
+    progressBar_ = new QProgressBar(this);
+    progressBar_->setStyleSheet("QProgressBar"
+                                "{ border: 2px solid grey; border-radius: 0px; text-align: center; }"
+                                "QProgressBar::chunk {background-color: #3add36; width: 1px;}");
+    progressBar_->setFormat("Student loan %v/%m€");
 
+    youLostText_ = new QLabel(this);
+    youWonText_ = new QLabel(this);
 }
 
 void Game::start()
@@ -58,12 +67,12 @@ void Game::quit()
 void Game::jumpAndDropBusButtonClicked()
 {
     if ( gameObjects_->player->jumpToBus() ){
-        jumpAndDropBusButton->setText("Leave the bus!");
+        jumpAndDropBusButton_->setText("Leave the bus!");
         return;
     }
 
     if ( gameObjects_->player->dropFromBus() ){
-        jumpAndDropBusButton->setText("Jump to bus!");
+        jumpAndDropBusButton_->setText("Jump to bus!");
         return;
     }
 }
@@ -78,6 +87,16 @@ void Game::deliverFoodButtonClicked()
     gameObjects_->player->deliverFood();
 }
 
+void Game::gameOver()
+{
+    youLostText_->setGeometry(width()/2-youLostText_->width()/2,
+                              height()/2,
+                              youLostText_->width(),
+                              youLostText_->height());
+    youLostText_->setText("You lost! :("
+                          "Just quit");
+}
+
 void Game::resizeEvent(QResizeEvent *event)
 {
     qDebug() << scene->sceneRect();
@@ -85,24 +104,33 @@ void Game::resizeEvent(QResizeEvent *event)
     this->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
 
     resizeButtons();
+    resizeIndicators();
 
     QGraphicsView::resizeEvent(event);
 }
 
 void Game::resizeButtons()
 {
-    jumpAndDropBusButton->setGeometry(width() - JUMP_AND_DROP_BUS_BUTTON_WIDTH_PADDING,
+    jumpAndDropBusButton_->setGeometry(width() - JUMP_AND_DROP_BUS_BUTTON_WIDTH_PADDING,
                                       height() - JUMP_AND_DROP_BUS_BUTTON_HEIGHT_PADDING,
-                                      jumpAndDropBusButton->width(),
-                                      jumpAndDropBusButton->height());
+                                      jumpAndDropBusButton_->width(),
+                                      jumpAndDropBusButton_->height());
 
-    orderFoodButton->setGeometry(width() - ORDER_FOOD_BUTTON_WIDTH_PADDING,
+    orderFoodButton_->setGeometry(width() - ORDER_FOOD_BUTTON_WIDTH_PADDING,
                                            height() - ORDER_FOOD_BUTTON_HEIGHT_PADDING,
-                                           orderFoodButton->width(),
-                                           orderFoodButton->height());
+                                           orderFoodButton_->width(),
+                                           orderFoodButton_->height());
 
-    deliverFoodButton->setGeometry(width() - DELIVER_FOOD_BUTTON_WIDTH_PADDING,
+    deliverFoodButton_->setGeometry(width() - DELIVER_FOOD_BUTTON_WIDTH_PADDING,
                                            height() - DELIVER_FOOD_BUTTON_HEIGHT_PADDING,
-                                           orderFoodButton->width(),
-                                           orderFoodButton->height());
+                                           orderFoodButton_->width(),
+                                    orderFoodButton_->height());
+}
+
+void Game::resizeIndicators()
+{
+    progressBar_->setGeometry(width()/2-PROGRESS_BAR_WIDTH/2,
+                              PROGRESS_BAR_TOP_PADDING,
+                              PROGRESS_BAR_WIDTH,
+                              PROGRESS_BAR_HEIGHT);
 }

@@ -4,9 +4,11 @@
 #include "Kiosk.h"
 #include "gameObjects/graphical/lautanen.h"
 
-Player::Player(QString name, QGraphicsScene *scene, Stop* startingStop, int startingMoney, int maxFoodAmountToCarry):
+Player::Player(QString name, QGraphicsScene *scene, Stop* startingStop, int startingMoney,
+               int maxFoodAmountToCarry, int cheapestFoodPrice):
     QGraphicsSvgItem(":/player"),
     FOOD_MAX_AMOUNT(maxFoodAmountToCarry),
+    CHEAPEST_FOOD_PRICE(cheapestFoodPrice),
     name_(name),
     scene_(scene),
     currentStop_(startingStop),
@@ -85,14 +87,12 @@ bool Player::orderFood()
     }
 
     if ( not wallet_->pay(kiosk->getFoodPrice())){
-        emit playerOutOfMoney();
         return false;
     }
 
     auto food = kiosk->orderFood();
     foods_.append(food);
     qDebug() << "Player ordered food";
-    qDebug() << "Balance" << getWalletBalance();
     emit playerOrderedFood();
     return true;
 }
@@ -115,7 +115,10 @@ bool Player::deliverFood()
         wallet_->receive(money);
 
         qDebug() << "Player delivered food to teekkari";
-        qDebug() << "Balance" << getWalletBalance();
+    }
+
+    if (wallet_->getBalance() < CHEAPEST_FOOD_PRICE){
+        emit playerOutOfMoney();
     }
 
     emit playerDeliveredFood();
@@ -132,9 +135,9 @@ Stop *Player::getCurrentStop()
     return currentStop_;
 }
 
-int Player::getWalletBalance()
+Wallet *Player::getWallet()
 {
-    return wallet_->getBalance();
+    return wallet_;
 }
 
 bool Player::isOnTheBus()
