@@ -2,14 +2,14 @@
 #define INITGAME_H
 
 #include <QGraphicsScene>
-#include <QProgressBar>
 
 #include "gameObjects.h"
+#include "UI/ProgressBar.h"
 
 namespace initScene {
     GameObjects *populateMap(QGraphicsScene *scene, unsigned int seed);
 
-    void configUI(GameObjects *gameobjects, QProgressBar *progressBar);
+    void configUI(GameObjects *gameobjects, ProgressBar *progressBar);
 
     const int PLAYER_STARTING_MONEY = 50;
     const int PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY = 2;

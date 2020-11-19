@@ -6,10 +6,10 @@
 #include <QTimer>
 #include <QString>
 #include <QPushButton>
-#include <QProgressBar>
 #include <QLabel>
 
 #include "gameObjects.h"
+#include "UI/ProgressBar.h"
 
 class Game: public QGraphicsView{
     Q_OBJECT
@@ -28,6 +28,7 @@ private slots:
     void deliverFoodButtonClicked();
 
     void gameOver();
+    void gameWon();
 
 private:
     QTimer *gameLoopTimer_;
@@ -40,9 +41,8 @@ private:
     QPushButton *jumpAndDropBusButton_;
     QPushButton *orderFoodButton_;
     QPushButton *deliverFoodButton_;
-    QProgressBar *progressBar_;
-    QLabel *youLostText_;
-    QLabel *youWonText_;
+    ProgressBar *progressBar_;
+    QLabel *gameOverText_;
 
     const int JUMP_AND_DROP_BUS_BUTTON_WIDTH_PADDING = 120;
     const int JUMP_AND_DROP_BUS_BUTTON_HEIGHT_PADDING = 50;

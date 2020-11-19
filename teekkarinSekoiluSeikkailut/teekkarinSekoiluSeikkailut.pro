@@ -15,6 +15,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     MainMenu.cpp \
+    UI/ProgressBar.cpp \
     gameObjects.cpp \
     gameObjects/BusLine.cpp \
     gameObjects/Wallet.cpp \
@@ -34,6 +35,7 @@ SOURCES += \
 HEADERS += \
     Game.h \
     MainMenu.h \
+    UI/ProgressBar.h \
     gameObjects.h \
     gameObjects/BusLine.h \
     gameObjects/Wallet.h \

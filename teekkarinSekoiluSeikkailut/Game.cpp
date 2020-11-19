@@ -31,6 +31,7 @@ Game::Game(QWidget *parent)
     initScene::configUI(gameObjects_, progressBar_);
 
     connect(gameObjects_->player, &Player::playerOutOfMoney, this, &Game::gameOver);
+    connect(progressBar_, &ProgressBar::enoughMoneyToPayStudentLoan, this, &Game::gameWon);
 }
 
 void Game::initUI()
@@ -44,14 +45,13 @@ void Game::initUI()
     deliverFoodButton_ = new QPushButton("Deliver food", this);
     connect(deliverFoodButton_, &QPushButton::clicked, this, &Game::deliverFoodButtonClicked);
 
-    progressBar_ = new QProgressBar(this);
+    progressBar_ = new ProgressBar(this);
     progressBar_->setStyleSheet("QProgressBar"
                                 "{ border: 2px solid grey; border-radius: 0px; text-align: center; }"
                                 "QProgressBar::chunk {background-color: #3add36; width: 1px;}");
     progressBar_->setFormat("Student loan %v/%m€");
 
-    youLostText_ = new QLabel(this);
-    youWonText_ = new QLabel(this);
+    gameOverText_ = new QLabel(this);
 }
 
 void Game::start()
@@ -89,11 +89,13 @@ void Game::deliverFoodButtonClicked()
 
 void Game::gameOver()
 {
-    youLostText_->setGeometry(width()/2-youLostText_->width()/2,
-                              height()/2,
-                              youLostText_->width(),
-                              youLostText_->height());
-    youLostText_->setText("You lost! :("
+    gameOverText_->setText("You lost! :("
+                          "Just quit");
+}
+
+void Game::gameWon()
+{
+    gameOverText_->setText("You won! :)"
                           "Just quit");
 }
 
@@ -133,4 +135,9 @@ void Game::resizeIndicators()
                               PROGRESS_BAR_TOP_PADDING,
                               PROGRESS_BAR_WIDTH,
                               PROGRESS_BAR_HEIGHT);
+
+    gameOverText_->setGeometry(width()/2-gameOverText_->width()/2,
+                              height()/2,
+                              gameOverText_->width(),
+                              gameOverText_->height());
 }

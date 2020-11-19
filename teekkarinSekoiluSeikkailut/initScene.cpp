@@ -148,11 +148,12 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     return new GameObjects(player, busLineHandler, teekkariHandler_);
 }
 
-void configUI(GameObjects *gameobjects, QProgressBar *progressBar)
+void configUI(GameObjects *gameobjects, ProgressBar *progressBar)
 {
     progressBar->setMaximum(STUDENT_LOAN);
     progressBar->setValue(PLAYER_STARTING_MONEY);
-    QObject::connect(gameobjects->player->getWallet(), &Wallet::balanceChanged, progressBar, &QProgressBar::setValue);
+    QObject::connect(gameobjects->player->getWallet(), &Wallet::balanceChanged, progressBar,
+                     &ProgressBar::walletBalanceChanged);
 }
 
 }
