@@ -117,7 +117,7 @@ bool Player::deliverFood()
         qDebug() << "Player delivered food to teekkari";
     }
 
-    if (wallet_->getBalance() < CHEAPEST_FOOD_PRICE){
+    if ( (wallet_->getBalance() < CHEAPEST_FOOD_PRICE) and isOutOfFood() ){
         emit playerOutOfMoney();
     }
 
