@@ -136,7 +136,7 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
         throw std::logic_error("Init teekkarit amount can't be more than MAX_AMOUNT_OF_TEEKKARIT_IN_THE_MAP");
     }
 
-    auto teekkariHandler_ = std::make_shared<TeekkariHandler>(scene, busLineHandler,
+    auto teekkariHandler = std::make_shared<TeekkariHandler>(scene, busLineHandler,
                                                               INIT_TEEKKARI_AMOUNT,
                                                               TEEKKARI_SPAWN_TIME_IN_SECONDS,
                                                               MAX_AMOUNT_OF_TEEKKARIT_IN_THE_MAP);
@@ -145,7 +145,7 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
                              PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY, CHEAPEST_FOOD_PRICE);
     scene->addItem(player);
 
-    return new GameObjects(player, busLineHandler, teekkariHandler_);
+    return new GameObjects(player, busLineHandler, teekkariHandler);
 }
 
 void configUI(GameObjects *gameobjects, ProgressBar *progressBar)
