@@ -35,8 +35,6 @@ private:
     unsigned int mapSeed_;
     GameObjects *gameObjects_;
 
-    TeekkariHandler *teekkariHandler_;
-
     // UI Stuff
     QPushButton *jumpAndDropBusButton_;
     QPushButton *orderFoodButton_;
