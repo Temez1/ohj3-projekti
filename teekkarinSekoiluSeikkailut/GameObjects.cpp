@@ -1,4 +1,4 @@
-#include "gameObjects.h"
+#include "GameObjects.h"
 
 GameObjects::GameObjects(Player *player,
                          std::shared_ptr<BusLineHandler> busLineHandler,

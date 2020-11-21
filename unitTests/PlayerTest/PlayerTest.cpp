@@ -36,13 +36,14 @@ private slots:
 
     void Scenario_PlayerIsOnTheBusAndSceneAdvances_PlayerParentPosEqualsBusPos();
     void Scenario_PlayerDropsFromTheBusAndSceneAdvances_PlayerStaysAtStop();
-    void Scenario_PlayerOrdersFoodWithoutMoney_PlayerSignalsOutOfMoney();
     void Scenario_PlayerOrdersFood_PlayerSignalsPlayerOrderedFood();
     void Scenario_PlayerDeliversFood_PlayerSignalsPlayerDeliveredFood();
     void Scenario_PlayerDeliversFood_PlayerReceivesMoney();
 
 private:
-    const int KIOSK_FOOD_PRICE_ = 10;
+    const int FOOD_PRICE_ = 10;
+    const int CHEAPEST_FOOD_PRICE_ = FOOD_PRICE_;
+    const int FOOD_STATE_CHANGE_TIME_ = 20;
     const int PLAYER_STARTING_MONEY_ = 50;
     const int PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY = 2;
 
@@ -63,8 +64,9 @@ PlayerTest::PlayerTest():
     busline_(std::make_shared<BusLine>(BusLine("Test busline", {firstStop_, secondStop_}))),
     bus_(new Bus("Test Bus", busline_)),
     BUS_DEFAULT_SPEED_(bus_->getSpeedPixelsPerFrame()),
-    kiosk_(new Kiosk(KIOSK_FOOD_PRICE_)),
-    player_(new Player("Test", scene_, firstStop_, PLAYER_STARTING_MONEY_, PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY))
+    kiosk_(new Kiosk(FOOD_PRICE_, FOOD_STATE_CHANGE_TIME_)),
+    player_(new Player("Test", scene_, firstStop_, PLAYER_STARTING_MONEY_, PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY,
+                       CHEAPEST_FOOD_PRICE_))
 {}
 
 PlayerTest::~PlayerTest()
@@ -72,7 +74,7 @@ PlayerTest::~PlayerTest()
 
 void PlayerTest::init()
 {
-    kiosk_ = new Kiosk(KIOSK_FOOD_PRICE_);
+    kiosk_ = new Kiosk(FOOD_PRICE_, FOOD_STATE_CHANGE_TIME_);
     firstStop_ = new Stop(QString("testStop1"), QPointF(100,100), kiosk_);
     kiosk_->setParentItem(firstStop_);
     secondStop_ = new Stop(QString("testStop2"), QPointF(200,100));
@@ -86,7 +88,8 @@ void PlayerTest::init()
     scene_->addItem(secondStop_);
     scene_->addItem(bus_);
 
-    player_ = new Player("Test player", scene_, firstStop_, PLAYER_STARTING_MONEY_, PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY);
+    player_ = new Player("Test player", scene_, firstStop_, PLAYER_STARTING_MONEY_, PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY,
+                         CHEAPEST_FOOD_PRICE_);
     scene_->addItem(player_);
 }
 
@@ -278,17 +281,6 @@ void PlayerTest::Scenario_PlayerDropsFromTheBusAndSceneAdvances_PlayerStaysAtSto
     QCOMPARE(playerPosAfterDrop, playerPosBeforeDrop);
 }
 
-void PlayerTest::Scenario_PlayerOrdersFoodWithoutMoney_PlayerSignalsOutOfMoney()
-{
-    player_ = new Player("persaukinen", scene_, firstStop_, 0, PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY);
-    QSignalSpy spy(player_, &Player::playerOutOfMoney);
-    QVERIFY(spy.isValid());
-
-    player_->orderFood();
-
-    QCOMPARE(spy.count(), 1);
-}
-
 void PlayerTest::Scenario_PlayerOrdersFood_PlayerSignalsPlayerOrderedFood()
 {
     QSignalSpy spy(player_, &Player::playerOrderedFood);
@@ -315,10 +307,9 @@ void PlayerTest::Scenario_PlayerDeliversFood_PlayerReceivesMoney()
     firstStop_->addTeekkari(new Teekkari());
     player_->orderFood();
 
-    auto playerBalanceBeforeDelivery = player_->getWalletBalance();
+    auto playerBalanceBeforeDelivery = player_->getWallet()->getBalance();
     player_->deliverFood();
-    auto playerBalanceAfterDelivery = player_->getWalletBalance();
-
+    auto playerBalanceAfterDelivery = player_->getWallet()->getBalance();
     QCOMPARE(playerBalanceAfterDelivery > playerBalanceBeforeDelivery, true);
 }
 

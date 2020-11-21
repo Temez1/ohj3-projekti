@@ -3,7 +3,7 @@
 
 #include <QGraphicsScene>
 
-#include "gameObjects.h"
+#include "GameObjects.h"
 #include "UI/ProgressBar.h"
 
 namespace initScene {

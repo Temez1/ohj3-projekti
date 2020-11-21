@@ -3,7 +3,7 @@
 
 #include "MainMenu.h"
 #include "initScene.h"
-#include "gameObjects.h"
+#include "GameObjects.h"
 
 Game::Game(QWidget *parent)
 {

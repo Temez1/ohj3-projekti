@@ -8,7 +8,7 @@
 #include <QPushButton>
 #include <QLabel>
 
-#include "gameObjects.h"
+#include "GameObjects.h"
 #include "UI/ProgressBar.h"
 
 class Game: public QGraphicsView{
