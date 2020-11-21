@@ -1,5 +1,4 @@
 #include "Bus.h"
-#include <QBrush>
 
 Bus::Bus(QString name, std::shared_ptr<BusLine> busLine,
          float speedPixelsPerFrame, int startingStop, int busLineDirection, int busStopWaitTimeInMilliseconds) :

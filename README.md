@@ -36,6 +36,9 @@ initScene -> GameObjects, ProgressBar
 
 GameObjects -> BusLineHandler, TeekkariHandler, Player
 
+BusLine -> Stop
+
+Bus -> BusLine, Stop
 
 
 
