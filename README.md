@@ -9,20 +9,21 @@ Teekkarin sekoilu seikkailut on peli, jossa päähenkilö toimittaa ruokatilauks
 - [Yleiskatsaus](#yleiskatsaus)
 - [Kansiorakenne](#kansiorakenne)
 - [Luokkajako](#luokkajako)
+- [Testaaminen](#testaaminen)
 - [Graafisten objektien tyypit](#graafisten-objektien-tyypit)
 - [Kritiikki](#kritiikki)
 
 ### Yleiskatsaus
 
-Projektin rakenne on hyvin yksinkertainen. Kaikki on tehty käsin, eli nollasta on aloitettu ilman kurssin tarjoamaa kirjastoa. Syynä tähän oli muutamakin. Ensinnäkin kurssikirjaston dokumentaatio oli projektia aloittaessa (ihan ensimmäisellä viikolla kun se julkaistiin) todella heikko. Sitä ei oikeastaan ollut laisinkaan, luokkajako lisättiin myöhemmin. Toinen syy oli, että selaillessa kurssin kirjastoa emme oikeen nopeasti katsottuna päässeet perille miten sitä tulisi käyttää, koska ei ollut mitään yleiskatsausta. Luottamus oli siis heikko, joten näimme paremmaksi vaihtoehdoksi toteuttaa asiat itse. Emme myöskään halunneet olla riippuvaisia kurssikirjaston mahdollisista puutteista. Halusimme myös oppia tekemään ratkaisut itse ja mitä asioita pitää ottaa huomioon isompaa projektia tehdessä.
+**_Projektin rakenne_** on hyvin yksinkertainen. TeekkarinSekoiluSeikkailut kansiosta löytyy varsinainen peli ja Testes kansiosta testit luokille, joille on koettu olevan tarpeellista toteuttaa testejä. Tarpeellisella tarkoitetaan paljon logiiikkaa sisältäviä luokkia, kuten pelaaja ja bussilinja.
 
-TeekkarinSekoiluSeikkailut kansiosta löytyy varsinainen peli ja UnitTestes kansiosta yksikkötestit luokille, joille on koettu olevan tarpeellista toteuttaa yksikkötestit. Tarpeellisella tarkoitetaan paljon logiiikkaa sisältäviä luokkia, kuten pelaaja ja bussilinja.
+Kaikki on tehty käsin, eli nollasta on aloitettu **ilman kurssin tarjoamaa kirjastoa**. Syitä tähän oli muutamakin. Ensinnäkin kurssikirjaston dokumentaatio oli projektia aloittaessa (ihan ensimmäisellä viikolla kun se julkaistiin) todella heikko. Sitä ei oikeastaan ollut laisinkaan, luokkajako lisättiin myöhemmin. Toinen syy oli, että selaillessa kurssin kirjastoa emme oikeen nopeasti katsottuna päässeet perille miten sitä tulisi käyttää, koska ei ollut mitään yleiskatsausta. Luottamus oli siis heikko, joten näimme paremmaksi vaihtoehdoksi toteuttaa asiat itse. Emme myöskään halunneet olla riippuvaisia kurssikirjaston mahdollisista puutteista. Halusimme myös oppia tekemään ratkaisut itse ja mitä asioita pitää ottaa huomioon isompaa projektia tehdessä.
 
-Projektin arkkitehtuuri syntyi tehdessä, eli kokeillen eri jaottelua, pyrkien noudattamaan hyviä tapoja ja paljon refaktorointia välissä.
+**_Projektin arkkitehtuuri_** syntyi tehdessä, eli kokeillen eri jaottelua, pyrkien noudattamaan hyviä tapoja ja paljon refaktorointia välissä.
 
-Teknistä velkaa käsiteltiin siten, että projektin alkuvaiheessa pyrittiin välttämään sitä ja loppuvaiheessa sitä otettiin, koska projektin loputtua ei sitä tarvitse enää maksaa. Tosin jatkokehitysmahdollisuuksia pidettiin mielessä eri ominaisuuksia tehdessä, joten aivan fiasko ei lopputulos pitäisi olla. Ja tottakai arvostelua toteutuksen laadun suhteen pidettiin myös mielessä alusta loppuun.
+**_Teknistä velkaa_** käsiteltiin siten, että projektin alkuvaiheessa pyrittiin välttämään sitä ja loppuvaiheessa sitä otettiin, koska projektin loputtua ei sitä tarvitse enää maksaa. Tosin jatkokehitysmahdollisuuksia pidettiin mielessä eri ominaisuuksia tehdessä, joten aivan fiasko ei lopputulos pitäisi olla. Ja tottakai arvostelua toteutuksen laadun suhteen pidettiin myös mielessä alusta loppuun.
 
-Tarkempaa arvioita kuinka hyvä projektin arkkitehtuuri on tai jatkokehitysmahdollisuudet ovat, on kuitenkin vaikeaa arvioida etukäteen kokemattomuuden ja ohjelmistojen jatkotarpeiden arvaamattomuuden takia.
+Tarkempaa arvioita kuinka hyvä projektin arkkitehtuuri on tai **jatkokehitysmahdollisuudet** ovat, on kuitenkin vaikeaa arvioida etukäteen kokemattomuuden ja ohjelmistojen jatkotarpeiden arvaamattomuuden takia.
 
 ### Kansiorakenne
 
@@ -84,6 +85,16 @@ gameObjects/
 UI/
   ProgressBar
     Signals: enoughMoneyToPayStudentLoan
+
+### Testaaminen
+
+Kuten aiemmin mainittiin Tests kansiosta löytyy testit. Pääasiassa nämä ovat luokkien yksikkötestejä, mutta esimerkiksi pelaajalta löytyy "Scenario" testejä, jotka vastaavat jo integraatiotestausta.
+
+"Scenario_Skenaario_OdotettavaTulos" tyyliset scenaario testit tarkoittavat yksinkertaisesti jotain tilannetta, missä testataan toimiiko peli niin kuin pitäisi.
+
+Testit pyrittiin toteuttamaan microsoftin unit testaamisen [best practises](https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices#best-practices) tyylillä. Osittain tätä rikottiin sijoittamalla integraatiotestejä unit testien sekaan, mutta nimeämisessä ja toteutuksessa tehtiin pitkälti niinkuin neuvottiin.
+
+"Code coveragea" ei ole mitattu, eikä se ole varmaankaan kovinkaan korkea. Testaaminen ei ole missään nimessä täysin kattavaa ja painotuksena onkin ollut monimutkaisemman logiikan testaaminen virheiden välttämiseksi. Monimutkaisen määrittely on ollut koodarin omatunnon vastuulla ja paikoittain on tullut varmastikin yliarvoitua omia taitojansa.
 
 ### Graafisten objektien tyypit
 
