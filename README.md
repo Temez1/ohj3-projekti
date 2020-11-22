@@ -158,6 +158,6 @@ UI/
 
 **_TeekkariHandler_** selvästi ylittää rajoja ja on riippuvainen osa-alueista, jotka eivät sille kuulu. 
 
-**_Riippuvuuksien karsimiseksi_**, pitäsi BusLineHandleri riittää tekemään tarvittavat toimenpiteet teekkareille. Esim. findRandomStopWithoutTeekkarissa pysäkkeihin ja busslinjoihin liittyvät asiat pitäsi siirtää kokonaan BusLineHandlerin vastuulle, samoin destroyTeekkarissa ja spawnTeekkarissa. Eli noudattaa ns. "[Tell Don't Ask](https://martinfowler.com/bliki/TellDontAsk.html)" patternia.
+**_Riippuvuuksien karsimiseksi_**, pitäsi BusLineHandleri riittää tekemään tarvittavat toimenpiteet teekkareille. Esim. findRandomStopWithoutTeekkarissa pysäkkeihin ja busslinjoihin liittyvät asiat pitäsi siirtää kokonaan BusLineHandlerin vastuulle, samoin destroyTeekkarissa ja spawnTeekkarissa. Eli noudattaa ns. "[Tell Don't Ask](https://martinfowler.com/bliki/TellDontAsk.html)" periaatetta.
 
 **_Näin ollen_** riippuvuuksia olisi enää luonnolliset Teekkari ja BusLineHandler. Abstraktio taso olisi myös samalla tasolla ja operoisi järkeväämin myös jatkokehityksen kannalta.
