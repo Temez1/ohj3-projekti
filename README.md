@@ -145,6 +145,7 @@ UI/
 
 **_"Code coveragea"_** ei ole mitattu, eikä se ole varmaankaan kovinkaan korkea. Testaaminen ei ole missään nimessä täysin kattavaa ja painotuksena onkin ollut monimutkaisemman logiikan testaaminen virheiden välttämiseksi. Monimutkaisen määrittely on ollut koodarin omatunnon vastuulla ja paikoittain on tullut varmastikin yliarvoitua omia taitojansa.
 
+**_TDD_** merkitys on hieman eri aiempien poikkeuksien lisäksi. Yksikkötestit eivät kohdennu luokan sisäiseen toiminallisuuteen, vaan ulkoiseen. Eli testataan ulkoista rajapintaa ja varmistutaan, että luokka **käyttäytyy** oikein. Asia paremmin selitettynä ja syvemmin puheessa [Ian Cooper - TDD, Where Did It All Go Wrong](https://youtu.be/EZ05e7EMOLM).
 ### Kritiikki
 
 #### Kansiorakenne
