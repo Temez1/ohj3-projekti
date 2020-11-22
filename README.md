@@ -137,7 +137,7 @@ UI/
 
 ### Testaaminen
 
- **_Pääasiassa_ testit ovat luokkien yksikkötestejä**, mutta esimerkiksi pelaajalta löytyy **"Scenario" testejä**, jotka vastaavat jo integraatiotestausta.
+ **_Pääasiassa_ testit ovat luokkien yksikkötestejä**, mutta esimerkiksi pelaajalta löytyy "Scenario" testejä, jotka vastaavat **integraatiotestausta**.
 
 "Scenario_Skenaario_OdotettavaTulos" tyyliset **_scenaario testit_** tarkoittavat yksinkertaisesti jotain tilannetta, missä testataan toimiiko peli niin kuin pitäisi.
 
@@ -146,10 +146,11 @@ UI/
 **_"Code coveragea"_** ei ole mitattu, eikä se ole varmaankaan kovinkaan korkea. Testaaminen ei ole missään nimessä täysin kattavaa ja painotuksena onkin ollut monimutkaisemman logiikan testaaminen virheiden välttämiseksi. Monimutkaisen määrittely on ollut koodarin omatunnon vastuulla ja paikoittain on tullut varmastikin yliarvoitua omia taitojansa.
 
 **_TDD_** merkitys on hieman eri aiempien poikkeuksien lisäksi. Yksikkötestit eivät kohdennu luokan sisäiseen toiminallisuuteen, vaan ulkoiseen. Eli testataan ulkoista rajapintaa ja varmistutaan, että luokka **käyttäytyy** oikein. Asia paremmin selitettynä ja syvemmin puheessa [Ian Cooper - TDD, Where Did It All Go Wrong](https://youtu.be/EZ05e7EMOLM).
+
 ### Kritiikki
 
 #### Kansiorakenne
-**_BusLine_** on välimaaston tapaus. Busslinja on tavallaan jo (pysäkkien) käsittelijä, mutta se luokiteltiin loogiseksi luokiksi eikä sijoitettu handlers kansioon sekavuuden välttämiseksi. Tasoja oli siis kolme (pysäkki "Stop", busslinja "BusLine", bussilinjat "BusLineHandler"), eli ehkä toisenlainen luokittelu olisi ollut sopivampi jatkoakin ajatellen.
+**_BusLine_** on välimaaston tapaus. Busslinja on tavallaan jo (pysäkkien) käsittelijä, mutta se luokiteltiin loogiseksi luokaksi eikä sijoitettu handlers kansioon sekavuuden välttämiseksi. Tasoja oli siis kolme (pysäkki "Stop", busslinja "BusLine", bussilinjat "BusLineHandler"), eli ehkä toisenlainen luokittelu olisi ollut sopivampi jatkoakin ajatellen.
 
 **_Food_** ei oo graafinen objekti, vaan looginen. Alkuperäisen ajatuksen ja laiskuuden takia jäänyt väärän paikkaan.
 
@@ -157,6 +158,6 @@ UI/
 
 **_TeekkariHandler_** selvästi ylittää rajoja ja on riippuvainen osa-alueista, jotka eivät sille kuulu. 
 
-**_Riippuvuuksien karsimiseksi_**, pitäsi BusLineHandleri riittää tekemään tarvittavat toimenpiteet teekkareille. Esim. findRandomStopWithoutTeekkarissa pysäkkeihin ja busslinjoihin liittyvät asiat pitäsi siirtää kokonaan BusLineHandlerin vastuulle, samoin destroyTeekkarissa ja spawnTeekkarissa.
+**_Riippuvuuksien karsimiseksi_**, pitäsi BusLineHandleri riittää tekemään tarvittavat toimenpiteet teekkareille. Esim. findRandomStopWithoutTeekkarissa pysäkkeihin ja busslinjoihin liittyvät asiat pitäsi siirtää kokonaan BusLineHandlerin vastuulle, samoin destroyTeekkarissa ja spawnTeekkarissa. Eli noudattaa ns. "[Tell Don't Ask](https://martinfowler.com/bliki/TellDontAsk.html)" patternia.
 
 **_Näin ollen_** riippuvuuksia olisi enää luonnolliset Teekkari ja BusLineHandler. Abstraktio taso olisi myös samalla tasolla ja operoisi järkeväämin myös jatkokehityksen kannalta.
