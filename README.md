@@ -34,7 +34,8 @@ Teekkarin sekoilu seikkailut on peli, jossa päähenkilö toimittaa ruokatilauks
 - Tasainen ruudunpäivitys. Gameloop käyttää Qt:n [advance](https://doc.qt.io/archives/qt-4.8/qgraphicsscene.html#advance) metodia, joka vastaavasti kutsuu jokaiselle bussille advance metodia. Tällä hetkellä ruudunpäivitys on 60fps.
 - Minimaalinen ruudunpäivitys. Qt:n graphicsview [viewport update mode](#https://doc.qt.io/qt-5/qgraphicsview.html#viewportUpdateMode-prop) on defaultisti minimal viewport update, joka [dokumentaation](https://doc.qt.io/qt-5/qgraphicsview.html#ViewportUpdateMode-enum) mukaan
  
-      "QGraphicsView will determine the minimal viewport region that requires a redraw, minimizing the time spent drawing by avoiding a redraw of areas that have not changed."  
+      "QGraphicsView will determine the minimal viewport region that requires a redraw,
+      minimizing the time spent drawing by avoiding a redraw of areas that have not changed."  
 - Pelihahmon tasainen liike. Pelihahmo liikuu tasaisesti bussien mukana.
 - Pelin tilan seuranta. Graafinen palkki esittää reaaliajassa pelaajan rahatilanteen ja edistymisen kohti tavoitetta.
 - Oma lisäominaisuus. Ruuan kuljettamien kioskeista teekkareille ja raha. Nämä ovat selkeästi vaatineet koodaustyötä ruuankuljettamispelin toteuttamiseksi.
