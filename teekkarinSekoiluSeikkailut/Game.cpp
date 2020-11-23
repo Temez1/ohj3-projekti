@@ -52,6 +52,8 @@ void Game::initUI()
     progressBar_->setFormat("Student loan %v/%m€");
 
     gameOverText_ = new QLabel(this);
+
+    lautaset_ = new Lautaset();
 }
 
 void Game::start()

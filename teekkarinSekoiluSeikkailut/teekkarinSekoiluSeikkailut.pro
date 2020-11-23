@@ -15,11 +15,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     MainMenu.cpp \
+    UI/Lautaset.cpp \
     UI/ProgressBar.cpp \
     gameObjects.cpp \
     gameObjects/BusLine.cpp \
     gameObjects/Wallet.cpp \
-    gameObjects/graphical/lautanen.cpp \
     gameObjects/handlers/BusLineHandler.cpp \
     initScene.cpp \
     main.cpp \
@@ -35,6 +35,7 @@ SOURCES += \
 HEADERS += \
     Game.h \
     MainMenu.h \
+    UI/Lautaset.h \
     UI/ProgressBar.h \
     gameObjects.h \
     gameObjects/BusLine.h \
@@ -45,7 +46,6 @@ HEADERS += \
     gameObjects/graphical/Player.h \
     gameObjects/graphical/Stop.h \
     gameObjects/graphical/Teekkari.h \
-    gameObjects/graphical/lautanen.h \
     gameObjects/handlers/BusLineHandler.h \
     gameObjects/handlers/TeekkariHandler.h \
     initScene.h

@@ -1,13 +1,12 @@
-#include "lautanen.h"
+#include "Lautaset.h"
 
-Lautanen::Lautanen(QString name):
-    QGraphicsSvgItem(":/lautaScaled"),
-    name_(name)
+Lautaset::Lautaset():
+    QGraphicsSvgItem(":/lautaScaled")
 {
 
 }
 
-void Lautanen::updateLautanenState(int state)
+void Lautaset::updateLautanenState(int state)
 {
     if (state == EMPTY)
     {

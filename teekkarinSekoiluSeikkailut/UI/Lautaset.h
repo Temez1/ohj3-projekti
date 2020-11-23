@@ -4,18 +4,17 @@
 #include <QObject>
 #include <QGraphicsSvgItem>
 
-class Lautanen: public QGraphicsSvgItem
+class Lautaset: public QGraphicsSvgItem
 {
 
 public:
-    Lautanen(QString name);
+    Lautaset();
 
 public slots:
 
     void updateLautanenState(int state);
 
 private:
-    QString name_;
 
     const int EMPTY = 3;
     const int HOT = 2;
