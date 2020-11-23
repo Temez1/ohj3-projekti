@@ -10,7 +10,7 @@
 
 #include "gameObjects.h"
 #include "UI/ProgressBar.h"
-#include "UI/Lautaset.h"
+#include "UI/handlers/Lautaset.h"
 
 class Game: public QGraphicsView{
     Q_OBJECT
@@ -58,6 +58,8 @@ private:
     const int PROGRESS_BAR_WIDTH = 400;
     const int PROGRESS_BAR_HEIGHT = 30;
     const int PROGRESS_BAR_TOP_PADDING = 20;
+
+    const int LAUTASET_PADDING = 100;
 
     void initUI();
 

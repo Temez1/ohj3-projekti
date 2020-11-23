@@ -34,7 +34,6 @@ void Food::foodStateTimeout()
         return;
     }
     state_ -=1;
-    emit foodStateChanged(this, state_);
-
+    emit foodStateChanged(state_);
 }
 

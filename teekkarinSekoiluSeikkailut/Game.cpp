@@ -28,7 +28,7 @@ Game::Game(QWidget *parent)
 
     initUI();
     gameObjects_ = initScene::populateMap(scene, mapSeed_);
-    initScene::configUI(gameObjects_, progressBar_);
+    initScene::configUI(gameObjects_, progressBar_, lautaset_);
 
     connect(gameObjects_->player, &Player::playerOutOfMoney, this, &Game::gameOver);
     connect(progressBar_, &ProgressBar::enoughMoneyToPayStudentLoan, this, &Game::gameWon);
@@ -53,7 +53,7 @@ void Game::initUI()
 
     gameOverText_ = new QLabel(this);
 
-    lautaset_ = new Lautaset();
+    lautaset_ = new Lautaset(LAUTASET_PADDING, this);
 }
 
 void Game::start()
