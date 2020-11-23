@@ -2,7 +2,6 @@
 #include <QDebug>
 
 #include "Kiosk.h"
-#include "gameObjects/graphical/lautanen.h"
 
 Player::Player(QString name, QGraphicsScene *scene, Stop* startingStop, int startingMoney,
                int maxFoodAmountToCarry, int cheapestFoodPrice):
@@ -17,13 +16,19 @@ Player::Player(QString name, QGraphicsScene *scene, Stop* startingStop, int star
     wallet_(new Wallet(startingMoney))
 {
     setPos(startingStop->pos());
-    auto lautanen1 = new Lautanen("Lautanen1");
-    lautanen1->setPos(100,700);
-    scene->addItem(lautanen1);
+    lautanen1_ = new Lautanen("Lautanen1");
+    lautanen1_->setPos(100,700);
+    scene->addItem(lautanen1_);
+    connect(this, &Player::playerOrderedFood,lautanen1_,&Lautanen::playerOrderedFood);
+    connect(this, &Player::playerDeliveredFood,lautanen1_,&Lautanen::playerDeliveredFood);
 
-    auto lautanen2 = new Lautanen("Lautanen1");
-    lautanen2->setPos(100,800);
-    scene->addItem(lautanen2);
+
+
+
+    lautanen2_ = new Lautanen("Lautanen1");
+    lautanen2_->setPos(100,800);
+    scene->addItem(lautanen2_);
+
 }
 
 bool Player::jumpToBus()
@@ -100,6 +105,9 @@ bool Player::orderFood()
     auto food = kiosk->orderFood();
     foods_.append(food);
     qDebug() << "Player ordered food";
+
+    connect(food, &Food::foodStateChanged, lautanen1_, &Lautanen::updateLautanenState);
+    qDebug() << "connected";
     emit playerOrderedFood();
     return true;
 }
@@ -181,7 +189,4 @@ bool Player::isOutOfFood()
     return false;
 }
 
-void Player::updateLautanen(int state)
-{
-    lautanen1 -> updateLautanenState(state);
-}
+
