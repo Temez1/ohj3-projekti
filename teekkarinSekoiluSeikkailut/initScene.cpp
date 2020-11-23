@@ -70,7 +70,7 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     auto lentola = new Stop(QString("lentola"), stopLocations_.at("lentola"));
 
     kioskLentava->setParentItem(lentavanniemi);
-    kioskHervanta->setParent(hervanta);
+    kioskHervanta->setParentItem(hervanta);
 
     auto stops4 = {keskusta, linjaautoasema, viinikka, turtola, hervanta};
     auto stops3 = {lentavanniemi, Amuri, koskipuisto, keskusta, kaleva, hakametsa, turtola, hervanta};
