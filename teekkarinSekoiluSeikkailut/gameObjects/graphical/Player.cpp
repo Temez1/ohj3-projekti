@@ -17,6 +17,13 @@ Player::Player(QString name, QGraphicsScene *scene, Stop* startingStop, int star
     wallet_(new Wallet(startingMoney))
 {
     setPos(startingStop->pos());
+    auto lautanen1 = new Lautanen("Lautanen1");
+    lautanen1->setPos(100,700);
+    scene->addItem(lautanen1);
+
+    auto lautanen2 = new Lautanen("Lautanen1");
+    lautanen2->setPos(100,800);
+    scene->addItem(lautanen2);
 }
 
 bool Player::jumpToBus()
@@ -172,4 +179,9 @@ bool Player::isOutOfFood()
     }
     qDebug() << "Player is not out of food";
     return false;
+}
+
+void Player::updateLautanen(int state)
+{
+    lautanen1 -> updateLautanenState(state);
 }

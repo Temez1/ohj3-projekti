@@ -19,7 +19,7 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     // When using rand, use srand to change seed in each game
     srand(seed);
 
-    auto map = new QGraphicsSvgItem(":/testitausta");
+    auto map = new QGraphicsSvgItem(":/map");
     scene->addItem(map);
 
     auto kiosk = new Kiosk(FOOD_PRICE,FOOD_STATE_TIME_IN_SECONDS);
@@ -110,14 +110,6 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     scene->addItem(bus8);
     scene->addItem(bus1);
 
-
-    auto lautanen1 = new Lautanen("Lautanen1");
-    lautanen1->setPos(100,100);
-    scene->addItem(lautanen1);
-
-    auto lautanen2 = new Lautanen("Lautanen1");
-    lautanen2->setPos(100,300);
-    scene->addItem(lautanen2);
 
 
 

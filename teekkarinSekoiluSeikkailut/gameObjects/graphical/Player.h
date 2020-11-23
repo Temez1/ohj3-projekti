@@ -31,10 +31,15 @@ public:
     QList<Food*> getFoods();
     Stop* getCurrentStop();
     Wallet* getWallet();
+    Lautanen *lautanen1;
+    Lautanen *lautanen2;
 
     bool isOnTheBus();
     bool isFullOfFood();
     bool isOutOfFood();
+
+public slots:
+    void updateLautanen(int  state);
 
 signals:
     void playerOutOfMoney();
@@ -48,6 +53,7 @@ private:
     Bus* currentBus_;
     QList<Food*> foods_;
     Wallet *wallet_;
+    Lautanen *lautanen1_;
 
     Bus* searchBusFromSceneAtCurrentPosition();
 };
