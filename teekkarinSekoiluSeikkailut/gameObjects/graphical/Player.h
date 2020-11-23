@@ -37,8 +37,8 @@ public:
 
 signals:
     void playerOutOfMoney();
-    void playerOrderedFood();
-    void playerDeliveredFood();
+    void playerOrderedFood(Food *food);
+    void playerDeliveredFood(Food *food);
 
 private:
     QString name_;

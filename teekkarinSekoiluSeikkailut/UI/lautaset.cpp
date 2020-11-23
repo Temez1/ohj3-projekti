@@ -1,7 +1,7 @@
 #include "Lautaset.h"
 
 Lautaset::Lautaset():
-    QGraphicsSvgItem(":/lautaScaled")
+    QSvgWidget((":/lautaScaled")
 {
 
 }

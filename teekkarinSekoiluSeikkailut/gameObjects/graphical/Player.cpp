@@ -92,7 +92,7 @@ bool Player::orderFood()
     auto food = kiosk->orderFood();
     foods_.append(food);
     qDebug() << "Player ordered food";
-    emit playerOrderedFood();
+    emit playerOrderedFood(food);
     return true;
 }
 
@@ -120,7 +120,8 @@ bool Player::deliverFood()
         emit playerOutOfMoney();
     }
 
-    emit playerDeliveredFood();
+    emit playerDeliveredFood(food);
+    delete food;
     return true;
 }
 

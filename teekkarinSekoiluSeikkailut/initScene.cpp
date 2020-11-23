@@ -110,17 +110,6 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     scene->addItem(bus8);
     scene->addItem(bus1);
 
-
-    auto lautanen1 = new Lautanen("Lautanen1");
-    lautanen1->setPos(100,100);
-    scene->addItem(lautanen1);
-
-    auto lautanen2 = new Lautanen("Lautanen1");
-    lautanen2->setPos(100,300);
-    scene->addItem(lautanen2);
-
-
-
     std::vector<std::shared_ptr<BusLine>> buslines = { busLine3 };
 
     auto busLineHandler = std::make_shared<BusLineHandler>(buslines);

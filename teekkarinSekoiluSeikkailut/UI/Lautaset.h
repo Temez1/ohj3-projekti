@@ -1,12 +1,10 @@
 #ifndef LAUTANEN_H
 #define LAUTANEN_H
 
-#include <QObject>
-#include <QGraphicsSvgItem>
+#include <QSvgWidget>
 
-class Lautaset: public QGraphicsSvgItem
-{
-
+class Lautaset: public QSvgWidget
+{ Q_OBJECT
 public:
     Lautaset();
 
