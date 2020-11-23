@@ -1,6 +1,7 @@
 #include "Food.h"
 
-Food::Food(int price, int foodStateChangeTimeInSeconds):
+Food::Food(int price, int foodStateChangeTimeInSeconds, int foodPriceFactorModifier):
+    FOOD_PRICE_FACTOR_MODIFIER(foodPriceFactorModifier),
     price_(price),
     foodStateChangeTimeInSeconds_(foodStateChangeTimeInSeconds)
 {
@@ -9,7 +10,6 @@ Food::Food(int price, int foodStateChangeTimeInSeconds):
     connect(foodStateTimer_, &QTimer::timeout, this, &Food::foodStateTimeout);
 
     foodStateTimer_->start(foodStateChangeTimeInSeconds_*1000);
-
 }
 
 Food::~Food()
@@ -19,7 +19,7 @@ Food::~Food()
 
 int Food::getPrice()
 {
-    return price_ * state_;
+    return price_ * (state_ + FOOD_PRICE_FACTOR_MODIFIER);
 }
 
 int Food::getState()

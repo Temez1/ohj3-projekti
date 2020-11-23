@@ -22,8 +22,8 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     auto map = new QGraphicsSvgItem(":/map");
     scene->addItem(map);
 
-    auto kioskLentava = new Kiosk(FOOD_PRICE,FOOD_STATE_TIME_IN_SECONDS);
-    auto kioskHervanta = new Kiosk(FOOD_PRICE,FOOD_STATE_TIME_IN_SECONDS);
+    auto kioskLentava = new Kiosk(FOOD_PRICE,FOOD_STATE_TIME_IN_SECONDS, FOOD_PRICE_FACTOR_MODIFIER);
+    auto kioskHervanta = new Kiosk(FOOD_PRICE,FOOD_STATE_TIME_IN_SECONDS, FOOD_PRICE_FACTOR_MODIFIER);
 
     // BEGIN Best way to crete stops&buses would be one busline at time ?
     std::unordered_map<QString, QPointF> stopLocations_;

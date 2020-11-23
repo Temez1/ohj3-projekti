@@ -11,14 +11,15 @@ public:
     enum { Type = UserType + 4};
     int type() const override { return Type ; }
 
-    Kiosk(int foodPrice, int foodStateChangeTimeInSeconds);
+    Kiosk(int foodPrice, int foodStateChangeTimeInSeconds, int foodPriceFactorModifier);
 
     Food *orderFood();
     int getFoodPrice();
 
 private:
-    int foodPrice_;
-    int foodStateChangeTimeInSeconds_;
+    const int foodPrice_;
+    const int foodStateChangeTimeInSeconds_;
+    const int foodPriceFactorModifier_;
 };
 
 #endif // KIOSK_H
