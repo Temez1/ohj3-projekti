@@ -1,6 +1,6 @@
 #include "Kiosk.h"
 
-Kiosk::Kiosk(int foodPrice, int foodStateChangeTimeInSeconds, int foodPriceFactorModifier):
+Kiosk::Kiosk(int foodPrice, int foodStateChangeTimeInSeconds, double foodPriceFactorModifier):
     QGraphicsSvgItem(":/grill"),
     foodPrice_(foodPrice),
     foodStateChangeTimeInSeconds_(foodStateChangeTimeInSeconds),

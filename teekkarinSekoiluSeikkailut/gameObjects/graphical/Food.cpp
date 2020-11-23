@@ -1,6 +1,6 @@
 #include "Food.h"
 
-Food::Food(int price, int foodStateChangeTimeInSeconds, int foodPriceFactorModifier):
+Food::Food(int price, int foodStateChangeTimeInSeconds, double foodPriceFactorModifier):
     FOOD_PRICE_FACTOR_MODIFIER(foodPriceFactorModifier),
     price_(price),
     foodStateChangeTimeInSeconds_(foodStateChangeTimeInSeconds)
@@ -17,7 +17,7 @@ Food::~Food()
 
 }
 
-int Food::getPrice()
+double Food::getPrice()
 {
     return price_ * (state_ + FOOD_PRICE_FACTOR_MODIFIER);
 }

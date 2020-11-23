@@ -10,7 +10,7 @@ class Teekkari : public QGraphicsSvgItem
 public:
     Teekkari();
 
-    unsigned int receiveFood(Food *food);
+    float receiveFood(Food *food);
 
 
 signals:

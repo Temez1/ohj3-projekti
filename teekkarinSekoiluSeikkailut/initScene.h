@@ -23,7 +23,7 @@ namespace initScene {
     const int FOOD_PRICE = 10;
     const int CHEAPEST_FOOD_PRICE = 10;
     const int FOOD_STATE_TIME_IN_SECONDS = 20;
-    const int FOOD_PRICE_FACTOR_MODIFIER = 0.5;
+    const double FOOD_PRICE_FACTOR_MODIFIER = 0.5;
 }
 
 

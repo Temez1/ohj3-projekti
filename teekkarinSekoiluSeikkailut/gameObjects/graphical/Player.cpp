@@ -127,7 +127,7 @@ bool Player::deliverFood()
     if ( currentStop_->hasTeekkari() ){
         auto teekkari = currentStop_->getTeekkari();
         auto money = teekkari->receiveFood(food);
-        wallet_->receive(money);
+        wallet_->receive(static_cast<unsigned int>(money));
 
         qDebug() << "Player delivered food to teekkari";
     }

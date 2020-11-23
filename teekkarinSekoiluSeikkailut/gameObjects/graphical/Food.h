@@ -9,11 +9,11 @@ class Food: public QObject
 {
      Q_OBJECT
 public:
-    Food(int price, int foodStateChangeTimeInSeconds, int foodPriceFactorModifier);
+    Food(int price, int foodStateChangeTimeInSeconds, double foodPriceFactorModifier);
 
     ~Food();
 
-    int getPrice();
+    double getPrice();
     int getState();
 
 public slots:
@@ -26,7 +26,7 @@ private:
     const int HOT = 2;
     const int WARM = 1;
     const int COLD = 0;
-    const int FOOD_PRICE_FACTOR_MODIFIER;
+    const double FOOD_PRICE_FACTOR_MODIFIER;
 
     int price_;
     QTimer foodStateTimer_;

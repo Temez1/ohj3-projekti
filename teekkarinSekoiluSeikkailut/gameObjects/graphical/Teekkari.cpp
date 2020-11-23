@@ -6,7 +6,7 @@ Teekkari::Teekkari():
 
 }
 
-unsigned int Teekkari::receiveFood(Food *food)
+float Teekkari::receiveFood(Food *food)
 {
     emit teekkariReceivedFood(this);
     return food->getPrice();
