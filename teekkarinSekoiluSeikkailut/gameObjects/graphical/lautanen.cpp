@@ -1,7 +1,7 @@
 #include "lautanen.h"
 
 Lautanen::Lautanen(QString name):
-    QGraphicsSvgItem(":/lautaScaled"),
+    QGraphicsSvgItem(":/pizza"),
     name_(name)
 {
 

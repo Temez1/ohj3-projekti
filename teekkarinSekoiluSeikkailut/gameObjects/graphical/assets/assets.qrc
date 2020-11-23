@@ -12,5 +12,8 @@
         <file alias="assetti">Asset 5.svg</file>
         <file alias="testitausta">Artboard 1.svg</file>
         <file alias="lautaScaled">lautanen_scaled.svg</file>
+        <file alias="pizza">pizza.svg</file>
+        <file alias="grill">grill.svg</file>
+        <file alias="buss">bussi.svg</file>
     </qresource>
 </RCC>
