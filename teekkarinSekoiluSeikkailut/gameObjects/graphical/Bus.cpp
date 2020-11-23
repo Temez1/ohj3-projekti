@@ -2,7 +2,7 @@
 
 Bus::Bus(QString name, std::shared_ptr<BusLine> busLine,
          float speedPixelsPerFrame, int startingStop, int busLineDirection, int busStopWaitTimeInMilliseconds) :
-    QGraphicsSvgItem(":/stackBus"),
+    QGraphicsSvgItem(":/buss"),
     name_(name),
     busLine_(busLine),
     speed_(speedPixelsPerFrame),
