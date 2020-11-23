@@ -19,7 +19,6 @@ SOURCES += \
     UI/Lautanen.cpp \
     UI/ProgressBar.cpp \
     UI/handlers/Lautaset.cpp \
-    gameObjects.cpp \
     gameObjects/BusLine.cpp \
     gameObjects/Wallet.cpp \
     gameObjects/handlers/BusLineHandler.cpp \

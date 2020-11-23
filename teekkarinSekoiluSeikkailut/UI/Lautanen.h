@@ -14,8 +14,6 @@ public:
 
 public slots:
     void updateLautanenState(int state);
-    void playerOrderedFood();
-    void playerDeliveredFood();
 
 private:
     const int EMPTY = 3;
