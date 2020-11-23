@@ -16,19 +16,6 @@ Player::Player(QString name, QGraphicsScene *scene, Stop* startingStop, int star
     wallet_(new Wallet(startingMoney))
 {
     setPos(startingStop->pos());
-    lautanen1_ = new Lautanen("Lautanen1");
-    lautanen1_->setPos(100,700);
-    scene->addItem(lautanen1_);
-    connect(this, &Player::playerOrderedFood,lautanen1_,&Lautanen::playerOrderedFood);
-    connect(this, &Player::playerDeliveredFood,lautanen1_,&Lautanen::playerDeliveredFood);
-
-
-
-
-    lautanen2_ = new Lautanen("Lautanen1");
-    lautanen2_->setPos(100,800);
-    scene->addItem(lautanen2_);
-
 }
 
 bool Player::jumpToBus()
@@ -105,10 +92,7 @@ bool Player::orderFood()
     auto food = kiosk->orderFood();
     foods_.append(food);
     qDebug() << "Player ordered food";
-
-    connect(food, &Food::foodStateChanged, lautanen1_, &Lautanen::updateLautanenState);
-    qDebug() << "connected";
-    emit playerOrderedFood();
+    emit playerOrderedFood(food);
     return true;
 }
 
@@ -136,7 +120,8 @@ bool Player::deliverFood()
         emit playerOutOfMoney();
     }
 
-    emit playerDeliveredFood();
+    emit playerDeliveredFood(food);
+    delete food;
     return true;
 }
 

@@ -10,7 +10,6 @@
 #include "gameObjects/graphical/Kiosk.h"
 #include "gameObjects/graphical/Player.h"
 #include "gameObjects/graphical/Food.h"
-#include "gameObjects/graphical/lautanen.h"
 
 namespace initScene {
 
@@ -112,9 +111,6 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     scene->addItem(bus8);
     scene->addItem(bus1);
 
-
-
-
     std::vector<std::shared_ptr<BusLine>> buslines = { busLine3 };
 
     auto busLineHandler = std::make_shared<BusLineHandler>(buslines);
@@ -142,12 +138,14 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     return new GameObjects(player, busLineHandler, teekkariHandler);
 }
 
-void configUI(GameObjects *gameobjects, ProgressBar *progressBar)
+void configUI(GameObjects *gameobjects, ProgressBar *progressBar, Lautaset *lautaset)
 {
     progressBar->setMaximum(STUDENT_LOAN);
     progressBar->setValue(PLAYER_STARTING_MONEY);
     QObject::connect(gameobjects->player->getWallet(), &Wallet::balanceChanged, progressBar,
                      &ProgressBar::walletBalanceChanged);
+
+    lautaset->init(PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY, gameobjects->player);
 }
 
 }

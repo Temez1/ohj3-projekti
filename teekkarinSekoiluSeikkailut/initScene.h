@@ -5,11 +5,12 @@
 
 #include "GameObjects.h"
 #include "UI/ProgressBar.h"
+#include "UI/handlers/Lautaset.h"
 
 namespace initScene {
     GameObjects *populateMap(QGraphicsScene *scene, unsigned int seed);
 
-    void configUI(GameObjects *gameobjects, ProgressBar *progressBar);
+    void configUI(GameObjects *gameobjects, ProgressBar *progressBar, Lautaset *lautaset);
 
     const int PLAYER_STARTING_MONEY = 50;
     const int PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY = 2;

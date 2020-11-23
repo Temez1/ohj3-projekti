@@ -8,7 +8,6 @@
 #include "Food.h"
 #include "Stop.h"
 #include "gameObjects/Wallet.h"
-#include "gameObjects/graphical/lautanen.h"
 
 class Player: public QGraphicsSvgItem
 { Q_OBJECT
@@ -40,8 +39,8 @@ public:
 
 signals:
     void playerOutOfMoney();
-    void playerOrderedFood();
-    void playerDeliveredFood();
+    void playerOrderedFood(Food *food);
+    void playerDeliveredFood(Food *food);
 
 private:
     QString name_;
@@ -50,8 +49,6 @@ private:
     Bus* currentBus_;
     QList<Food*> foods_;
     Wallet *wallet_;
-    Lautanen *lautanen1_;
-    Lautanen *lautanen2_;
 
     const int EMPTY = 3;
 

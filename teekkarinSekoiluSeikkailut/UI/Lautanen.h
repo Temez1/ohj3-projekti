@@ -1,25 +1,23 @@
 #ifndef LAUTANEN_H
 #define LAUTANEN_H
 
-#include <QObject>
-#include <QGraphicsSvgItem>
+#include <QSvgWidget>
+
 #include "gameObjects/graphical/Food.h"
 
-class Lautanen: public QGraphicsSvgItem
+class Lautanen : public QSvgWidget
 {
-
+    Q_OBJECT
 public:
-    Lautanen(QString name);
+    explicit Lautanen(QWidget *parent = nullptr);
+    void addFood();
 
 public slots:
-
     void updateLautanenState(int state);
     void playerOrderedFood();
     void playerDeliveredFood();
 
 private:
-    QString name_;
-
     const int EMPTY = 3;
     const int HOT = 2;
     const int WARM = 1;

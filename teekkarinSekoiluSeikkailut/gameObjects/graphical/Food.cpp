@@ -35,6 +35,5 @@ void Food::foodStateTimeout()
     }
     state_ -=1;
     emit foodStateChanged(state_);
-
 }
 
