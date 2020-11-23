@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QGraphicsSvgItem>
+#include "gameObjects/graphical/Food.h"
 
 class Lautanen: public QGraphicsSvgItem
 {
@@ -13,6 +14,8 @@ public:
 public slots:
 
     void updateLautanenState(int state);
+    void playerOrderedFood();
+    void playerDeliveredFood();
 
 private:
     QString name_;

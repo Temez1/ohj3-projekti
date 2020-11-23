@@ -9,7 +9,6 @@ Food::Food(int price, int foodStateChangeTimeInSeconds):
     connect(foodStateTimer_, &QTimer::timeout, this, &Food::foodStateTimeout);
 
     foodStateTimer_->start(foodStateChangeTimeInSeconds_*1000);
-
 }
 
 Food::~Food()
@@ -34,7 +33,7 @@ void Food::foodStateTimeout()
         return;
     }
     state_ -=1;
-    emit foodStateChanged(this, state_);
+    emit foodStateChanged(state_);
 
 }
 

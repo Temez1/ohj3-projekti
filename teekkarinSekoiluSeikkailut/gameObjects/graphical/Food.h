@@ -20,7 +20,7 @@ public slots:
     void foodStateTimeout();
 
 signals:
-    void foodStateChanged(Food *sender, int state);
+    void foodStateChanged(int state);
 
 private:
     const int HOT = 2;
