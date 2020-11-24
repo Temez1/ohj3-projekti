@@ -151,7 +151,7 @@ void configUI(GameObjects *gameobjects, ProgressBar *progressBar, Lautaset *laut
                     startingStop = stops.size() - 1;
                 }
 
-                auto startingDirection = ( rand()%1 == 0) ? -1 : 1;
+                auto startingDirection = (rand()%1 == 0) ? -1 : 1;
                 auto busWaitTimeInMilliseconds = rand()%2000 + 1000;
 
                 auto bus = new Bus(QString("bus"+busline->name), busline, speed, startingStop, startingDirection, busWaitTimeInMilliseconds);

@@ -1,8 +1,9 @@
-# Teekkarin Sekoilu Seikkailut (TSS) 🔥
+# Teekkarin Sekoilu Seikkailut (TSS) 🔥 🍕
 
-Teekkarin sekoilu seikkailut on peli, jossa päähenkilö toimittaa ruokatilauksia nälkäisille Teekkareille. Tavoitteena on viedä tilaukset perille mahdollisimman nopeasti, jotta ruoka pysyy lämpimänä ja asiakkaat tyytyväisinä. Pelin voittaa, kun on kerännyt tarpeeksi rahaa maksaakseen opintolainan takaisin. 🔥 🔥 🔥
+Teekkarin sekoilu seikkailut on peli, jossa päähenkilö toimittaa ruokatilauksia nälkäisille Teekkareille. Tavoitteena on viedä tilaukset perille mahdollisimman nopeasti, jotta ruoka pysyy lämpimänä ja asiakkaat tyytyväisinä. Pelin voittaa, kun on kerännyt tarpeeksi rahaa maksaakseen opintolainan takaisin.
 
 ### Sisällysluettelo
+
 [Tarkemmat säännöt](#tarkemmat-säännöt)
 
 [Lisäominaisuudet](#lisäominaisuudet)
@@ -19,15 +20,35 @@ Teekkarin sekoilu seikkailut on peli, jossa päähenkilö toimittaa ruokatilauks
 
 ### Tarkemmat säännöt
 
-- Pelaaja voi kantaa kahta ruokaa kerrallaan.*
-- Kaikki ruuat ovat samanarvoisia.
-- Ruoka maksaa 10€.*
-- Ruualla on kolme tilaa: kuuma, lämmin ja kylmä.
-- Ruuan tilat vaihtuvat 20 sekunnin välein ostohetkestä.*
-- Kuumasta saa 20€, lämpimästä 10€ ja kylmästä 0€
-- Opintolaina on 1000€.*
+- Pelaaja voi kantaa kahta ruokaa kerrallaan*
+- Pelaaja toimittaa aina viimeisimmän tilaamansa ruuan (aka FIFO)
+- Pysäkille, jossa ei ole teekkaria ruuan toimittamisesta menettää ruuan
+- Kaikki ruuat ovat samanarvoisia
+- Ruoka maksaa 10€*
+- Ruualla on kolme tilaa: kuuma, lämmin ja kylmä
+- Ruuan tilat vaihtuvat 20 sekunnin välein ostohetkestä*
+- Kuumasta saa 25€, lämpimästä 15€ ja kylmästä 5€**
+- Opintolaina on 1000€*
+
+Muuta:
+
+- Bussien määrä per bussilinja*
+- Bussin vauhti on random välillä x ja x+1, missä x=BUS_DEFAULT_SPEED (yksikkö scenen koordinaatistossa per frame)*
+- Bussin aloitussuunta bussilinjalla on random
+- Bussin odotusaika pysäkillä on random välillä 1-3 sekuntia
+- Teekkareiden määrä aloittaessa*
+- Teekkareiden maksimi määrä kartalla*
+- Teekkareiden spawnaamistahti*
 
 *configuroitavissa initScenen header filestä
+
+**configuroitavissa initScenen header filestä, "FOOD_PRICE_FACTOR_MODIFIER" kaava:
+
+```cpp
+price_ * (state_ + FOOD_PRICE_FACTOR_MODIFIER);
+```
+
+, missä state = 2,1,0 (Kuuma, lämmin, kylmä) ja price_ ruuan ostohinta.
 
 ### Lisäominaisuudet
 
@@ -39,7 +60,6 @@ Teekkarin sekoilu seikkailut on peli, jossa päähenkilö toimittaa ruokatilauks
 - Pelihahmon tasainen liike. Pelihahmo liikuu tasaisesti bussien mukana.
 - Pelin tilan seuranta. Graafinen palkki esittää reaaliajassa pelaajan rahatilanteen ja edistymisen kohti tavoitetta.
 - Oma lisäominaisuus. Ruuan kuljettamien kioskeista teekkareille ja raha. Nämä ovat selkeästi vaatineet koodaustyötä ruuankuljettamispelin toteuttamiseksi.
-
 
 ### Työskentely
 
@@ -67,7 +87,7 @@ Prototyypin jälkeen saatiin idea tehdä **_ruuankuljetuspeli_**, jota tehtiin v
 
 **_Pelin configuraatio_** löytyy juuresta initScenen header tiedostosta.
 
-Kaikki on tehty käsin, eli nollasta on aloitettu **ilman kurssin tarjoamaa kirjastoa**. Syitä tähän oli muutamakin. Ensinnäkin kurssikirjaston dokumentaatio oli projektia aloittaessa (ihan ensimmäisellä viikolla kun se julkaistiin) todella heikko. Sitä ei oikeastaan ollut laisinkaan, luokkajako lisättiin myöhemmin. Toinen syy oli, että selaillessa kurssin kirjastoa emme oikeen nopeasti katsottuna päässeet perille miten sitä tulisi käyttää, koska ei ollut mitään yleiskatsausta. Luottamus oli siis heikko, joten näimme paremmaksi vaihtoehdoksi toteuttaa asiat itse. Emme myöskään halunneet olla riippuvaisia kurssikirjaston mahdollisista puutteista. Halusimme myös oppia tekemään ratkaisut itse ja mitä asioita pitää ottaa huomioon isompaa projektia tehdessä.
+Kaikki on tehty käsin, eli nollasta on aloitettu **ilman kurssin tarjoamaa kirjastoa**. Syitä tähän oli muutamakin. Ensinnäkin kurssikirjaston dokumentaatio oli projektia aloittaessa (ihan ensimmäisellä viikolla kun se julkaistiin) todella heikko. Sitä ei oikeastaan ollut laisinkaan, luokkajako lisättiin myöhemmin. Toinen syy oli, että selaillessa kurssin kirjastoa emme oikeen nopeasti katsottuna päässeet perille miten sitä tulisi käyttää, koska ei ollut mitään yleiskatsausta. Luottamus oli siis heikko, joten näimme paremmaksi vaihtoehdoksi toteuttaa asiat itse. Emme myöskään halunneet olla riippuvaisia kurssikirjaston mahdollisista puutteista/toiminnallisista ratkaisuista. Halusimme myös oppia tekemään ratkaisut itse ja mitä asioita pitää ottaa huomioon isompaa projektia tehdessä.
 
 **_Projektin arkkitehtuuri_** syntyi tehdessä, eli kokeillen eri jaottelua, pyrkien noudattamaan hyviä tapoja ja paljon refaktorointia välissä. Mottona on ollut "Keep things simple & small".
 
@@ -81,9 +101,10 @@ Tarkempaa arvioita kuinka hyvä projektin arkkitehtuuri on tai **jatkokehitysmah
 
 **_gameObjects_** kansio koostuu kahdesta kansiosta, graphical ja handlers, sekä parista tiedostosta. Idea on, että graphical kansio sisältää pelin sceneen lisättävät graafiset objektit, jotka siis näkyvät pelissä ja assets kansion, mistä löytyy kaikki grafiikat svg muodossa ja Qt:n resurssitiedosto. Svg siitä syystä, että peliruudun skaalautuessa kuvat pysyvät tarkkoina, koska vektorigrafiikka. Handlers kansiosta löytyy luokat, jotka käsittelevät näitä pelissä olevia objekteja. Esimerkiksi TeekkariHandler käsittelee teekkareita, kuten niiden lisäämistä ja poistamista skenestä. Loput pari tiedostoa ovat logiisia luokkia, jotka eivät siis esiinny skenesse visuaalisesti. Wallet on pelaajan lompakko, joka käsittelee rahan ja BusLine on bussilinja, mikä käsittelee pysäkkejä ja tarjoaa busslinjan bussille.
 
-**_UI_** kansio on suht tynkä. Suurin osa UI componenteistä oli QT:n valmiita, mutta täältä löytyy ProgressBar, joka on modattu Qt:n progress bar.
+**_UI_** kansiosta löytyy myös handlers kansio. Samalla periaatteella "Lautaset" käsittelee yksittäistä "Lautanen" komponenttia. Huolehtii mm. niiden luomisesta, poistamisesta ja liikuttamisesta UI:ssa. ProgressBar on modattu Qt:n progress bar, johon on vain lisätty voittamisehto.
 
 ### Luokkajako
+
 Kaksi kuvaa, toiminnallinen ja täydellinen.
 
 "luokka" = Toiminalliset riippuvuudet. Eli kutsuu luokan metodeja (1 tai enemmän) ja näin ollen on riippuvainen luokan toiminallisiista riippuvuksista.
@@ -132,6 +153,11 @@ gameObjects/
     TeekkariHandler -> Teekkari, BusLineHandler, BusLine, Stop
 
 UI/
+  handlers/
+    Lautaset -> Player, Lautanen, (Food)
+  
+  Lautanen -> (Food)
+
   ProgressBar
     Signals: enoughMoneyToPayStudentLoan
 
@@ -149,14 +175,15 @@ UI/
 
 ### Kritiikki
 
-#### Kansiorakenne
+#### Kansiorakenne kritiikki
+
 **_BusLine_** on välimaaston tapaus. Busslinja on tavallaan jo (pysäkkien) käsittelijä, mutta se luokiteltiin loogiseksi luokaksi eikä sijoitettu handlers kansioon sekavuuden välttämiseksi. Tasoja oli siis kolme (pysäkki "Stop", busslinja "BusLine", bussilinjat "BusLineHandler"), eli ehkä toisenlainen luokittelu olisi ollut sopivampi jatkoakin ajatellen.
 
 **_Food_** ei oo graafinen objekti, vaan looginen. Alkuperäisen ajatuksen ja laiskuuden takia jäänyt väärän paikkaan.
 
-#### Luokkajako
+#### Luokkajako kritiikki
 
-**_TeekkariHandler_** selvästi ylittää rajoja ja on riippuvainen osa-alueista, jotka eivät sille kuulu. 
+**_TeekkariHandler_** selvästi ylittää rajoja ja on riippuvainen osa-alueista, jotka eivät sille kuulu.
 
 **_Riippuvuuksien karsimiseksi_**, pitäsi BusLineHandleri riittää tekemään tarvittavat toimenpiteet teekkareille. Esim. findRandomStopWithoutTeekkarissa pysäkkeihin ja busslinjoihin liittyvät asiat pitäsi siirtää kokonaan BusLineHandlerin vastuulle, samoin destroyTeekkarissa ja spawnTeekkarissa. Eli noudattaa ns. "[Tell Don't Ask](https://martinfowler.com/bliki/TellDontAsk.html)" periaatetta.
 
