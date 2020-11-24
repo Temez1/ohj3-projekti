@@ -18,7 +18,7 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     // When using rand, use srand to change seed in each game
     srand(seed);
 
-    auto map = new QGraphicsSvgItem(":/map");
+    auto map = new QGraphicsSvgItem(":/map_golors");
     scene->addItem(map);
 
     auto kioskLentava = new Kiosk(FOOD_PRICE, FOOD_STATE_TIME_IN_SECONDS, FOOD_PRICE_FACTOR_MODIFIER);
