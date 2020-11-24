@@ -12,6 +12,12 @@ public:
 
     float receiveFood(Food *food);
 
+protected:
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
+
+private:
+    const QRectF OFFSET_ = QRectF(-42,-75, 0,0);
 
 signals:
     void teekkariReceivedFood(Teekkari *sender);

@@ -36,6 +36,9 @@ public:
     bool isFullOfFood();
     bool isOutOfFood();
 
+protected:
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
 
 signals:
     void playerOutOfMoney();
@@ -43,6 +46,7 @@ signals:
     void playerDeliveredFood(Food *food);
 
 private:
+    const QRectF OFFSET_ = QRectF(-42,-75, 0,0);
     QString name_;
     QGraphicsScene *scene_;
     Stop* currentStop_;

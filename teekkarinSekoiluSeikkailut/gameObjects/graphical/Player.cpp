@@ -1,5 +1,6 @@
 #include "Player.h"
 #include <QDebug>
+#include <QPainter>
 
 #include "Kiosk.h"
 
@@ -172,6 +173,17 @@ bool Player::isOutOfFood()
     }
     qDebug() << "Player is not out of food";
     return false;
+}
+
+QRectF Player::boundingRect() const
+{
+    return QRectF(OFFSET_.x(), OFFSET_.y(), 84, 106);
+}
+
+void Player::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    painter->translate(OFFSET_.x(),OFFSET_.y());
+    QGraphicsSvgItem::paint(painter,option,widget);
 }
 
 
