@@ -14,5 +14,6 @@
         <file alias="emptyLautanen">emptyLautanen.svg</file>
         <file alias="coldFood">coldFood.svg</file>
         <file alias="warmFood">warmFood.svg</file>
+        <file alias="map_golors">map_newgolors.svg</file>
     </qresource>
 </RCC>
