@@ -21,9 +21,6 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     auto map = new QGraphicsSvgItem(":/map_golors");
     scene->addItem(map);
 
-    auto kioskLentava = new Kiosk(FOOD_PRICE, FOOD_STATE_TIME_IN_SECONDS, FOOD_PRICE_FACTOR_MODIFIER);
-    auto kioskHervanta = new Kiosk(FOOD_PRICE, FOOD_STATE_TIME_IN_SECONDS, FOOD_PRICE_FACTOR_MODIFIER);
-
     std::unordered_map<QString, QPointF> stopNamesAndLocations;
 
     stopNamesAndLocations.insert({"keskusta", QPointF(850,480)});
@@ -55,6 +52,12 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
 
         stopsByName.insert({stopName, stop});
     }
+
+    auto kioskLentava = new Kiosk(FOOD_PRICE, FOOD_STATE_TIME_IN_SECONDS, FOOD_PRICE_FACTOR_MODIFIER);
+    auto kioskHervanta = new Kiosk(FOOD_PRICE, FOOD_STATE_TIME_IN_SECONDS, FOOD_PRICE_FACTOR_MODIFIER);
+
+    stopsByName.at("lentavanniemi")->addKiosk(kioskLentava);
+    stopsByName.at("hervanta")->addKiosk(kioskLentava);
 
     kioskLentava->setParentItem(stopsByName.at("lentavanniemi"));
     kioskHervanta->setParentItem(stopsByName.at("hervanta"));

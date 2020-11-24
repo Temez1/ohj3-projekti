@@ -141,4 +141,9 @@ void Game::resizeIndicators()
                               height()/2,
                               gameOverText_->width(),
                               gameOverText_->height());
+
+    lautaset_->setGeometry(10,
+                           height()-lautaset_->height()-10,
+                           lautaset_->width(),
+                           lautaset_->height());
 }

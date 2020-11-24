@@ -1,8 +1,8 @@
 #include "Lautanen.h"
 
-Lautanen::Lautanen(QWidget *parent) : QSvgWidget(parent)
+Lautanen::Lautanen(QWidget *parent) : QSvgWidget(QString(":/emptyLautanen"), parent)
 {
-    load(QString(":/emptyLautanen"));
+    resize(100,100);
 }
 
 void Lautanen::addFood()

@@ -21,7 +21,6 @@ Bus::Bus(QString name, std::shared_ptr<BusLine> busLine,
 
     setPos(busLine_->getStopPosition(startingStop));
     updateGraphics();
-    qDebug() << boundingRect();
 }
 
 Bus::~Bus()

@@ -14,6 +14,7 @@ public:
     enum { Type = UserType + 3};
     int type() const override { return Type; }
 
+    bool addKiosk(Kiosk *kiosk);
     bool addTeekkari(Teekkari *teekkari);
     bool removeTeekkari();
 
@@ -21,6 +22,7 @@ public:
     Kiosk *getKiosk();
     Teekkari *getTeekkari();
 
+    bool hasKiosk();
     bool hasTeekkari();
 
 protected:

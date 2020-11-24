@@ -12,6 +12,15 @@ Stop::Stop(QString name, QPointF pos, Kiosk *kiosk, QGraphicsItem* parent):
     setPos(pos);
 }
 
+bool Stop::addKiosk(Kiosk *kiosk)
+{
+    if ( hasKiosk() ){
+        return false;
+    }
+    kiosk_ = kiosk;
+    return true;
+}
+
 
 bool Stop::addTeekkari(Teekkari *teekkari)
 {
@@ -45,6 +54,14 @@ Kiosk *Stop::getKiosk()
 Teekkari *Stop::getTeekkari()
 {
     return teekkari_;
+}
+
+bool Stop::hasKiosk()
+{
+    if ( kiosk_ == nullptr ){
+        return false;
+    }
+    return true;
 }
 
 bool Stop::hasTeekkari()
