@@ -6,14 +6,13 @@
         <file alias="stopSign">stopSign.svg</file>
         <file>pelaaja.svg</file>
         <file alias="teekkari">teekkari.svg</file>
-        <file alias="vNakki">vaakonNakki.svg</file>
-        <file alias="lautanen">tyhjaLautanen.svg</file>
         <file alias="stackBus">stack_bus.svg</file>
         <file alias="assetti">Asset 5.svg</file>
-        <file alias="testitausta">Artboard 1.svg</file>
-        <file alias="lautaScaled">lautanen_scaled.svg</file>
-        <file alias="pizza">pizza.svg</file>
         <file alias="grill">grill.svg</file>
         <file alias="buss">bussi.svg</file>
+        <file alias="hotFood">hotFood.svg</file>
+        <file alias="emptyLautanen">emptyLautanen.svg</file>
+        <file alias="coldFood">coldFood.svg</file>
+        <file alias="warmFood">warmFood.svg</file>
     </qresource>
 </RCC>
