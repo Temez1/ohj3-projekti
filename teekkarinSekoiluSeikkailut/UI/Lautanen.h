@@ -3,8 +3,6 @@
 
 #include <QSvgWidget>
 
-#include "gameObjects/graphical/Food.h"
-
 class Lautanen : public QSvgWidget
 {
     Q_OBJECT
