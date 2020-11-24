@@ -23,10 +23,18 @@ public:
 
     bool hasTeekkari();
 
+protected:
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
+
 private:
+    const qreal OFFSET_ = 145.43;
     QString name_;
     Kiosk *kiosk_;
     Teekkari *teekkari_;
+
+    qreal width_;
+    qreal height_;
 };
 
 #endif // STOP_H

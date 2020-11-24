@@ -1,5 +1,8 @@
 #include "Bus.h"
 
+#include <QDebug>
+#include <QPainter>
+
 Bus::Bus(QString name, std::shared_ptr<BusLine> busLine,
          float speedPixelsPerFrame, int startingStop, int busLineDirection, int busStopWaitTimeInMilliseconds) :
     QGraphicsSvgItem(":/buss"),
@@ -18,6 +21,7 @@ Bus::Bus(QString name, std::shared_ptr<BusLine> busLine,
 
     setPos(busLine_->getStopPosition(startingStop));
     updateGraphics();
+    qDebug() << boundingRect();
 }
 
 Bus::~Bus()
@@ -67,6 +71,17 @@ void Bus::advance(int phase)
 
     updateVelocity();
     setPos(this->pos() + velocity_.toPointF());
+}
+
+QRectF Bus::boundingRect() const
+{
+    return QRectF(OFFSET_.x(), OFFSET_.y(), 84.8483, 55.5828);
+}
+
+void Bus::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    painter->translate(OFFSET_.x(),OFFSET_.y());
+    QGraphicsSvgItem::paint(painter,option,widget);
 }
 
 void Bus::updateVelocity()

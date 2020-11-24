@@ -27,11 +27,14 @@ public:
 
 protected:
     void advance(int phase) override;
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
 
 private slots:
     void busWaitTimerOnTimeout();
 
 private:
+    const QRectF OFFSET_ = QRectF(-42.42415, -27.7914, 0,0);
     const int BUS_LINE_DIRECTION_FROM_START_TO_END_ = 1;
     const int BUS_LINE_DIRECTION_FROM_END_TO_START_ = -1;
 

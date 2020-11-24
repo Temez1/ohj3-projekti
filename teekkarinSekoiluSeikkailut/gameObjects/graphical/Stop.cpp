@@ -1,5 +1,8 @@
 #include "Stop.h"
 
+#include <QDebug>
+#include <QPainter>
+
 Stop::Stop(QString name, QPointF pos, Kiosk *kiosk, QGraphicsItem* parent):
     QGraphicsSvgItem(":/stopSign", parent),
     name_(name),
@@ -50,5 +53,16 @@ bool Stop::hasTeekkari()
         return false;
     }
     return true;
+}
+
+QRectF Stop::boundingRect() const
+{
+    return QRectF(0, -OFFSET_, 87.85,145.43);
+}
+
+void Stop::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    painter->translate(0,-OFFSET_);
+    QGraphicsSvgItem::paint(painter,option,widget);
 }
 
