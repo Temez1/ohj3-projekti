@@ -20,7 +20,6 @@ private:
     const int HOT = 2;
     const int WARM = 1;
     const int COLD = 0;
-
 };
 
 #endif // LAUTANEN_H

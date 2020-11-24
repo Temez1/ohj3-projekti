@@ -25,6 +25,18 @@ namespace initScene {
     const int CHEAPEST_FOOD_PRICE = 10;
     const int FOOD_STATE_TIME_IN_SECONDS = 20;
     const double FOOD_PRICE_FACTOR_MODIFIER = 0.5;
+
+    const int BUS_DEFAULT_SPEED = 2;
+
+    const int BUS_LINE_1_BUS_AMOUNT = 6;
+    const int BUS_LINE_3_BUS_AMOUNT = 3;
+    const int BUS_LINE_4_BUS_AMOUNT = 2;
+    const int BUS_LINE_8_BUS_AMOUNT = 5;
+
+    namespace {
+        void createBusesInBusLine(QGraphicsScene *scene, std::shared_ptr<BusLine> busline,
+                                  std::vector<Stop*> stops, int busAmount);
+    }
 }
 
 

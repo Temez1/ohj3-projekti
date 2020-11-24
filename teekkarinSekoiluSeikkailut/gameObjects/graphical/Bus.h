@@ -13,8 +13,8 @@ class Bus: public QGraphicsSvgItem
 {
     Q_OBJECT
 public:
-    Bus(QString name, std::shared_ptr<BusLine> busLine, float speedPixelsPerFrame = 2, int startingStop = 0,
-        int busLineDirection = 1, int busStopWaitTimeInMilliseconds = 2000);
+    Bus(QString name, std::shared_ptr<BusLine> busLine, float speedPixelsPerFrame, int startingStop,
+        int busLineDirection, int busStopWaitTimeInMilliseconds = 2000);
     ~Bus();
 
     enum { Type = UserType + 1};
