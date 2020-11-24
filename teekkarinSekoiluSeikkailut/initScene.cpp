@@ -1,6 +1,7 @@
 #include "initScene.h"
 
 #include <unordered_map>
+#include <QDebug>
 
 #include "gameObjects/BusLine.h"
 #include "gameObjects/handlers/TeekkariHandler.h"
@@ -14,111 +15,99 @@
 namespace initScene {
 
 GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
-    int totalAmountOfStops = 0;
     // When using rand, use srand to change seed in each game
     srand(seed);
 
     auto map = new QGraphicsSvgItem(":/map");
     scene->addItem(map);
 
-    auto kioskLentava = new Kiosk(FOOD_PRICE,FOOD_STATE_TIME_IN_SECONDS, FOOD_PRICE_FACTOR_MODIFIER);
-    auto kioskHervanta = new Kiosk(FOOD_PRICE,FOOD_STATE_TIME_IN_SECONDS, FOOD_PRICE_FACTOR_MODIFIER);
+    auto kioskLentava = new Kiosk(FOOD_PRICE, FOOD_STATE_TIME_IN_SECONDS, FOOD_PRICE_FACTOR_MODIFIER);
+    auto kioskHervanta = new Kiosk(FOOD_PRICE, FOOD_STATE_TIME_IN_SECONDS, FOOD_PRICE_FACTOR_MODIFIER);
 
-    // BEGIN Best way to crete stops&buses would be one busline at time ?
-    std::unordered_map<QString, QPointF> stopLocations_;
-    stopLocations_.insert({"keskusta", QPointF(850,330)});
-    stopLocations_.insert({"hervanta", QPointF(1500,730)});
-    stopLocations_.insert({"lentavanniemi", QPointF(340,120)});
-    stopLocations_.insert({"koskipuisto", QPointF(590,330)});
-    stopLocations_.insert({"atala", QPointF(1500,160)});
-    stopLocations_.insert({"partola", QPointF(200,200)});
+    std::unordered_map<QString, QPointF> stopNamesAndLocations;
 
-    stopLocations_.insert({"Haukiluoma", QPointF(120,350)});
-    stopLocations_.insert({"Tesoma", QPointF(120,490)});
-    stopLocations_.insert({"Amuri", QPointF(350,490)});
-    stopLocations_.insert({"harmala", QPointF(600,800)});
-    stopLocations_.insert({"hatanpaa", QPointF(850,800)});
-    stopLocations_.insert({"linjaautoasema", QPointF(850,700)});
-    stopLocations_.insert({"viinikka", QPointF(1100,700)});
-    stopLocations_.insert({"turtola", QPointF(1380,700)});
-    stopLocations_.insert({"hakametsa", QPointF(1250,600)});
-    stopLocations_.insert({"kissanmaa", QPointF(1350,490)});
-    stopLocations_.insert({"kaleva", QPointF(1150,490)});
-    stopLocations_.insert({"linnainmaa", QPointF(1500,490)});
-    stopLocations_.insert({"lentola", QPointF(1650,490)});
+    stopNamesAndLocations.insert({"keskusta", QPointF(850,330)});
+    stopNamesAndLocations.insert({"hervanta", QPointF(1500,730)});
+    stopNamesAndLocations.insert({"lentavanniemi", QPointF(340,120)});
+    stopNamesAndLocations.insert({"koskipuisto", QPointF(590,330)});
+    stopNamesAndLocations.insert({"atala", QPointF(1500,160)});
+    stopNamesAndLocations.insert({"partola", QPointF(200,200)});
+    stopNamesAndLocations.insert({"haukiluoma", QPointF(120,350)});
+    stopNamesAndLocations.insert({"tesoma", QPointF(120,490)});
+    stopNamesAndLocations.insert({"amuri", QPointF(350,490)});
+    stopNamesAndLocations.insert({"harmala", QPointF(600,800)});
+    stopNamesAndLocations.insert({"hatanpaa", QPointF(850,800)});
+    stopNamesAndLocations.insert({"linjaautoasema", QPointF(850,700)});
+    stopNamesAndLocations.insert({"viinikka", QPointF(1100,700)});
+    stopNamesAndLocations.insert({"turtola", QPointF(1380,700)});
+    stopNamesAndLocations.insert({"hakametsa", QPointF(1250,600)});
+    stopNamesAndLocations.insert({"kissanmaa", QPointF(1350,490)});
+    stopNamesAndLocations.insert({"kaleva", QPointF(1150,490)});
+    stopNamesAndLocations.insert({"linnainmaa", QPointF(1500,490)});
+    stopNamesAndLocations.insert({"lentola", QPointF(1650,490)});
 
+    std::unordered_map<QString, Stop*> stopsByName;
 
-    auto keskusta = new Stop(QString("keskusta"), stopLocations_.at("keskusta"));
-    auto hervanta = new Stop(QString("hervanta"), stopLocations_.at("hervanta"), kioskHervanta);
-    auto lentavanniemi = new Stop(QString("lentavanniemi"), stopLocations_.at("lentavanniemi"), kioskLentava);
-    auto koskipuisto = new Stop(QString("koskipuisto"), stopLocations_.at("koskipuisto"));
-    auto atala = new Stop(QString("atala"), stopLocations_.at("atala"));
-    auto partola = new Stop(QString("partola"), stopLocations_.at("partola"));
-    auto Haukiluoma = new Stop(QString("Haukiluoma"), stopLocations_.at("Haukiluoma"));
-    auto Tesoma = new Stop(QString("Tesoma"), stopLocations_.at("Tesoma"));
-    auto Amuri = new Stop(QString("Amuri"), stopLocations_.at("Amuri"));
-    auto harmala = new Stop(QString("harmala"), stopLocations_.at("harmala"));
-    auto hatanpaa = new Stop(QString("hatanpaa"), stopLocations_.at("hatanpaa"));
-    auto linjaautoasema = new Stop(QString("linjaautoasema"), stopLocations_.at("linjaautoasema"));
-    auto viinikka = new Stop(QString("viinikka"), stopLocations_.at("viinikka"));
-    auto turtola = new Stop(QString("turtola"), stopLocations_.at("turtola"));
-    auto hakametsa = new Stop(QString("hakametsa"), stopLocations_.at("hakametsa"));
-    auto kissanmaa = new Stop(QString("kissanmaa"), stopLocations_.at("kissanmaa"));
-    auto kaleva = new Stop(QString("kaleva"), stopLocations_.at("kaleva"));
-    auto linnainmaa = new Stop(QString("linnainmaa"), stopLocations_.at("linnainmaa"));
-    auto lentola = new Stop(QString("lentola"), stopLocations_.at("lentola"));
+    for (auto &stopNameAndLocation: stopNamesAndLocations){
+        auto stopName = stopNameAndLocation.first;
+        auto stop = new Stop(stopName, stopNameAndLocation.second);
+        scene->addItem(stop);
 
-    kioskLentava->setParentItem(lentavanniemi);
-    kioskHervanta->setParentItem(hervanta);
+        stopsByName.insert({stopName, stop});
+    }
 
-    auto stops4 = {keskusta, linjaautoasema, viinikka, turtola, hervanta};
-    auto stops3 = {lentavanniemi, Amuri, koskipuisto, keskusta, kaleva, hakametsa, turtola, hervanta};
-    auto stops8 = {Haukiluoma, Tesoma, Amuri, koskipuisto, keskusta, kaleva, kissanmaa, linnainmaa, atala};
-    auto stops1 = {partola, harmala, hatanpaa, keskusta, kaleva, kissanmaa, linnainmaa, lentola};
+    kioskLentava->setParentItem(stopsByName.at("lentavanniemi"));
+    kioskHervanta->setParentItem(stopsByName.at("hervanta"));
 
-    scene->addItem(keskusta);
-    scene->addItem(hervanta);
-    scene->addItem(lentavanniemi);
-    scene->addItem(koskipuisto);
-    scene->addItem(atala);
-    scene->addItem(partola);
-    scene->addItem(Haukiluoma);
-    scene->addItem(Tesoma);
-    scene->addItem(Amuri);
-    scene->addItem(harmala);
-    scene->addItem(hatanpaa);
-    scene->addItem(linjaautoasema);
-    scene->addItem(viinikka);
-    scene->addItem(turtola);
-    scene->addItem(hakametsa);
-    scene->addItem(kissanmaa);
-    scene->addItem(kaleva);
-    scene->addItem(linnainmaa);
-    scene->addItem(lentola);
+    auto stops1 = {stopsByName.at("partola"),
+                   stopsByName.at("harmala"),
+                   stopsByName.at("hatanpaa"),
+                   stopsByName.at("keskusta"),
+                   stopsByName.at("kaleva"),
+                   stopsByName.at("kissanmaa"),
+                   stopsByName.at("linnainmaa"),
+                   stopsByName.at("lentola")};
 
+    auto stops3 = {stopsByName.at("lentavanniemi"),
+                   stopsByName.at("amuri"),
+                   stopsByName.at("koskipuisto"),
+                   stopsByName.at("keskusta"),
+                   stopsByName.at("kaleva"),
+                   stopsByName.at("hakametsa"),
+                   stopsByName.at("turtola"),
+                   stopsByName.at("hervanta")};
 
+    auto stops4 = {stopsByName.at("keskusta"),
+                   stopsByName.at("linjaautoasema"),
+                   stopsByName.at("viinikka"),
+                   stopsByName.at("turtola"),
+                   stopsByName.at("hervanta")};
+
+    auto stops8 = {stopsByName.at("haukiluoma"),
+                   stopsByName.at("tesoma"),
+                   stopsByName.at("amuri"),
+                   stopsByName.at("koskipuisto"),
+                   stopsByName.at("keskusta"),
+                   stopsByName.at("kaleva"),
+                   stopsByName.at("kissanmaa"),
+                   stopsByName.at("linnainmaa"),
+                   stopsByName.at("atala")};
+
+    auto busLine1 = std::make_shared<BusLine>(BusLine(QString("1"), stops1));
     auto busLine3 = std::make_shared<BusLine>(BusLine(QString("3"), stops3));
     auto busLine4 = std::make_shared<BusLine>(BusLine(QString("4"), stops4));
-    auto busLine1 = std::make_shared<BusLine>(BusLine(QString("1"), stops1));
     auto busLine8 = std::make_shared<BusLine>(BusLine(QString("8"), stops8));
-    auto bus3 = new Bus(QString("bus3"), busLine3);
-    auto bus4 = new Bus(QString("bus4"), busLine4);
-    auto bus8 = new Bus(QString("bus8"), busLine8);
-    auto bus1 = new Bus(QString("bus1"), busLine1);
 
-    scene->addItem(bus3);
-    scene->addItem(bus4);
-    scene->addItem(bus8);
-    scene->addItem(bus1);
+    createBusesInBusLine(scene, busLine1, stops1, BUS_LINE_1_BUS_AMOUNT);
+    createBusesInBusLine(scene, busLine3, stops3, BUS_LINE_3_BUS_AMOUNT);
+    createBusesInBusLine(scene, busLine4, stops4, BUS_LINE_4_BUS_AMOUNT);
+    createBusesInBusLine(scene, busLine8, stops8, BUS_LINE_8_BUS_AMOUNT);
 
-    std::vector<std::shared_ptr<BusLine>> buslines = { busLine3 };
+    std::vector<std::shared_ptr<BusLine>> buslines = { busLine1, busLine3, busLine4, busLine8 };
 
     auto busLineHandler = std::make_shared<BusLineHandler>(buslines);
 
-    totalAmountOfStops += stops3.size();
-    // END Busline creation
-
-    if ( MAX_AMOUNT_OF_TEEKKARIT_IN_THE_MAP > totalAmountOfStops ){
+    if ( MAX_AMOUNT_OF_TEEKKARIT_IN_THE_MAP > stopNamesAndLocations.size() ){
         throw std::logic_error("Game can't have more teekkarit than stops!");
     }
 
@@ -131,7 +120,7 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
                                                               TEEKKARI_SPAWN_TIME_IN_SECONDS,
                                                               MAX_AMOUNT_OF_TEEKKARIT_IN_THE_MAP);
 
-    auto player = new Player("Player name", scene, hervanta, PLAYER_STARTING_MONEY,
+    auto player = new Player("Player name", scene, stopsByName.at("hervanta"), PLAYER_STARTING_MONEY,
                              PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY, CHEAPEST_FOOD_PRICE);
     scene->addItem(player);
 
@@ -147,5 +136,24 @@ void configUI(GameObjects *gameobjects, ProgressBar *progressBar, Lautaset *laut
 
     lautaset->init(PLAYER_MAX_AMOUNT_OF_FOOD_TO_CARRY, gameobjects->player);
 }
+    namespace {
+        void createBusesInBusLine(QGraphicsScene *scene, std::shared_ptr<BusLine> busline, std::vector<Stop*> stops, int busAmount)
+        {
+            for (int i=0; i< busAmount; i++) {
+                auto speed = (rand()%10+1)*0.1 + BUS_DEFAULT_SPEED;
 
+                auto startingStop = (i * (stops.size() + 1) / busAmount);
+
+                if (busAmount == 2 and i == 1){
+                    startingStop = stops.size() - 1;
+                }
+
+                auto startingDirection = ( rand()%1 == 0) ? -1 : 1;
+                auto busWaitTimeInMilliseconds = rand()%2000 + 1000;
+
+                auto bus = new Bus(QString("bus"+busline->name), busline, speed, startingStop, startingDirection, busWaitTimeInMilliseconds);
+                scene->addItem(bus);
+            }
+        }
+    }
 }
