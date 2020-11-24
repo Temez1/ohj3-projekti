@@ -18,7 +18,7 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     // When using rand, use srand to change seed in each game
     srand(seed);
 
-    auto map = new QGraphicsSvgItem(":/map_golors");
+    auto map = new QGraphicsSvgItem(":/map");
     scene->addItem(map);
 
     std::unordered_map<QString, QPointF> stopNamesAndLocations;

@@ -52,7 +52,7 @@ void Game::initUI()
 
     gameOverText_ = new QLabel(this);
 
-    lautaset_ = new Lautaset(LAUTASET_PADDING, this);
+    lautaset_ = new Lautaset(LAUTASET_PADDING_BETWEEN_LAUTASET, this);
 }
 
 void Game::start()
@@ -102,8 +102,6 @@ void Game::gameWon()
 
 void Game::resizeEvent(QResizeEvent *event)
 {
-    qDebug() << scene->sceneRect();
-    qDebug() << this->width() << this->height();
     this->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
 
     resizeButtons();
@@ -142,8 +140,8 @@ void Game::resizeIndicators()
                               gameOverText_->width(),
                               gameOverText_->height());
 
-    lautaset_->setGeometry(10,
-                           height()-lautaset_->height()-10,
+    lautaset_->setGeometry(LAUTASET_PADDING_FROM_BOTTOM_LEFT,
+                           height()-lautaset_->height()-LAUTASET_PADDING_FROM_BOTTOM_LEFT,
                            lautaset_->width(),
                            lautaset_->height());
 }

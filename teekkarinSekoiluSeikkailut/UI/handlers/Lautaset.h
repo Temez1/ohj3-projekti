@@ -20,6 +20,7 @@ public slots:
 
 private:
     const int PADDING_;
+    int LAUTANEN_AMOUNT_;
     QList<Lautanen*> lautaset_;
     Player *player_;
 };

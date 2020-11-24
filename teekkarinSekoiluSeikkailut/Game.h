@@ -57,7 +57,8 @@ private:
     const int PROGRESS_BAR_HEIGHT = 30;
     const int PROGRESS_BAR_TOP_PADDING = 20;
 
-    const int LAUTASET_PADDING = 20;
+    const int LAUTASET_PADDING_FROM_BOTTOM_LEFT = 20;
+    const int LAUTASET_PADDING_BETWEEN_LAUTASET = 20;
 
     void initUI();
 
