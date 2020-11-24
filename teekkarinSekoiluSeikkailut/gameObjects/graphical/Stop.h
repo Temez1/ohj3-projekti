@@ -30,7 +30,7 @@ protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
 
 private:
-    const qreal OFFSET_ = 145.43;
+    const qreal OFFSET_ = 92;
     QString name_;
     Kiosk *kiosk_;
     Teekkari *teekkari_;

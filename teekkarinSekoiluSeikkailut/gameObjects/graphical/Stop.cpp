@@ -74,7 +74,7 @@ bool Stop::hasTeekkari()
 
 QRectF Stop::boundingRect() const
 {
-    return QRectF(0, -OFFSET_, 87.85,145.43);
+    return QRectF(0, -OFFSET_, 58, 92);
 }
 
 void Stop::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
