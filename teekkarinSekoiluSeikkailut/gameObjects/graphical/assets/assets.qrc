@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file alias="map">map.svg</file>
         <file alias="player">player.svg</file>
-        <file alias="stopSign">stopSign.svg</file>
         <file alias="teekkari">teekkari.svg</file>
         <file alias="grill">grill.svg</file>
         <file alias="buss">bussi.svg</file>
@@ -10,5 +9,6 @@
         <file alias="emptyLautanen">food/emptyLautanen.svg</file>
         <file alias="hotFood">food/hotFood.svg</file>
         <file alias="warmFood">food/warmFood.svg</file>
+        <file alias="stopSign">stop.svg</file>
     </qresource>
 </RCC>
