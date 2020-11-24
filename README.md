@@ -105,61 +105,21 @@ Tarkempaa arvioita kuinka hyvä projektin arkkitehtuuri on tai **jatkokehitysmah
 
 ### Luokkajako
 
-Kaksi kuvaa, toiminnallinen ja täydellinen.
+Luokkajako on esitetty kahdessa kuvassa. Toinen edustaa olemassaolo sekä toiminnallisia riippuvuuksia ja toinen pelkästään toiminnallisia riippuvuuksia. Olemassaolo riippuvuuksissa luokan toiminallisuus voi muuttua miten vain, vaikuttamatta luokan toimintaan millään tavalla. Tämä riippuvuus ei ole siis ohjelmoijan näkökulmasta kriittinen kun mietitään muutosten vaikutusta ohjelman käyttäytymiseen. Tämä siis motiivina jaottelun suhteen.
 
-"luokka" = Toiminalliset riippuvuudet. Eli kutsuu luokan metodeja (1 tai enemmän) ja näin ollen on riippuvainen luokan toiminallisiista riippuvuksista.
-(Toiminnallisessa & täydellisessä kuvassa suora nuoli riippuvuuteen)
+Toiminalliset riippuvuudet = Kutsuu luokan metodeja (1 tai enemmän) ja näin ollen on riippuvainen luokan toiminallisiista riippuvuksista.
 
-"(luokat)" = Riippuvuus olemasssaolosta. Eli käytännössä tallentaa luokan vain muistiin, mutta ei käytä luokan toiminnallisuutta mitenkään hyväksi (metodikutsuja nolla). Näin ollen luokan toiminallisuus voi muuttua miten vain, vaikuttamatta luokan toimintaan millään tavalla. Tämä riippuvuus ei ole siis ohjelmoijan näkökulmasta kriittinen kun mietitään muutosten vaikutusta ohjelman käyttäytymiseen.
-(Täydellisessä kuvassa katkoviiva nuoli riippuvuuteen)
+Riippuvuus olemasssaolosta = Ei käytä luokan toiminnallisuutta mitenkään hyväksi (metodikutsuja nolla).
 
-Signals = Luokan signaalit
-(Kuvassa aaltoileva nuoli mihin ollaan kytketty)
+Signaaali = Luokan signaali ja mihin luokkaan se on kytketty (slot)
 
-Game -> GameObjects, ProgressBar, initScene, (MainMenu)
+Olemassaolo sekä toiminnalliset riippuvuudet
 
-initScene -> ProgressBar, (GameObjects, BusLine, TeekkariHandler, BusLineHandler, Bus, Stop, Kiosk, Player, Food, Lautanen)
+![alt text](./olemassaolo.png "Olemassaolo sekä toiminnalliset riippuvuudet")
 
-GameObjects -> (BusLineHandler, TeekkariHandler, Player)
+Toiminnalliset riippuvuudet
 
-gameObjects/
-
-  BusLine -> Stop
-
-  Wallet
-    Signals: balanceChanged(int balance)
-
-  graphical/
-
-    Bus -> BusLine, Stop
-
-    Food
-      Signals: foodStateChanged(Food *sender, int state);
-
-    Kiosk -> Food
-
-    Player -> Bus, Stop, Kiosk, Wallet, Lautanen, (Food, )
-      Signals: playerOutOfMoney, playerOrderedFood, playerDeliveredFood
-
-    Stop -> (Kiosk, Teekkari)
-
-    Teekkari -> Food
-      Signals: teekkariReceivedFood(Teekkari *sender);
-
-  handlers/
-
-    BusLineHandler -> (BusLine)
-
-    TeekkariHandler -> Teekkari, BusLineHandler, BusLine, Stop
-
-UI/
-  handlers/
-    Lautaset -> Player, Lautanen, (Food)
-  
-  Lautanen -> (Food)
-
-  ProgressBar
-    Signals: enoughMoneyToPayStudentLoan
+![alt text](./toiminnalliset.png "Toiminnalliset riippuvuudet")
 
 ### Testaaminen
 
