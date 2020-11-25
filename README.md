@@ -33,7 +33,7 @@ Teekkarin sekoilu seikkailut on peli, jossa päähenkilö toimittaa ruokatilauks
 Muuta:
 
 - Bussien määrä per bussilinja*
-- Bussin vauhti on random välillä x ja x+1, missä x=BUS_DEFAULT_SPEED (yksikkö scenen koordinaatistossa per frame)*
+- Bussin vauhti on random välillä x ja x+1, missä x=BUS_DEFAULT_SPEED (yksikkö scenen koordinaatistossa per frame), nopeailla busseilla on vauhtiviivat*
 - Bussin aloitussuunta bussilinjalla on random
 - Bussin odotusaika pysäkillä on random välillä 1-3 sekuntia
 - Teekkareiden määrä aloittaessa*
