@@ -41,7 +41,7 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     stopNamesAndLocations.insert({"kissanmaa", QPointF(1330,480)});
     stopNamesAndLocations.insert({"kaleva", QPointF(1150,480)});
     stopNamesAndLocations.insert({"linnainmaa", QPointF(1510,480)});
-    stopNamesAndLocations.insert({"lentola", QPointF(1650,490)});
+    stopNamesAndLocations.insert({"lentola", QPointF(1650,480)});
 
     std::unordered_map<QString, Stop*> stopsByName;
 
@@ -75,6 +75,7 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     auto stops1 = {stopsByName.at("partola"),
                    stopsByName.at("harmala"),
                    stopsByName.at("hatanpaa"),
+                   stopsByName.at("linjaautoasema"),
                    stopsByName.at("keskusta"),
                    stopsByName.at("kaleva"),
                    stopsByName.at("kissanmaa"),
@@ -170,7 +171,8 @@ void configUI(GameObjects *gameobjects, ProgressBar *progressBar, Lautaset *laut
                 auto startingDirection = (rand()%1 == 0) ? -1 : 1;
                 auto busWaitTimeInMilliseconds = rand()%2000 + 1000;
 
-                auto bus = new Bus(QString("bus"+busline->name), busline, speed, startingStop, startingDirection, busWaitTimeInMilliseconds);
+                auto bus = new Bus(QString("bus"+busline->name), busline, BUS_DEFAULT_SPEED, speed,
+                                   startingStop, startingDirection, busWaitTimeInMilliseconds);
                 scene->addItem(bus);
             }
         }

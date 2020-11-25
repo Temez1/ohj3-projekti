@@ -13,7 +13,7 @@ class Bus: public QGraphicsSvgItem
 {
     Q_OBJECT
 public:
-    Bus(QString name, std::shared_ptr<BusLine> busLine, float speedPixelsPerFrame, int startingStop,
+    Bus(QString name, std::shared_ptr<BusLine> busLine, float DEFAULT_SPEED, float speedPixelsPerFrame, int startingStop,
         int busLineDirection, int busStopWaitTimeInMilliseconds = 2000);
     ~Bus();
 
@@ -37,6 +37,7 @@ private:
     const QRectF OFFSET_ = QRectF(-42.42415, -27.7914, 0,0);
     const int BUS_LINE_DIRECTION_FROM_START_TO_END_ = 1;
     const int BUS_LINE_DIRECTION_FROM_END_TO_START_ = -1;
+    const float DEFAULT_SPEED_;
 
     QString name_;
     std::shared_ptr<BusLine> busLine_;

@@ -3,9 +3,10 @@
 #include <QDebug>
 #include <QPainter>
 
-Bus::Bus(QString name, std::shared_ptr<BusLine> busLine,
+Bus::Bus(QString name, std::shared_ptr<BusLine> busLine, float DEFAULT_SPEED,
          float speedPixelsPerFrame, int startingStop, int busLineDirection, int busStopWaitTimeInMilliseconds) :
     QGraphicsSvgItem(":/buss"),
+    DEFAULT_SPEED_(DEFAULT_SPEED),
     name_(name),
     busLine_(busLine),
     speed_(speedPixelsPerFrame),
@@ -90,14 +91,23 @@ void Bus::updateVelocity()
 
 void Bus::updateGraphics()
 {
-    if (velocity_.x() >= 0){
-        setElementId(name_+"_E");
+    if ( velocity_.x() >= 0 ){
+        if ( speed_ > DEFAULT_SPEED_ + 0.7 ){
+            setElementId(name_+"_fast"+"_E");
+        }
+        else {
+            setElementId(name_+"_E");
+        }
         return;
     }
 
-    if (velocity_.x() < 0){
-        setElementId(name_+"_W");
-        return;
+    if ( velocity_.x() < 0 ){
+        if ( speed_ > DEFAULT_SPEED_ + 0.7 ){
+            setElementId(name_+"_fast"+"_W");
+        }
+        else {
+            setElementId(name_+"_W");
+        }
     }
 }
 

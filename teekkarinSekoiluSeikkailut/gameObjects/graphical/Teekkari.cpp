@@ -6,6 +6,7 @@
 Teekkari::Teekkari():
     QGraphicsSvgItem(":/teekkari")
 {
+    setPos(QPointF(-60,-20));
 }
 
 float Teekkari::receiveFood(Food *food)
