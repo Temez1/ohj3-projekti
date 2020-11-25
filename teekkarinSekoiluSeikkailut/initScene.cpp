@@ -69,8 +69,8 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
     kioskKeskusta->setParentItem(stopsByName.at("keskusta"));
 
     kioskHervanta->setPos(QPointF(60, -80));
-    kioskLentava->setPos(QPointF(55, -80));
-    kioskKeskusta->setPos(QPointF(55,-100));
+    kioskLentava->setPos(QPointF(40, -75));
+    kioskKeskusta->setPos(QPointF(50,-100));
 
     auto stops1 = {stopsByName.at("partola"),
                    stopsByName.at("harmala"),
