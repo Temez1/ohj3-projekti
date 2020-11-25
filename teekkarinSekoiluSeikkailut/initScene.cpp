@@ -55,12 +55,22 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
 
     auto kioskLentava = new Kiosk(FOOD_PRICE, FOOD_STATE_TIME_IN_SECONDS, FOOD_PRICE_FACTOR_MODIFIER);
     auto kioskHervanta = new Kiosk(FOOD_PRICE, FOOD_STATE_TIME_IN_SECONDS, FOOD_PRICE_FACTOR_MODIFIER);
+    auto kioskHarmala = new Kiosk(FOOD_PRICE, FOOD_STATE_TIME_IN_SECONDS, FOOD_PRICE_FACTOR_MODIFIER);
+    auto kioskKeskusta = new Kiosk(FOOD_PRICE, FOOD_STATE_TIME_IN_SECONDS, FOOD_PRICE_FACTOR_MODIFIER);
 
     stopsByName.at("lentavanniemi")->addKiosk(kioskLentava);
-    stopsByName.at("hervanta")->addKiosk(kioskLentava);
+    stopsByName.at("hervanta")->addKiosk(kioskHervanta);
+    stopsByName.at("harmala")->addKiosk(kioskHarmala);
+    stopsByName.at("keskusta")->addKiosk(kioskKeskusta);
 
     kioskLentava->setParentItem(stopsByName.at("lentavanniemi"));
     kioskHervanta->setParentItem(stopsByName.at("hervanta"));
+    kioskHarmala->setParentItem(stopsByName.at("harmala"));
+    kioskKeskusta->setParentItem(stopsByName.at("keskusta"));
+
+    kioskHervanta->setPos(QPointF(60, -80));
+    kioskLentava->setPos(QPointF(55, -80));
+    kioskKeskusta->setPos(QPointF(55,-100));
 
     auto stops1 = {stopsByName.at("partola"),
                    stopsByName.at("harmala"),
@@ -147,9 +157,15 @@ void configUI(GameObjects *gameobjects, ProgressBar *progressBar, Lautaset *laut
 
                 auto startingStop = (i * (stops.size() + 1) / busAmount);
 
-                if (busAmount == 2 and i == 1){
+                if ( startingStop > stops.size() - 1 ){
                     startingStop = stops.size() - 1;
                 }
+
+                if ( i == busAmount - 1 ){
+                    startingStop = stops.size() - 1;
+                }
+
+                qDebug() << busline->name << startingStop;
 
                 auto startingDirection = (rand()%1 == 0) ? -1 : 1;
                 auto busWaitTimeInMilliseconds = rand()%2000 + 1000;

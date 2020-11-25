@@ -20,14 +20,14 @@ Teekkarin sekoilu seikkailut on peli, jossa päähenkilö toimittaa ruokatilauks
 
 ### Tarkemmat säännöt
 
-- Pelaaja voi kantaa kahta ruokaa kerrallaan*
+- Pelaaja voi kantaa kolmea ruokaa kerrallaan*
 - Pelaaja toimittaa aina viimeisimmän tilaamansa ruuan (aka FIFO)
 - Pysäkille, jossa ei ole teekkaria ruuan toimittamisesta menettää ruuan
 - Kaikki ruuat ovat samanarvoisia
 - Ruoka maksaa 10€*
 - Ruualla on kolme tilaa: kuuma, lämmin ja kylmä
 - Ruuan tilat vaihtuvat 20 sekunnin välein ostohetkestä*
-- Kuumasta saa 25€, lämpimästä 15€ ja kylmästä 5€**
+- Kuumasta saa 40€, lämpimästä 30€ ja kylmästä 20€**
 - Opintolaina on 1000€*
 
 Muuta:

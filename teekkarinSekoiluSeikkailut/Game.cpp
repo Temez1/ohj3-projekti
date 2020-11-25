@@ -136,7 +136,7 @@ void Game::resizeIndicators()
                               PROGRESS_BAR_HEIGHT);
 
     gameOverText_->setGeometry(width()/2-gameOverText_->width()/2,
-                              height()/2,
+                              100,
                               gameOverText_->width(),
                               gameOverText_->height());
 
