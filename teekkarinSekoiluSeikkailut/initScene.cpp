@@ -25,15 +25,15 @@ GameObjects* populateMap(QGraphicsScene *scene, unsigned int seed){
 
     stopNamesAndLocations.insert({"keskusta", QPointF(850,480)});
     stopNamesAndLocations.insert({"hervanta", QPointF(1450,860)});
-    stopNamesAndLocations.insert({"lentavanniemi", QPointF(330,260)});
+    stopNamesAndLocations.insert({"lentavanniemi", QPointF(345,260)});
     stopNamesAndLocations.insert({"koskipuisto", QPointF(590,480)});
     stopNamesAndLocations.insert({"atala", QPointF(1511,300)});
-    stopNamesAndLocations.insert({"partola", QPointF(300,790)});
+    stopNamesAndLocations.insert({"partola", QPointF(290,790)});
     stopNamesAndLocations.insert({"haukiluoma", QPointF(120,350)});
     stopNamesAndLocations.insert({"tesoma", QPointF(120,480)});
-    stopNamesAndLocations.insert({"amuri", QPointF(350,480)});
-    stopNamesAndLocations.insert({"harmala", QPointF(580,800)});
-    stopNamesAndLocations.insert({"hatanpaa", QPointF(840,800)});
+    stopNamesAndLocations.insert({"amuri", QPointF(346,480)});
+    stopNamesAndLocations.insert({"harmala", QPointF(570,790)});
+    stopNamesAndLocations.insert({"hatanpaa", QPointF(840,790)});
     stopNamesAndLocations.insert({"linjaautoasema", QPointF(851,630)});
     stopNamesAndLocations.insert({"viinikka", QPointF(1010,700)});
     stopNamesAndLocations.insert({"turtola", QPointF(1330,700)});
