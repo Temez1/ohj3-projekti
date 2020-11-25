@@ -28,10 +28,10 @@ namespace initScene {
 
     const int BUS_DEFAULT_SPEED = 2;
 
-    const int BUS_LINE_1_BUS_AMOUNT = 4;
-    const int BUS_LINE_3_BUS_AMOUNT = 5;
-    const int BUS_LINE_4_BUS_AMOUNT = 2;
-    const int BUS_LINE_8_BUS_AMOUNT = 4;
+    const int BUS_LINE_1_BUS_AMOUNT = 3;
+    const int BUS_LINE_3_BUS_AMOUNT = 4;
+    const int BUS_LINE_4_BUS_AMOUNT = 3;
+    const int BUS_LINE_8_BUS_AMOUNT = 2;
 
     namespace {
         void createBusesInBusLine(QGraphicsScene *scene, std::shared_ptr<BusLine> busline,
