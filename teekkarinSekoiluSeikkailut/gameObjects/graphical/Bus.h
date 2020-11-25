@@ -34,7 +34,7 @@ private slots:
     void busWaitTimerOnTimeout();
 
 private:
-    const QRectF OFFSET_ = QRectF(-42.42415, -27.7914, 0,0);
+    const QRectF OFFSET_ = QRectF(-52.5, -27.7914, 0,0);
     const int BUS_LINE_DIRECTION_FROM_START_TO_END_ = 1;
     const int BUS_LINE_DIRECTION_FROM_END_TO_START_ = -1;
     const float DEFAULT_SPEED_;

@@ -75,7 +75,7 @@ void Bus::advance(int phase)
 
 QRectF Bus::boundingRect() const
 {
-    return QRectF(OFFSET_.x(), OFFSET_.y(), 84.8483, 55.5828);
+    return QRectF(OFFSET_.x(), OFFSET_.y(), 105, 55.5828);
 }
 
 void Bus::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
