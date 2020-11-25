@@ -2,7 +2,7 @@
 
 Teekkarin sekoilu seikkailut on peli, jossa päähenkilö toimittaa ruokatilauksia nälkäisille Teekkareille. Tavoitteena on viedä tilaukset perille mahdollisimman nopeasti, jotta ruoka pysyy lämpimänä ja asiakkaat tyytyväisinä. Pelin voittaa, kun on kerännyt tarpeeksi rahaa maksaakseen opintolainan takaisin.
 
-### Sisällysluettelo
+## Sisällysluettelo
 
 [Tarkemmat säännöt](#tarkemmat-säännöt)
 
@@ -53,7 +53,7 @@ price_ * (state_ + FOOD_PRICE_FACTOR_MODIFIER);
 ### Lisäominaisuudet
 
 - Tasainen ruudunpäivitys. Gameloop käyttää Qt:n [advance](https://doc.qt.io/archives/qt-4.8/qgraphicsscene.html#advance) metodia, joka vastaavasti kutsuu jokaiselle bussille advance metodia. Tällä hetkellä ruudunpäivitys on 60fps.
-- Minimaalinen ruudunpäivitys. Qt:n graphicsview [viewport update mode](#https://doc.qt.io/qt-5/qgraphicsview.html#viewportUpdateMode-prop) on defaultisti minimal viewport update, joka [dokumentaation](https://doc.qt.io/qt-5/qgraphicsview.html#ViewportUpdateMode-enum) mukaan
+- Minimaalinen ruudunpäivitys. Qt:n graphicsview [viewport update mode](https://doc.qt.io/qt-5/qgraphicsview.html#viewportUpdateMode-prop) on defaultisti minimal viewport update, joka [dokumentaation](https://doc.qt.io/qt-5/qgraphicsview.html#ViewportUpdateMode-enum) mukaan
  
       "QGraphicsView will determine the minimal viewport region that requires a redraw,
       minimizing the time spent drawing by avoiding a redraw of areas that have not changed."  
@@ -71,7 +71,7 @@ Työskentelyssä harjoiteltiin itsenäisesti **_ketterää ohjelmistokehitystä_
 
 **_Branchejä_** käytettiin hyväksi versionhallinnassa. Aluksi oli tapana tehdä oma bränchinsä jokaiselle uudelle ominaisuudelle, mutta ihan projektin viimeisellä viikolla ryhdyin käyttämään devT bränchiä, jossa tein ominaisuudet, jotka sitten mergettiin masteriin.
 
-Aluksi tehtiin **_prototyyppi_**, jossa vaatimuksina oli pelaajan liikkuminen pysäkiltä toisille bussien avulla. Ekat pari viikkoa tuli käytännössä luettua dokumentaatiota [Graphics View Framework](#https://doc.qt.io/qt-5/graphicsview.html) käytöstä.
+Aluksi tehtiin **_prototyyppi_**, jossa vaatimuksina oli pelaajan liikkuminen pysäkiltä toisille bussien avulla. Ekat pari viikkoa tuli käytännössä luettua dokumentaatiota [Graphics View Framework](https://doc.qt.io/qt-5/graphicsview.html) käytöstä.
 
 Prototyypin jälkeen saatiin idea tehdä **_ruuankuljetuspeli_**, jota tehtiin viikko kerrallaan. Tavoitteena oli saada peruspeli valmiiksi.
 
@@ -115,11 +115,11 @@ Signaaali = Luokan signaali ja mihin luokkaan se on kytketty (slot)
 
 Olemassaolo sekä toiminnalliset riippuvuudet
 
-![alt text](./olemassaolo.png "Olemassaolo sekä toiminnalliset riippuvuudet")
+![alt text](./Documentation/classDiagrams/olemassaolo.png "Olemassaolo sekä toiminnalliset riippuvuudet")
 
 Toiminnalliset riippuvuudet
 
-![alt text](./toiminnalliset.png "Toiminnalliset riippuvuudet")
+![alt text](./Documentation/classDiagrams/toiminnalliset.png "Toiminnalliset riippuvuudet")
 
 ### Testaaminen
 
